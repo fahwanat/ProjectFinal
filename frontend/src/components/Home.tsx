@@ -59,20 +59,13 @@ function Home() {
         </div>
         <div className="grid-item-22">
           <div className="grid-item-info3">
-            <h1>WELCOME TO THE G03 HOTEL</h1>
+            <h1>ยินดีต้อนรับเข้าสู่ บิวตี้ซาลอน</h1>
           </div>
         </div>
         <div className="grid-item-23">
           <div className="grid-item-info4">
             <h2>
-              Our hotel has good service such as friendly staff and service with
-              a smile. Parking service, Roomservice , Spa&Massage, Elegant
-              restaurant with well decorated. Variety of food for you to taste.
-              Complete hotel facilities Additional services available to you
-              With 24-hour service and excellent security system. With a key
-              card scanning door system There are security guards who are always
-              ready to help you. You will be impressed. Satisfaction in various
-              fields in our hotel
+              บริการทุกรัดดับประทับใจ ลูกค้าต้องการแบบไหนบอกช่างได้เลยยยยยยย
             </h2>
           </div>
         </div>

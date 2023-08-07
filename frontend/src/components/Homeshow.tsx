@@ -3,7 +3,7 @@ import Carousel from "react-material-ui-carousel";
 import im2 from "../Image/im2.jpg"
 import im5 from "../Image/im5.jpg"
 import im6 from "../Image/im6.jpg"
-import Logo1 from "../Image/LOGO.jpg"
+import Logo3 from "../Image/LOGO3.png"
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
@@ -65,24 +65,24 @@ function Homeshow() {
       <AppBar position="fixed">
         <Toolbar>
           <div>
-            <img src={Logo1} width= "75px" height="75px"/>
+            <img src={Logo3} width= "75px" height="75px"/>
           </div>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '50%'}}>
-            <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2} >
+            <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2}>
               <div >
-                สมศรี ซาลอน
+                บิวตี้ซาลอน
               </div>
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', width: '25%'}}>
             <Button component={RouterLink} to="/Homeshow"  color="secondary" sx={{ display: 'flex', width: '10%'}} >Home</Button>
-            {/* <Button component={RouterLink} to="/Roomhome"  color="secondary" sx={{ display: 'flex', width: '10%'}}>Room</Button>
+            <Button component={RouterLink} to="/Roomhome"  color="secondary" sx={{ display: 'flex', width: '10%'}}>Room</Button>
             <Button component={RouterLink} to="/RW"  color="secondary" sx={{ display: 'flex', width: '10%'}}>Review</Button>
-            <Button component={RouterLink} to="/About"  color="secondary" sx={{ display: 'flex', width: '10%'}}>ABOUT</Button> */}
+            <Button component={RouterLink} to="/About"  color="secondary" sx={{ display: 'flex', width: '10%'}}>ABOUT</Button>
 
           </Box>
           <Box sx={{ display: 'flex', width: '3%'}}>
-            <IconButton component={RouterLink} to="/member/create" sx={{ display: 'flex', width: '10%'}} color="secondary" >
+            <IconButton component={RouterLink} to="/customer/create" sx={{ display: 'flex', width: '10%'}} color="secondary" >
               <PersonAddIcon />
             </IconButton>
           </Box>
@@ -100,19 +100,20 @@ function Homeshow() {
      <Grid>
       {ImageC()}
      </Grid >
+    
      
      <div className="grid-con2">
         <div className="grid-item-21">
-          <img src="https://i.pinimg.com/originals/ee/53/37/ee5337111b704bd8117495af62c8a1a7.jpg" />
+          <img src="https://allstuffsalon.com/Files/product_picture_photo/875913207403836484.png" />
         </div>
         <div className="grid-item-22">
           <div className="grid-item-info3">
-            <h1>ยินดีต้อนรับเข้าสู่ บิวตี้ ซาลอน</h1>
+            <h1>ยินดีต้อนรับเข้าสู้ บิวตี้ซาลอน</h1>
           </div>
         </div>
         <div className="grid-item-23">
           <div className="grid-item-info4">
-            <h2>Our hotel has good service such as friendly staff and service with a smile. Parking service, Roomservice , Spa&Massage, Elegant restaurant with well decorated. Variety of food for you to taste. Complete hotel facilities Additional services available to you With 24-hour service and excellent security system. With a key card scanning door system There are security guards who are always ready to help you. You will be impressed. Satisfaction in various fields in our hotel</h2>
+            <h3>บิวตี้ซาลอน ยินดีให้บริการลูกค้าทุกๆ ท่าน </h3>
           </div>
         </div>
         <div className="grid-item-24">
@@ -122,6 +123,8 @@ function Homeshow() {
           <img src="https://media-cdn.tripadvisor.com/media/photo-s/0c/17/73/d1/legrande-lounge.jpg" />
         </div>
      </div>
+
+
 
      <div className="grid-con">
         <div className="grid-item-1">

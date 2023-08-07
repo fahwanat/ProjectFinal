@@ -97,7 +97,7 @@ function EditMember() {
   
 
   const fetchGender = async () => {
-    fetch(`${apiUrl}/customers/genders`, requestOptionsGet)
+    fetch(`${apiUrl}/members/genders`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
         setGender(result.data);
@@ -130,8 +130,8 @@ function EditMember() {
   async function update() {
     let newdata = {
       ID: convertType(member.ID),
-      Nametitle_ID: convertType(member.PrefixID),
-      Gender_ID: convertType(member.GenderID),
+      PrefixID: convertType(member.PrefixID),
+      GenderID: convertType(member.GenderID),
       Firstname: member.FirstName,
       Lastname: member.LastName,
       Age: member.Age,
@@ -263,6 +263,21 @@ function EditMember() {
                   />
                 </FormControl>
               </Grid>
+
+              {/*=============================================(Nickame)=====================================================*/}
+              <Grid xs={6} md={6}>
+                <p style={{ color: "grey", fontSize: 17 }}>Nickname</p>
+                <FormControl fullWidth variant="outlined">
+                  <TextField
+                    id="Nickname"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    value={member.Nickname || ""}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </Grid>
             </Grid>
 
             <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
@@ -356,7 +371,7 @@ function EditMember() {
                   บันทึกการแก้ไข
                 </Button>
 
-                <Link to="/customer/profile" style={{ textDecoration: "none" }}>
+                <Link to="/member/profile" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     size="large"
