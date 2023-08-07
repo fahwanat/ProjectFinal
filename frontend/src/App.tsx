@@ -86,7 +86,7 @@ export default function App() {
 
                 
                 <Route path="/member/profile" element={<ProfileMember />} /> 
-                <Route path="/member/update" element={<EditMember />} /> 
+                <Route path="/member/edit" element={<EditMember />} /> 
                 {/* <Route path="/member/showforadmin" element={<MemberlistforAdmin />} /> */}
                 </>
             )
