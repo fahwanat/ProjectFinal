@@ -178,7 +178,7 @@ const getGender = async () => {
                 >
                 <FormLabel
                 id="demo-simple-select-helper-label"
-                sx={{ marginRight: 6.5, fontSize: 17, paddingBottom: 2 }}
+                sx={{ marginRight: 10, fontSize: 17, paddingBottom: 5 }}
                 >
                 คำนำหน้า:
                 </FormLabel>
