@@ -183,7 +183,18 @@ function CreatMember() {
   
   return (
     <div>
-      <Container maxWidth="sm" sx={{ marginTop: 6 }}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+          backgroundSize: "contain",
+          backgroundImage:"url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+            }}>
+      <Container maxWidth="sm" sx={{ marginTop: 1  }}>
+
         <Paper
           elevation={4}
           sx={{
@@ -193,16 +204,15 @@ function CreatMember() {
             paddingX: 2,
             display: "flex",
             justifyContent: "flex-start",
+          
           }}
         >
-          <h4 style={{ color: "#000000" }}>Sign Up</h4>
+          <h3 style={{ color: "#000000" }}>Sign Up</h3>
         </Paper>
         <form>
           <Paper
             variant="outlined"
             sx={{ padding: 2, paddingTop: 1, marginBottom: 2 }}
-
-
           >
 
             <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
@@ -210,17 +220,17 @@ function CreatMember() {
               {/*=======================================(Prefix)===========================================================*/}
               <Grid
                 xs={12}
-                md={8}
+                md={9}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
                 <FormLabel
                   id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 6.5, fontSize: 17, paddingBottom: 2 }}
+                  sx={{ marginRight: 3, fontSize: 14 }}
                 >
-                  คำนำหน้า
+                  Prefix:
                 </FormLabel>
                 <Select
-                  // labelId="demo-simple-select-helper-label"
+                  labelId="demo-simple-select-helper-label"
                   id="PrefixID"
                   value={member.PrefixID + ""}
                   native
@@ -239,14 +249,11 @@ function CreatMember() {
                     </option>
                   ))}
                 </Select>
-                <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                  คำนำหน้าชื่อ
-                </FormHelperText>
               </Grid>
 
               {/*============================================(First name)======================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Firstname</p>
+              <Grid xs={6} md={6} >
+                <p style={{ color: "grey", fontSize: 14 }}>FirstName</p>
                 <TextField
                   id="Fristname"
                   type="string"
@@ -261,7 +268,7 @@ function CreatMember() {
               </Grid>
               {/*=============================================(Last name)=====================================================*/}
               <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Lastname</p>
+                <p style={{ color: "grey", fontSize: 14 }}>LastName</p>
                 <TextField
                   id="lastname"
                   type="string"
@@ -276,7 +283,7 @@ function CreatMember() {
               </Grid>
               {/*=============================================(Nickname)=====================================================*/}
               <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Nickname</p>
+                <p style={{ color: "grey", fontSize: 14 }}>Nickname</p>
                 <TextField
                   id="nickname"
                   type="string"
@@ -294,7 +301,7 @@ function CreatMember() {
             <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
               {/*============================================(Age)======================================================*/}
               <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Age</p>
+                <p style={{ color: "grey", fontSize: 14 }}>Age</p>
                 <TextField
                   id="Age"
                   type="number"
@@ -308,7 +315,7 @@ function CreatMember() {
               </Grid>
               {/*=============================================(Phone)=====================================================*/}
               <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Phone number</p>
+                <p style={{ color: "grey", fontSize: 14 }}>Phone number</p>
                 <TextField
                   id="Phone"
                   type="string"
@@ -331,7 +338,7 @@ function CreatMember() {
                 md={12}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
-                <FormLabel sx={{ marginRight: 7, fontSize: 17 }}>
+                <FormLabel sx={{ marginRight: 7, fontSize: 14 }}>
                   Email:
                 </FormLabel>
                 <TextField
@@ -354,7 +361,7 @@ function CreatMember() {
               >
                 <InputLabel
                   htmlFor="outlined-adornment-password"
-                  sx={{ marginRight: 3, fontSize: 17 }}
+                  sx={{ marginRight: 3, fontSize: 14 }}
                 >
                   Password:
                 </InputLabel>
@@ -381,12 +388,12 @@ function CreatMember() {
               {/*=======================================(select Gender)===========================================================*/}
               <Grid
                 xs={12}
-                md={9}
+                md={8}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
                 <FormLabel
                   id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 5.5, fontSize: 17, paddingBottom: 2 }}
+                  sx={{ marginRight: 5.5, fontSize: 14, paddingBottom: 2 }}
                 >
                   Gender:
                 </FormLabel>
@@ -410,9 +417,6 @@ function CreatMember() {
                     </option>
                   ))}
                 </Select>
-                <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                  กรุณาเลือกเพศของคุณ
-                </FormHelperText>
               </Grid>
 
               {/**/}
@@ -444,6 +448,7 @@ function CreatMember() {
             </Grid>
           </Paper>
         </form>
+      </Container>
       </Container>
       <Snackbar
         open={success}

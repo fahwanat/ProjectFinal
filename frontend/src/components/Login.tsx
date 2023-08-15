@@ -114,7 +114,7 @@ function SignIn() {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://img.freepik.com/free-photo/hotel-with-swimming-pool_169016-3317.jpg?w=1380&t=st=1675521656~exp=1675522256~hmac=58adb728bd6ac577e5ec92835fcb377bd975638ac318acac5eb2d2fbf6c82f6e)",
+              "url(https://lzd-img-global.slatic.net/g/shop/ef002b9cd5b23deca3588aee07cca2a7.png_1200x1200q80.png_.webp)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
