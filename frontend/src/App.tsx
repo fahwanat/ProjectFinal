@@ -35,8 +35,6 @@ export default function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/Homeshow" element={<Homeshow />} />
           <Route path="/About" element={<About />} />
-          {/* <Route path="/Roomhome" element={<Roomhome />} /> */}
-          {/* <Route path="/RW" element={<Review_Show />} /> */}
           <Route path="/home" element={<SignIn />} />
           <Route path="/member/create" element={<CreatMember />} />
         </Routes>
@@ -53,9 +51,6 @@ export default function App() {
             {role === "Officer" && (
               <>
                 <Route path="/home" element={<Home />} />
-                {/* <Route path="/Manage-Save" element={<Manage_Save />} />
-                <Route path="/Manage-Show" element={<Manage_Show />} />
-                <Route path="/Manage-Edit/:id" element={<Manage_Edit />} /> */}
               </>
               )
             }
@@ -72,8 +67,6 @@ export default function App() {
               {role === "Employee" && (
               <>
               <Route path="/home" element={<Home />} />
-
-              {/* <Route path="/customer/showforadmin" element={<CustomerlistforAdmin />} />  */}
               </>
             )
             }
