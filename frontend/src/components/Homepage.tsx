@@ -6,6 +6,8 @@ import { Link as RouterLink } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import { Box } from "@mui/system";
 
+
+
 const bgbutton = createTheme({
     palette: {
       primary: {
@@ -17,10 +19,15 @@ const bgbutton = createTheme({
   
     },
   });
+  
+  function onClick() { 
+    window.open("/Homeshow");
+    } 
 
 function Homepage() {
 
     return (
+      
     <ThemeProvider theme={bgbutton}>
         <Container 
             maxWidth="xl"
@@ -33,27 +40,35 @@ function Homepage() {
                 backgroundSize: "cover",
                 backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
               }}
-
         >
-                <Button 
-                    component={RouterLink} to="/home" 
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    >
-                    Employeee
-                </Button>
 
-                <Button 
-                    component={RouterLink} to="/Homeshow" 
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    sx={{ m: "1%"}}
-                >
-                    Member
-                </Button>
+        <div className="grid-con2">
+        <div className="grid-item-22-3">
+          <div className="word-homepage">
+            <h1>Welcom To Bueaty Salon</h1>
+          </div>
+        </div>
+        
+        <div className="grid-item-22-4">
+          <button className="button-home" type="button" disabled>
+            
+            <RouterLink className = "" rel="stylesheet" to="/Homeshow" >หน้าแรก </RouterLink>
+            {/* <a href="/Homeshow">หน้าแรก</a>  */}
+            
+        
+          </button> 
+          
+        </div>
+        </div>        
         </Container>
+
+        
+        {/* <div className="bgimghome">
+          <div>
+            
+          </div>
+          </div> */}
+        
     </ThemeProvider>
     );
    }

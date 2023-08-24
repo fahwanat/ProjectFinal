@@ -143,37 +143,18 @@ function Navbar() {
 
   const MemberMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
-    // { name: "Booking", icon: <ReceiptLongIcon />, path: "/Book" },
-    // { name: "Repair", icon: <HandymanIcon />, path: "/Rep" },
     
-    // { name: "Review", icon: <ReviewsIcon />, path: "/Reviewlist" },
-    // { name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
-    // { name: "Payment", icon: <PaymentIcon />, path: "/ps" },
   ];
   const EmployeeMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
-  //   { name: "Check IN - Check Out", icon: <FactCheckIcon />, path: "/CNCO" },
-  //   { name: "Check Payment", icon: <PriceCheckIcon />, path: "/CPM" },
-  //   {
-  //     name: "Check The Room",
-  //     icon: <CheckroomIcon />,
-  //     path: "/checkroom/list",
-  //   },
-  //   { name: "Room Information", icon: <BedroomParentIcon />, path: "/RT" },
-  //   { name: "Room Warehouse", icon: <WarehouseIcon />, path: "/RoomW" },
+  
     {
       name: "Member List",
       icon: <PeopleIcon />,
       path: "/member/showforadmin",
     },
   ];
-  // const OfficerMenu = [
-  //   {
-  //     name: "Manage Employee Information",
-  //     icon: <ManageAccountsIcon />,
-  //     path: "/Manage-Show",
-  //   },
-  // ];
+
 
   var menu: any[];
   switch (role) {
@@ -225,7 +206,7 @@ function Navbar() {
           >
 
             <Typography variant="h6" color="secondary" noWrap component="div">
-              <div>บิวตี้ซาลอน</div>
+              <div>BUEATY SALON</div>
             </Typography>
           </Box>
 
