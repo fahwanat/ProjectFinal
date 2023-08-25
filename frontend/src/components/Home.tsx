@@ -55,89 +55,110 @@ function Home() {
 
       <div className="grid-con2">
         <div className="grid-item-21">
-          <img src="https://www.prachachat.net/wp-content/uploads/2021/09/pexels-delbeautybox-853427-728x485.jpg" />
+          <img src="https://fangrio.com/wp-content/uploads/2018/02/S__12328981-1024x768.jpg" />
         </div>
         <div className="grid-item-22">
           <div className="grid-item-info3">
-            <h1>WELCOME TO THE G03 HOTEL</h1>
+            <h1>ยินดีต้อนรับเข้าสู่ บิวตี้ซาลอน</h1>
           </div>
         </div>
         <div className="grid-item-23">
           <div className="grid-item-info4">
-            <h2>
-              Our hotel has good service such as friendly staff and service with
-              a smile. Parking service, Roomservice , Spa&Massage, Elegant
-              restaurant with well decorated. Variety of food for you to taste.
-              Complete hotel facilities Additional services available to you
-              With 24-hour service and excellent security system. With a key
-              card scanning door system There are security guards who are always
-              ready to help you. You will be impressed. Satisfaction in various
-              fields in our hotel
-            </h2>
+            <h4>บริการทุกระดับประทับใจ ลูกค้าต้องการแบบไหนบอกช่างได้เลย</h4>
+            <h4>ร้านเปิดบริการวันจันทร์-ศุกร์ และอาทิตย์ ตั้งแต่เวลา 10:00 - 17:00 น.</h4>
+            <h4>ร้านของเรามีบริการต่างๆ ดังนี้</h4>
+            <h4>*****************************</h4>
+            <h4>1. ทำผม --- สระผม/ไดร์ผม ตัดผม/ซอยผม ยืดผม ย้อมผม ดัดผม </h4>
+            <h4>2. ทำเล็บ --- ทาสีเจล เพ้นต์เล็บ ต่อเล็บ</h4>
+            <h4>3. สปาเล็บ --- นวดหน้า ขัดหน้า</h4>
+            <h4>*****************************</h4>
           </div>
         </div>
         <div className="grid-item-24">
-          <img src="https://media-cdn.tripadvisor.com/media/photo-s/1c/ff/66/8a/modern-thai-cuisine-perfectly.jpg" />
+          <img src="https://www.hairworldplus.com/wp-content/uploads/2020/09/Salons_image.jpg" />
         </div>
-        <div className="grid-item-25">
-          <img src="https://media-cdn.tripadvisor.com/media/photo-s/0c/17/73/d1/legrande-lounge.jpg" />
-        </div>
+        {/* <div className="grid-item-25">
+          <img src="https://www.phitsanulokhotnews.com/wp-content/media/2020/05/IMG_9339.jpg" />
+        </div> */}
       </div>
 
       <div className="grid-con">
-        <div className="grid-item-1">
-          <img src="https://content.r9cdn.net/himg/80/b3/46/expediav2-13266-f26277-844954.jpg" />
+        <div className="grid-item-1-2">
+          <div>
+            <img src="https://cdn.shopify.com/s/files/1/0130/7233/4948/files/dreamstimemaximum_180911411_compressed_2048x2048.jpg?v=1633492651" />
+          </div>
+          <div>
+            <img src="https://img.kapook.com/u/soisuda/a3/500_20.jpg" />
+          </div>
         </div>
         <div className="grid-item-2">
           <div className="grid-item-info">
             <div>
-              <h2>RELAX AND ENJOY</h2>
-              <p>with the G03 Hotel.</p>
+              <h2>ทำผม</h2>
+              <p>สระผม/ไดร์ผม</p>
+              <p>ตัดผม/ซอยผม</p>
+              <p>ยืดผม ย้อมผม ดัดผม</p>
             </div>
           </div>
           <div>
-            <img src="https://files.guidedanmark.org/files/382/242733_Hotel_Ottilia__Brchner_Hotels_PR.jpg"></img>
+            <img src="https://cdn.shopify.com/s/files/1/0130/7233/4948/files/dreamstimemaximum_129356808_compressed_2048x2048.jpg?v=1633491936"></img>
           </div>
         </div>
+
+        <div className="grid-item-2-1">
+          <div>
+            <img src="https://cdn.zipeventapp.com/blog/2023/06/2023-06-12_06-28-35_image.png"></img>
+          </div>
+          <div>
+            <img src="https://img.salehere.co.th/p/1200x0/2021/06/09/qvydnoeefujy.jpg"></img>
+          </div>
+        </div>
+
         <div className="grid-item-3">
           <div>
-            <img src="https://www.nzbusinesstraveller.co.nz/wp-content/uploads/2022/08/Copy-of-Chairman-Suite-Lounge-1024x683.jpg"></img>
+            <img src="https://static.wixstatic.com/media/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg/v1/fill/w_601,h_601,al_c,lg_1,q_85,enc_auto/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg"></img>
           </div>
-          <div className="grid-item-info2">
+          <div className="grid-item-info">
             <div>
-              <h2>EXCELLENT SERVICE</h2>
-              <p>Service is available 24 hours a day.</p>
-              <p>Always serve customers with a smile.</p>
+              <h2>ทำเล็บ</h2>
+              <p>ทาสีเจล เพ้นต์เล็บ ต่อเล็บ</p>
+              <p>เพ้นต์เล็บ</p>
+              <p>ต่อเล็บ</p>
             </div>
           </div>
         </div>
         <div className="grid-item-4">
           <div>
-            <img src="https://assets.langhamhotels.com/is/image/langhamhotelsstage/cdakl-rooms-chairman-suite-bedroom-1680-945:Medium?wid=1680&hei=944"></img>
+            <img src="https://www.tsj-group.com/wp-content/uploads/2019/03/tsj-group-thai-face-natural-spa-product.jpg"></img>
           </div>
           <div className="grid-item-info">
             <div>
-              <h2>LUXURY BY THE SEA</h2>
-              <p>Meet the beautiful sea view.</p>
+              <h2>สปาหน้า</h2>
+              <p>นวดหน้า</p>
+              <p>ขัดหน้า</p>
             </div>
           </div>
         </div>
-        <div className="grid-item-5">
+        <div className="grid-item-6">
           <div>
-            <img src="https://www.thedenizen.co.nz/wp-content/uploads/2021/01/Opera-Suite-Lounge-1.jpg"></img>
+            <img src="https://s.isanook.com/wo/0/ud/14/73133/73133-20171002045545-85e1c34.jpg"></img>
+          </div>
+          <div>
+            <img src="https://images.lifestyleasia.com/wp-content/uploads/sites/8/2022/08/18172106/e0b899e0b8a7e0b894e0b8abe0b899e0b989e0b8b2_b.jpeg?tr=w-1200,h-900"></img>
           </div>
         </div>
+        
       </div>
 
       <div className="grid-confooter">
         <div className="grid-item-footer">
-          <h2>Phone Support</h2>
+          <h2>เบอร์ติดต่อ</h2>
         </div>
         <div className="grid-item-footer2">
-          <p>24 HOURS A DAY</p>
+          <p>เปิดบริการวันจันทร์-ศุกร์ และอาทิตย์</p>
         </div>
         <div className="grid-item-footer3">
-          <h3>+ 01 345 647 745</h3>
+          <h3>0803299545</h3>
         </div>
         <div className="grid-item-footer4">
           <h2>Connect With Us</h2>
@@ -155,7 +176,7 @@ function Home() {
         </div>
       </div>
     </div>
-    </ThemeProvider>
+</ThemeProvider>
   );
 }
 

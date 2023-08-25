@@ -23,6 +23,7 @@ import ServiceShow from "./components/Service/ServiceShow";
 import Schedule from "./components/Scheduler/Scheduler";
 
 // import About from "./components/About";
+import About from "./components/About";
 // import Roomhome from "./components/Roomhome";
 
 export default function App() {
@@ -43,9 +44,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/Homeshow" element={<Homeshow />} />
-          {/* <Route path="/About" element={<About />} /> */}
-          {/* <Route path="/Roomhome" element={<Roomhome />} /> */}
-          {/* <Route path="/RW" element={<Review_Show />} /> */}
+          <Route path="/About" element={<About />} />
           <Route path="/home" element={<SignIn />} />
           <Route path="/member/create" element={<CreatMember />} />
         </Routes>
@@ -95,8 +94,9 @@ export default function App() {
                 <Route path="/pu/:id" element={<PaymentUpdate />} /> */}
 
                 
+                <Route path="/home" element={<Home />} />
                 <Route path="/member/profile" element={<ProfileMember />} /> 
-                <Route path="/member/update" element={<EditMember />} /> 
+                <Route path="/member/edit" element={<EditMember />} /> 
                 {/* <Route path="/member/showforadmin" element={<MemberlistforAdmin />} /> */}
                 </>
             )

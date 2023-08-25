@@ -18,7 +18,7 @@ import { GenderInterface } from "../../models/modelMember/IGender";
 
 
 
-function ProfileCustomer() {
+function ProfileMember() {
     const [member, setMember] = useState<MemberInterface>({});
     const [prefix, setPrefix] = useState<PrefixInterface[]>([]);
     const [gender, setGender] = useState<GenderInterface[]>([]);
@@ -61,7 +61,7 @@ function ProfileCustomer() {
     //-----------เริ่มดึงข้อมูล-----------//
 //---------------------Department-------------------------------------
 const getPrefix = async () => {
-  const apiUrl = `http://localhost:8080/nametitles`;
+  const apiUrl = `http://localhost:8080/prefixes`;
 
   const requestOptions = {
     method: "GET",
@@ -87,7 +87,7 @@ const getPrefix = async () => {
 };
 //---------------------Position-------------------------------------
 const getGender = async () => {
-  const apiUrl = `http://localhost:8080/customers/genders`;
+  const apiUrl = `http://localhost:8080/members/genders`;
 
   const requestOptions = {
     method: "GET",
@@ -122,7 +122,7 @@ const getGender = async () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json" },
     };
-    fetch(`${apiUrl}/customer/${uid}`, requestOptions)
+    fetch(`${apiUrl}/member/${uid}`, requestOptions)
         .then((response) => response.json())
         .then((res) => {
   
@@ -173,14 +173,14 @@ const getGender = async () => {
         <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
                 <Grid
                 xs={12}
-                md={8}
+                md={6}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
                 >
                 <FormLabel
                 id="demo-simple-select-helper-label"
-                sx={{ marginRight: 6.5, fontSize: 17, paddingBottom: 2 }}
+                sx={{ marginRight: 10, fontSize: 17, paddingBottom: 5 }}
                 >
-                Title:
+                คำนำหน้า:
                 </FormLabel>
                 <FormControl fullWidth variant="outlined">
                 <Select
@@ -189,7 +189,7 @@ const getGender = async () => {
                 value={member.PrefixID+""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "Nametitle_ID",
+                  name: "PrefixID",
                 }}
               >
                 {prefix.map((item: PrefixInterface) => (
@@ -197,9 +197,9 @@ const getGender = async () => {
                 ))}
               </Select>
                 </FormControl>              
-                <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                คำนำหน้าชื่อ
-                </FormHelperText>
+                {/* <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
+                /
+                </FormHelperText> */}
                 </Grid>
 
                 {/*============================================(First name)======================================================*/}
@@ -222,6 +222,17 @@ const getGender = async () => {
                 fullWidth
                 required
                 value={member.LastName}
+                />
+                </Grid>
+                {/*=============================================(Nickname)=====================================================*/}
+                <Grid xs={6} md={6}>
+                <p style={{ color: "grey", fontSize: 17 }}>Nickname</p>
+                <TextField
+                id="nickname"
+                disabled
+                fullWidth
+                required
+                value={member.Nickname}
                 />
                 </Grid>
                 </Grid>
@@ -313,7 +324,7 @@ const getGender = async () => {
               Home
           </Button>
 
-          <Button variant="contained" startIcon={<EditIcon />} onClick={() => navigate(`/customer/edit`)} >
+          <Button variant="contained" startIcon={<EditIcon />} onClick={() => navigate(`/member/edit`)} >
               Edit
           </Button>
          
@@ -326,4 +337,4 @@ const getGender = async () => {
 
 }
 
-export default ProfileCustomer;
+export default ProfileMember;

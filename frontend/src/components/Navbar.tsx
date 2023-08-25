@@ -45,6 +45,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleIcon from "@mui/icons-material/People";
 // import Logo1 from "../Image/LOGO.png"
 import EventIcon from '@mui/icons-material/Event';
+import Logo3 from "../Image/LOGO3.png"
 
 const bgnavbar = createTheme({
   palette: {
@@ -163,6 +164,12 @@ function Navbar() {
   //   },
   //   { name: "Room Information", icon: <BedroomParentIcon />, path: "/RT" },
   //   { name: "Room Warehouse", icon: <WarehouseIcon />, path: "/RoomW" },
+    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
+    
+  ];
+  const EmployeeMenu = [
+    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
+  
     {
       name: "Member List",
       icon: <PeopleIcon />,
@@ -173,6 +180,7 @@ function Navbar() {
     {name: "Manage Employee Information", icon: <ManageAccountsIcon />,path: "/Manage-Show",},
     {name: "Service Information", icon: <ManageAccountsIcon />,path: "/ss"},
   ];
+
 
   var menu: any[];
   switch (role) {
@@ -211,9 +219,9 @@ function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          {/* <div>
-            <img src={Logo1} width= "65px" height="55px"/>
-          </div> */}
+          <div>
+            <img src={Logo3} width= "65px" height="55px"/>
+          </div>
           <Box
             sx={{
               display: "flex",
@@ -222,8 +230,9 @@ function Navbar() {
               width: "100%",
             }}
           >
+
             <Typography variant="h6" color="secondary" noWrap component="div">
-              <div>Salon</div>
+              <div>BUEATY SALON</div>
             </Typography>
           </Box>
 
