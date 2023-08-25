@@ -32,12 +32,15 @@ func SetupDatabase() {
 
 		//Service
 		&Service{},
-		&ServiceType{},
+		//&ServiceType{},
 		
 		//ระบบสมัครสมาขิก(ข้อมูลลูกค้า)
 		&Gender{},
 		&Prefix{},
 		&Member{},
+
+		// ระบบจองห้องพัก
+		&Booking{},
 
 
 	)

@@ -176,7 +176,7 @@ function SignIn() {
                 type="submit"
                 fullWidth
                 component={RouterLink}
-                to="/Book/Create"
+                to="/Homeshow"
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={login}
@@ -189,7 +189,7 @@ function SignIn() {
                     component={RouterLink}
                     to="/Homeshow"
                     variant="contained"
-                    color="secondary"
+                    color="inherit"
                     style={{ float: "left" }}
                   >
                     Home

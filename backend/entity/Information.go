@@ -1,13 +1,13 @@
 package entity
 
 import (
-	//"crypto/md5"
-	//"fmt"
+	"crypto/md5"
+	"fmt"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
-
 
 // เข้ารหัส
 func SetupPasswordHash(pwd string) string {
@@ -36,15 +36,15 @@ func SetupIntoDatabase(db *gorm.DB) {
 
 	//Officer login
 	loginOfficer1 := Signin{
-		Username: "OFSongsawang",
-		Password: SetupPasswordHash("Songsawang01"),
+		Username: "OFNatcha",
+		Password: SetupPasswordHash("Natcha01"),
 		UserRole: Officerrole,
 	}
 	db.Model(&Signin{}).Create(&loginOfficer1)
 
 	loginOfficer2 := Signin{
-		Username: "OFMoonnight",
-		Password: SetupPasswordHash("Moonnight02"),
+		Username: "OFPhariphat",
+		Password: SetupPasswordHash("Phariphat02"),
 		UserRole: Officerrole,
 	}
 	db.Model(&Signin{}).Create(&loginOfficer2)
@@ -99,7 +99,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	}
 	db.Model(&Signin{}).Create(&loginTechnician7)
 
-	
 	// Set Data Officer
 	db.Model(&Officer{}).Create(&Officer{
 		Officername: "Natcha Sukjai",
@@ -109,12 +108,11 @@ func SetupIntoDatabase(db *gorm.DB) {
 	})
 	db.Model(&Officer{}).Create(&Officer{
 
-		Officername: "Phumiphat Srisuk",
+		Officername: "Phariphat Srisuk",
 		Tel:         "0981521111",
 		Department:  "Counter",
 		Signin:      loginOfficer2,
 	})
-
 
 	//Set Data Department
 	db.Model(&Department{}).Create(&Department{
@@ -138,9 +136,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	//Set Data officer
 
 	var OFNatcha Officer
-	var OFPhumiphat Officer
+	var OFPhariphat Officer
 	db.Raw("SELECT * FROM officers WHERE officername = ?", "Natcha Sukjai").Scan(&OFNatcha)
-	db.Raw("SELECT * FROM officers WHERE  officername = ?", "Phumiphat Srisuk").Scan(&OFPhumiphat)
+	db.Raw("SELECT * FROM officers WHERE  officername = ?", "Phariphat Srisuk").Scan(&OFPhariphat)
 
 	var Technician Department
 	var Counter Department
@@ -154,7 +152,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Raw("SELECT * FROM positions WHERE name = ?", "Nail Artist").Scan(&Nail)
 	db.Raw("SELECT * FROM positions WHERE name = ?", "Facial Therapist").Scan(&Facial)
 
-
 	//Set Data Technician
 	db.Model(&Employee{}).Create(&Employee{
 		PersonalID:   "1430099536148",
@@ -165,8 +162,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Position:     Hair,
 		Department:   Technician,
 		Salary:       17000,
-		Phonenumber:  "0905452001",
+		Phonenumber:  "0905962001",
 		Gender:       "Female",
+		Officer:      OFNatcha,
 		Signin:       loginTechnician1,
 	})
 
@@ -181,6 +179,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       17000,
 		Phonenumber:  "0945200105",
 		Gender:       "Female",
+		Officer:      OFNatcha,
 		Signin:       loginTechnician2,
 	})
 
@@ -195,6 +194,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       17000,
 		Phonenumber:  "0952000541",
 		Gender:       "Female",
+		Officer:      OFNatcha,
 		Signin:       loginTechnician3,
 	})
 
@@ -209,6 +209,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       15000,
 		Phonenumber:  "0920010545",
 		Gender:       "Female",
+		Officer:      OFNatcha,
 		Signin:       loginTechnician4,
 	})
 
@@ -223,6 +224,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       15000,
 		Phonenumber:  "0910545200",
 		Gender:       "Female",
+		Officer:      OFPhariphat,
 		Signin:       loginTechnician5,
 	})
 
@@ -237,6 +239,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       18000,
 		Phonenumber:  "0905452561",
 		Gender:       "Female",
+		Officer:      OFPhariphat,
 		Signin:       loginTechnician6,
 	})
 
@@ -251,6 +254,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		Salary:       18000,
 		Phonenumber:  "0972456001",
 		Gender:       "Female",
+		Officer:      OFPhariphat,
 		Signin:       loginTechnician7,
 	})
 
@@ -269,95 +273,93 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Raw("SELECT * FROM employees WHERE employeename  = ?", "Praani Silapasawat").Scan(&Praani)
 	db.Raw("SELECT * FROM employees WHERE employeename  = ?", "Jittima Akkaraweerachon").Scan(&Jittima)
 
-
 	//Service
 	//ServiceType Data
-	Hairs := ServiceType{
-		Name: "Hair",
-	}
-	db.Model(&ServiceType{}).Create(&Hairs)
+	// Hairs := ServiceType{
+	// 	Name: "ผม",
+	// }
+	// db.Model(&ServiceType{}).Create(&Hairs)
 
-	Nails := ServiceType{
-		Name: "Nail",
-	}
-	db.Model(&ServiceType{}).Create(&Nails)
+	// Nails := ServiceType{
+	// 	Name: "เล็บ",
+	// }
+	// db.Model(&ServiceType{}).Create(&Nails)
 
-	Face := ServiceType{
-		Name: "Face",
-	}
-	db.Model(&ServiceType{}).Create(&Face)
-
+	// Face := ServiceType{
+	// 	Name: "ใบหน้า",
+	// }
+	// db.Model(&ServiceType{}).Create(&Face)
 
 	//Service Data
 	//ServiceHair1
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Manikan,
-		Name:        "สระผม/ไดร์ผม",
-		ServiceType: Hairs,
-		Amount:      100,
+		Employee: Manikan,
+		Name:     "สระผม/ไดร์ผม",
+		//ServiceType: Hairs,
+		Price: 100,
 	})
 	//ServiceHair2
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Manikan,
-		Name:        "ตัดผม/ซอยผม",
-		ServiceType: Hairs,
-		Amount:      150,
+		Employee: Manikan,
+		Name:     "ตัดผม/ซอยผม",
+		//ServiceType: Hairs,
+		Price: 150,
 	})
 	//ServiceHair3
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Napaporn,
-		Name:        "ยืดผม",
-		ServiceType: Hairs,
-		Amount:      400,
+		Employee: Napaporn,
+		Name:     "ยืดผม",
+		//ServiceType: Hairs,
+		Price: 400,
 	})
 	//ServiceHair4
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Manikan,
-		Name:        "ย้อมผม",
-		ServiceType: Hairs,
-		Amount:      300,
+		Employee: Manikan,
+		Name:     "ย้อมผม",
+		//ServiceType: Hairs,
+		Price: 300,
 	})
 	//ServiceHair5
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Somphorn,
-		Name:        "ดัดผม",
-		ServiceType: Hairs,
-		Amount:      600,
+		Employee: Somphorn,
+		Name:     "ดัดผม",
+		//ServiceType: Hairs,
+		Price: 600,
 	})
 	//ServiceNail1
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Apinya,
-		Name:        "ทาสีเจล",
-		ServiceType: Nails,
-		Amount:      199,
+		Employee: Apinya,
+		Name:     "ทาสีเจล",
+		//ServiceType: Nails,
+		Price: 199,
 	})
 	//ServiceNail2
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Apinya,
-		Name:        "เพ้นต์เล็บ",
-		ServiceType: Nails,
-		Amount:      399,
+		Employee: Apinya,
+		Name:     "เพ้นต์เล็บ",
+		//ServiceType: Nails,
+		Price: 399,
 	})
 	//ServiceNail3
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Natthika,
-		Name:        "ต่อเล็บ",
-		ServiceType: Nails,
-		Amount:      499,
+		Employee: Natthika,
+		Name:     "ต่อเล็บ",
+		//ServiceType: Nails,
+		Price: 499,
 	})
 	//ServiceFace1
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Praani,
-		Name:        "นวดหน้า",
-		ServiceType: Face,
-		Amount:      799,
+		Employee: Praani,
+		Name:     "สปาหน้า",
+		//ServiceType: Face,
+		Price: 799,
 	})
 	//ServiceFace2
 	db.Model(&Service{}).Create(&Service{
-		Employee:    Jittima,
-		Name:        "ขัดหน้า",
-		ServiceType: Face,
-		Amount:      999,
+		Employee: Jittima,
+		Name:     "สปาหน้า",
+		//ServiceType: Face,
+		Price: 999,
 	})
 
 	var ServiceHair1 Service
@@ -381,7 +383,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Raw("SELECT * FROM services WHERE id = ?", "9").Scan(&ServiceFace1)
 	db.Raw("SELECT * FROM services WHERE id = ?", "10").Scan(&ServiceFace2)
 
-
 	//Member login
 	loginMember1 := Signin{
 		Username: "Wanatsanan@gmail.com",
@@ -395,7 +396,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 		UserRole: Memberrole,
 	}
 	db.Model(&Signin{}).Create(&loginMember2)
-
 
 	//ระบบสมัครสมาชิก
 	GenderMale := Gender{
@@ -431,31 +431,92 @@ func SetupIntoDatabase(db *gorm.DB) {
 	//Member
 	password1, _ := bcrypt.GenerateFromPassword([]byte("W12345678"), 14)
 	Member1 := Member{
-		FirstName:  "วนัสนันท์",
-		LastName: 	"จันทร์มล",
-		Nickname: 	"ฟ้า",
-		Age:		22,	
-		Email:    	"Wanatsanan@gmail.com",
-		Password: 	string(password1),
-		Phone:      "0803299545",
-		Gender:     GenderFemale,
-		Prefix:     Prefix3,
+		FirstName: "วนัสนันท์",
+		LastName:  "จันทร์มล",
+		Nickname:  "ฟ้า",
+		Age:       22,
+		Email:     "Wanatsanan@gmail.com",
+		Password:  string(password1),
+		Phone:     "0803299545",
+		Gender:    GenderFemale,
+		Prefix:    Prefix3,
 		Signin:    loginMember1,
 	}
 	db.Model(&Member{}).Create(&Member1)
 
 	password2, _ := bcrypt.GenerateFromPassword([]byte("B12345678"), 14)
 	Member2 := Member{
-		FirstName:	"บุษราคัม",
-		LastName: 	"สีเกาะ",
-		Nickname: 	"บุษ",
-		Age:		22,	
-		Email:    	"busaracam@gmail.com",
-		Password: 	string(password2),
-		Phone:      "0954423679",
-		Gender:     GenderFemale,
-		Prefix:     Prefix3,
+		FirstName: "บุษราคัม",
+		LastName:  "สีเกาะ",
+		Nickname:  "บุษ",
+		Age:       22,
+		Email:     "busaracam@gmail.com",
+		Password:  string(password2),
+		Phone:     "0954423679",
+		Gender:    GenderFemale,
+		Prefix:    Prefix3,
 		Signin:    loginMember2,
 	}
 	db.Model(&Member{}).Create(&Member2)
+
+	// ============================================================================ Booking
+	//---------------------------------Branch data-----------------------
+	// b4001 := Branch{
+	// 	B_name: "Bangkok",
+	// }
+	// db.Model(&Branch{}).Create(&b4001)
+
+	// b4002 := Branch{
+	// 	B_name: "Pattaya",
+	// }
+	// db.Model(&Branch{}).Create(&b4002)
+
+	// b4003 := Branch{
+	// 	B_name: "Chiang Mai",
+	// }
+	// db.Model(&Branch{}).Create(&b4003)
+
+	// b4004 := Branch{
+	// 	B_name: "Phuket Town",
+	// }
+	// db.Model(&Branch{}).Create(&b4004)
+	// ============================================================================ Booking
+	//ใส่ไว้ก่อนนะเราต้องใช้เชื่อมกับตาราง checkin-out by joon => patch 21/1/2566 by earth
+	start := time.Date(2023, 2, 7, 0, 0, 0, 0, time.UTC)
+	stop := time.Date(2023, 2, 8, 0, 0, 0, 0, time.UTC)
+	//for grouping
+	hashBk_No1 := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", stop.Unix(), start.Unix(), ServiceHair1.ID))))
+	hashBk_No2 := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", stop.Unix(), start.Unix(), ServiceNial1.ID))))
+
+	db.Model(&Booking{}).Create(&Booking{
+		Booking_Number: hashBk_No1,
+		Tx_No:          hashBk_No1,
+		Employee:         Manikan,
+		Service: ServiceHair1,
+		Time:   time.Date(2023, 2, 7, 0, 0, 0, 0, time.UTC),
+		//Stop:    time.Date(2023, 2, 8, 0, 0, 0, 0, time.UTC),
+		//DayEach: time.Date(2023, 2, 11, 0, 0, 0, 0, time.UTC),
+		Member:  Member1,
+		Total:   float64(ServiceHair1.Price),
+	})
+
+	now := time.Now()
+	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)
+
+	db.Model(&Booking{}).Create(&Booking{
+		Booking_Number: hashBk_No2,
+		Tx_No:          hashBk_No2,
+		Employee:         Apinya,
+		Service: ServiceNial1,
+		Time:   today,
+		//Stop:    today.AddDate(0, 0, 1),
+		//DayEach: time.Date(2023, 2, 11, 0, 0, 0, 0, time.UTC),
+		Member:  Member2,
+		Total:   float64(ServiceNial1.Price),
+	})
+
+	var booking1 Booking
+	var booking2 Booking
+	db.Raw("SELECT * FROM bookings WHERE id = ?", "1").Scan(&booking1)
+	db.Raw("SELECT * FROM bookings WHERE id = ?", "2").Scan(&booking2)
 }

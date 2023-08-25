@@ -44,7 +44,7 @@ type Employee struct {
 	Employeename string `valid:"required~Name not blank"`
 	Email        string `gorm:"uniqueIndex" valid:"email~Email is not valid,required~Email not blank"`
 
-	Tusername string `valid:"matches(^[E][A-Z][a-zA-Z]+$)~Username must be is Begin with E and The second letter must start with A-Z and must not number,required~Username not blank"`
+	Tusername string `valid:"matches(^[E][A-Z][a-zA-Z]+$)~Username must be is Begin with T and The second letter must start with A-Z and must not number,required~Username not blank"`
 	Password  string `valid:"minstringlength(6)~Password must be more than or equal to 6 characters,matches([A-Z])~Password must contain at least 1 character A-Z.,required~Password not blank"`
 
 	SigninID *uint  `valid:"-"`
@@ -65,4 +65,6 @@ type Employee struct {
 	// PositionID ทำหน้าที่เป็น FK
 	PositionID *uint    `valid:"-"`
 	Position   Position `gorm:"references:ID" valid:"-"`
+
+	Bookings  []Booking   `gorm:"foreignKey:EmployeeID"`
 }

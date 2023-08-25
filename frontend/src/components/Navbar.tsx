@@ -44,6 +44,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleIcon from "@mui/icons-material/People";
 // import Logo1 from "../Image/LOGO.png"
+import EventIcon from '@mui/icons-material/Event';
 
 const bgnavbar = createTheme({
   palette: {
@@ -142,16 +143,17 @@ function Navbar() {
   };
 
   const MemberMenu = [
-    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
-    // { name: "Booking", icon: <ReceiptLongIcon />, path: "/Book" },
-    // { name: "Repair", icon: <HandymanIcon />, path: "/Rep" },
+    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/Homeshow" },
+     { name: "Booking", icon: <ReceiptLongIcon />, path: "/Book" },
+     { name: "Schedule", icon: <EventIcon />, path: "/Schedule" },
     
     // { name: "Review", icon: <ReviewsIcon />, path: "/Reviewlist" },
-    // { name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
+     //{ name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
     // { name: "Payment", icon: <PaymentIcon />, path: "/ps" },
   ];
   const EmployeeMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
+    { name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
   //   { name: "Check IN - Check Out", icon: <FactCheckIcon />, path: "/CNCO" },
   //   { name: "Check Payment", icon: <PriceCheckIcon />, path: "/CPM" },
   //   {
@@ -167,13 +169,10 @@ function Navbar() {
       path: "/member/showforadmin",
     },
   ];
-  // const OfficerMenu = [
-  //   {
-  //     name: "Manage Employee Information",
-  //     icon: <ManageAccountsIcon />,
-  //     path: "/Manage-Show",
-  //   },
-  // ];
+  const OfficerMenu = [
+    {name: "Manage Employee Information", icon: <ManageAccountsIcon />,path: "/Manage-Show",},
+    {name: "Service Information", icon: <ManageAccountsIcon />,path: "/ss"},
+  ];
 
   var menu: any[];
   switch (role) {
@@ -183,9 +182,9 @@ function Navbar() {
     case "Employee":
       menu = EmployeeMenu;
       break;
-    // case "Officer":
-    //   menu = OfficerMenu;
-    //   break;
+    case "Officer":
+      menu = OfficerMenu;
+      break;
     default:
       menu = [];
       break;

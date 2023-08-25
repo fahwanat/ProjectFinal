@@ -1,4 +1,4 @@
-package entity
+package validators
 
 import (
 	"testing"

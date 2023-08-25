@@ -156,7 +156,7 @@ func SetupPasswordHash(pwd string) string {
 
 func CreateEmployee(c *gin.Context) {
 
-	//var officer entity.Officer
+	var officer entity.Officer
 	var department entity.Department
 	var position entity.Position
 	var employee entity.Employee
@@ -172,19 +172,19 @@ func CreateEmployee(c *gin.Context) {
 		return
 	}
 
-	// println(employee.OfficerID)
-	// // 9. ค้นหา Officer ด้วย id //tx.RowsAffected ตรวจสอบแถว
-	// if tx := entity.DB().Where("id = ?", employee.OfficerID).First(&officer); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "OFFicer not found"})
-	// 	return
-	// }
+	println(employee.OfficerID)
+	// 9. ค้นหา Officer ด้วย id //tx.RowsAffected ตรวจสอบแถว
+	if tx := entity.DB().Where("id = ?", employee.OfficerID).First(&officer); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "OFFicer not found"})
+		return
+	}
 
-	// println(officer.ID)
-	// // 10. ค้นหา department ด้วย id
-	// if tx := entity.DB().Where("id = ?", employee.DepartmentID).First(&department); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Department not found"})
-	// 	return
-	// }
+	println(officer.ID)
+	// 10. ค้นหา department ด้วย id
+	if tx := entity.DB().Where("id = ?", employee.DepartmentID).First(&department); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Department not found"})
+		return
+	}
 
 	// 11. ค้นหา position ด้วย id
 	if tx := entity.DB().Where("id = ?", employee.PositionID).First(&position); tx.RowsAffected == 0 {
@@ -206,6 +206,7 @@ func CreateEmployee(c *gin.Context) {
 
 	// 13. สร้าง Employee
 	ey := entity.Employee{
+		Officer:      officer,               // โยงความสัมพันธ์กับ Entity Officer
 		Department:   department,            // โยงความสัมพันธ์กับ Entity Department
 		Position:     position,              // โยงความสัมพันธ์กับ Entity Position
 		PersonalID:   employee.PersonalID,   // ตั้งค่าฟิลด์ PersonalID
@@ -229,7 +230,7 @@ func CreateEmployee(c *gin.Context) {
 func ListEmplooyeeByUID(c *gin.Context) {
 	var employee []entity.Employee
 	id := c.Param("id")
-	if err := entity.DB().Preload("Department").Preload("Position").Raw("SELECT * FROM employees WHERE id = ?", id).Find(&employee).Error; err != nil {
+	if err := entity.DB().Preload("Officer").Preload("Department").Preload("Position").Raw("SELECT * FROM employees WHERE officer_id = ?", id).Find(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -255,7 +256,7 @@ func ListEmployees(c *gin.Context) {
 
 	var employee []entity.Employee
 
-	if err := entity.DB().Preload("Department").Preload("Position").Raw("SELECT * FROM employees").Find(&employee).Error; err != nil {
+	if err := entity.DB().Preload("Officer").Preload("Department").Preload("Position").Raw("SELECT * FROM employees").Find(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -313,6 +314,7 @@ func UpdateEmployee(c *gin.Context) {
 		Salary:       employee.Salary,      // ตั้งค่าฟิลด์ Salary
 		Phonenumber:  employee.Phonenumber, // ตั้งค่าฟิลด์ Tel
 		Gender:       employee.Gender,      // ตั้งค่าฟิลด์ Gender
+
 	}
 
 	if tx := entity.DB().Where("id = ?", employee.ID).Updates(&updateEm); tx.RowsAffected == 0 {

@@ -14,82 +14,82 @@ import (
 //ServiceType...................................................................
 // POST /ServiceTypes
 
-func CreateServiceType(c *gin.Context) {
+// func CreateServiceType(c *gin.Context) {
 
-	var servicetype entity.ServiceType
+// 	var servicetype entity.ServiceType
 
-	if err := c.ShouldBindJSON(&servicetype); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+// 	if err := c.ShouldBindJSON(&servicetype); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
 
-	if err := entity.DB().Create(&servicetype).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": servicetype})
+// 	if err := entity.DB().Create(&servicetype).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": servicetype})
 
-}
+// }
 
-// GET /servicetype/:id
-func GetServiceType(c *gin.Context) {
+// // GET /servicetype/:id
+// func GetServiceType(c *gin.Context) {
 
-	var servicetype entity.ServiceType
+// 	var servicetype entity.ServiceType
 
-	id := c.Param("id")
+// 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM service_types WHERE id = ?", id).Scan(&servicetype).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": servicetype})
-}
+// 	if err := entity.DB().Raw("SELECT * FROM service_types WHERE id = ?", id).Scan(&servicetype).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": servicetype})
+// }
 
-// GET /servicetypes
-func ListServiceTypes(c *gin.Context) {
+// // GET /servicetypes
+// func ListServiceTypes(c *gin.Context) {
 
-	var servicetypes []entity.ServiceType
+// 	var servicetypes []entity.ServiceType
 
-	if err := entity.DB().Raw("SELECT * FROM service_types").Scan(&servicetypes).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": servicetypes})
-}
+// 	if err := entity.DB().Raw("SELECT * FROM service_types").Scan(&servicetypes).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": servicetypes})
+// }
 
-// DELETE /serviceTypes/:id
-func DeleteServiceType(c *gin.Context) {
+// // DELETE /serviceTypes/:id
+// func DeleteServiceType(c *gin.Context) {
 
-	id := c.Param("id")
+// 	id := c.Param("id")
 
-	if tx := entity.DB().Exec("DELETE FROM service_types WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": id})
-}
+// 	if tx := entity.DB().Exec("DELETE FROM service_types WHERE id = ?", id); tx.RowsAffected == 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": id})
+// }
 
-// PATCH /serviceTypes
-func UpdateServiceType(c *gin.Context) {
+// // PATCH /serviceTypes
+// func UpdateServiceType(c *gin.Context) {
 
-	var servicetype entity.ServiceType
+// 	var servicetype entity.ServiceType
 
-	if err := c.ShouldBindJSON(&servicetype); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+// 	if err := c.ShouldBindJSON(&servicetype); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
 
-	if tx := entity.DB().Where("id = ?", servicetype.ID).First(&servicetype); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
-		return
-	}
+// 	if tx := entity.DB().Where("id = ?", servicetype.ID).First(&servicetype); tx.RowsAffected == 0 {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
+// 		return
+// 	}
 
-	if err := entity.DB().Save(&servicetype).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": servicetype})
-}
+// 	if err := entity.DB().Save(&servicetype).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": servicetype})
+// }
 
 // Service...................................................................
 // POST /Services
@@ -101,7 +101,7 @@ func SetupPasswordHash(pwd string) string {
 func CreateService(c *gin.Context) {
 
 	var employee entity.Employee
-	var servicetype entity.ServiceType
+	//var servicetype entity.ServiceType
 	var service entity.Service
 
 	if err := c.ShouldBindJSON(&service); err != nil {
@@ -122,17 +122,18 @@ func CreateService(c *gin.Context) {
 	}
 
 	// 10. ค้นหา ServiceType ด้วย id
-	if tx := entity.DB().Where("id = ?", service.ServiceTypeID).First(&servicetype); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
-		return
-	}
+	// if tx := entity.DB().Where("id = ?", service.ServiceTypeID).First(&servicetype); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "servicetype not found"})
+	// 	return
+	// }
 
 	// 13. สร้าง Service
 	ser := entity.Service{
 		Employee:    employee,
 		Name:        service.Name,
-		ServiceType: servicetype,
-		Amount:      service.Amount,
+		Time:		service.Time,
+		//ServiceType: servicetype,
+		Price:      service.Price,
 	}
 
 	if err := entity.DB().Create(&ser).Error; err != nil {
@@ -161,7 +162,7 @@ func ListServices(c *gin.Context) {
 
 	var services []entity.Service
 
-	if err := entity.DB().Preload("Employee").Preload("ServiceType").Raw("SELECT * FROM services").Find(&services).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Raw("SELECT * FROM services").Find(&services).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -195,16 +196,16 @@ func UpdateService(c *gin.Context) {
 		return
 	}
 
-	var servicetype entity.ServiceType
+	//var servicetype entity.ServiceType
 
 	// ค้นหา servicetype ด้วย id
-	if tx := entity.DB().Where("id = ?", service.ServiceTypeID).First(&servicetype); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ServiceType not found"})
-		return
-	}
+	// if tx := entity.DB().Where("id = ?", service.ServiceTypeID).First(&servicetype); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "ServiceType not found"})
+	// 	return
+	// }
 
-	se.ServiceType = servicetype
-	se.Amount = service.Amount
+	//se.ServiceType = servicetype
+	se.Price = service.Price
 
 	if err := entity.DB().Save(&se).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

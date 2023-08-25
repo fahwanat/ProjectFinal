@@ -36,4 +36,6 @@ type Member struct {
 	GenderID *uint  `valid:"required~Please select Gender"`
 	Gender    Gender `valid:"-" gorm:"references:id"`
 
+	Bookings  []Booking   `gorm:"foreignKey:MemberID"`
+
 }
