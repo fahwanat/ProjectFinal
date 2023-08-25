@@ -167,15 +167,15 @@ function Navbar() {
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
     
   ];
-  const EmployeeMenu = [
-    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
+  // const EmployeeMenu = [
+  //   { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
   
-    {
-      name: "Member List",
-      icon: <PeopleIcon />,
-      path: "/member/showforadmin",
-    },
-  ];
+  //   {
+  //     name: "Member List",
+  //     icon: <PeopleIcon />,
+  //     path: "/member/showforadmin",
+  //   },
+  // ];
   const OfficerMenu = [
     {name: "Manage Employee Information", icon: <ManageAccountsIcon />,path: "/Manage-Show",},
     {name: "Service Information", icon: <ManageAccountsIcon />,path: "/ss"},
