@@ -41,25 +41,34 @@ function Homepage() {
                 backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
               }}
         >
-
-        <div className="grid-con2">
+        <div>
+        <div className="grid-con-homepage-1">
         <div className="grid-item-22-3">
           <div className="word-homepage">
             <h1>Welcom To Bueaty Salon</h1>
           </div>
         </div>
-        
-        <div className="grid-item-22-4">
-          <button className="button-home" type="button" disabled>
-            
-            <RouterLink className = "" rel="stylesheet" to="/Homeshow" >หน้าแรก </RouterLink>
-            {/* <a href="/Homeshow">หน้าแรก</a>  */}
-            
-        
+        </div> 
+
+        <div className="grid-con-homepage-2">
+        <div className="grid-item-buttom-home">
+          <button className="button-booking" type="button" disabled> 
+            <RouterLink className = "" rel="stylesheet" to="/Book" > Booking </RouterLink>
           </button> 
-          
         </div>
-        </div>        
+        <div className="grid-item-buttom-register">
+          <button className="button-home" type="button" disabled> 
+            <RouterLink className = "" rel="stylesheet" to="/Homeshow" > Home </RouterLink>
+          </button> 
+        </div>
+        <div className="grid-item-buttom-login">
+          <button className="button-login" type="button" disabled> 
+            <RouterLink className = "" rel="stylesheet" to="/home" > Login </RouterLink>
+          </button> 
+        </div>
+        </div>   
+        </div>
+
         </Container>
 
         

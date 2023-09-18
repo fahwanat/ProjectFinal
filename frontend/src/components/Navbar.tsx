@@ -11,7 +11,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, styled, useTheme } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
+import { grey,pink,common } from "@mui/material/colors";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
@@ -45,18 +45,20 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleIcon from "@mui/icons-material/People";
 // import Logo1 from "../Image/LOGO.png"
 import EventIcon from '@mui/icons-material/Event';
-import Logo3 from "../Image/LOGO3.png"
+import Logo5 from "../Image/LOGO5.png"
 
 const bgnavbar = createTheme({
   palette: {
     primary: {
       // Purple and grey play nicely together.
-      main: grey[800],
+      main: pink[200],
     },
     secondary: {
       // Purple and grey play nicely together.
-      main: grey[50],
+      main: common['black'],
     },
+
+
   },
 });
 
@@ -220,29 +222,33 @@ function Navbar() {
             <MenuIcon />
           </IconButton>
           <div>
-            <img src={Logo3} width= "65px" height="55px"/>
+            <img src={Logo5} width= "75px" height="75px"/>
           </div>
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
+            sx={{   display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",}}
           >
-
-            <Typography variant="h6" color="secondary" noWrap component="div">
-              <div>BUEATY SALON</div>
+            <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2}>
+            <div className="word-header-navbar">
+                <h2>BUEATY SALON</h2>
+                </div>
             </Typography>
+          </Box>
+          <Box sx={{ display: 'center', width: '6.5%', }}>
+          <Button component={RouterLink} to="/home" variant="contained" color='secondary' >จองคิว</Button>
           </Box>
 
           <Button
+            // sx={{display: 'center', width: '10%',}}
             color="secondary"
             id="demo-positioned-button"
             aria-controls={openpro ? "demo-positioned-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={openpro ? "true" : undefined}
             onClick={handleClick}
+            
           >
             <AccountCircleIcon/>
           </Button>

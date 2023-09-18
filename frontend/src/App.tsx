@@ -47,6 +47,7 @@ export default function App() {
           <Route path="/About" element={<About />} />
           <Route path="/home" element={<SignIn />} />
           <Route path="/member/create" element={<CreatMember />} />
+          <Route path="/Book" element={<Bookings />} />
         </Routes>
       </Router>
     );
