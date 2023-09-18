@@ -2,6 +2,7 @@
 import { MemberInterface } from "../modelMember/IMember"
 import { ServiceInterface } from "../IService"
 import { EmployeeInterface } from "../IManage"
+import { Dayjs } from "dayjs"
 
 export interface BookingsInterface {
     ID?: number,
@@ -12,7 +13,8 @@ export interface BookingsInterface {
     ServiceID?: number,
     Service?: ServiceInterface,
 
-    Time?: Date | null,
+    Time?: Date | null ,
+    // Time?: Dayjs | null ,
     //Stop?: Date | null,
 
     // Auto generate in backend

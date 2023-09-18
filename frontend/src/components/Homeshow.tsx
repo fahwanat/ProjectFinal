@@ -68,7 +68,10 @@ function Homeshow() {
           <div>
             <img src={Logo5} width= "75px" height="75px"/>
           </div>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '50%'}}>
+          <Box sx={{  display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center', 
+                      width: '50%'}}>
             <Typography variant="h6" color='secondary' noWrap component="div" marginLeft={2} >
               <div className="word-header-navbar">
                 <h1>Bueaty Salon</h1>
@@ -166,7 +169,9 @@ function Homeshow() {
         </div>
 
         <div className="grid-item-3">
-          
+           <div>
+            <img src="https://static.wixstatic.com/media/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg/v1/fill/w_601,h_601,al_c,lg_1,q_85,enc_auto/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg"></img>
+          </div>
           <div className="grid-item-info">
             <div>
               <h2>ทำเล็บ</h2>

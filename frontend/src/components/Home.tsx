@@ -1,22 +1,23 @@
-import { Box, Button, Container, createTheme, Grid, IconButton, Paper, ThemeProvider } from "@mui/material";
+import { Box, Button, Container, Grid, IconButton, Paper, ThemeProvider } from "@mui/material";
 import * as React from "react";
 import Carousel from "react-material-ui-carousel";
-import im2 from "../Image/im2.jpg";
+import im3 from "../Image/im3.jpg"
 import im5 from "../Image/im5.jpg";
 import im6 from "../Image/im6.jpg";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import grey from "@mui/material/colors/grey";
+import {pink , common} from "@mui/material/colors";
+import { createTheme, styled, useTheme } from "@mui/material/styles";
 
 const bgnavbar = createTheme({
   palette: {
     primary: {
       // Purple and grey play nicely together.
-      main: grey[800],
+      main: pink[200],
     },
     secondary: {
       // Purple and grey play nicely together.
-      main: grey[50],
+      main: common['black'],
     },
 
   },
@@ -29,7 +30,7 @@ function Home() {
 
   var Slider = [
     {
-      Image: im2,
+      Image: im3,
     },
     {
       Image: im5,
@@ -51,21 +52,23 @@ function Home() {
   return (
     <ThemeProvider theme={bgnavbar}>
     <div>
-      <Grid>{ImageC()}</Grid>
+     <Grid>
+      {ImageC()}
+     </Grid >
 
-      <div className="grid-con2">
+     <div className="grid-con2">
         <div className="grid-item-21">
           <img src="https://fangrio.com/wp-content/uploads/2018/02/S__12328981-1024x768.jpg" />
         </div>
         <div className="grid-item-22">
-          <div className="grid-item-info3">
-            <h1>ยินดีต้อนรับเข้าสู่ บิวตี้ซาลอน</h1>
+          <div className="word-headder-homeshow">
+            <h1>Welcom To Bueaty Salon</h1>
           </div>
         </div>
         <div className="grid-item-23">
-          <div className="grid-item-info4">
+          <div className="details-headder-homeshow">
             <h4>บริการทุกระดับประทับใจ ลูกค้าต้องการแบบไหนบอกช่างได้เลย</h4>
-            <h4>ร้านเปิดบริการวันจันทร์-ศุกร์ และอาทิตย์ ตั้งแต่เวลา 10:00 - 17:00 น.</h4>
+            <h4>ร้านเปิดบริการวันจันทร์-ศุกร์ และอาทิตย์ ตั้งแต่เวลา 10:00-17:00 น.</h4>
             <h4>ร้านของเรามีบริการต่างๆ ดังนี้</h4>
             <h4>*****************************</h4>
             <h4>1. ทำผม --- สระผม/ไดร์ผม ตัดผม/ซอยผม ยืดผม ย้อมผม ดัดผม </h4>
@@ -112,10 +115,13 @@ function Home() {
           <div>
             <img src="https://img.salehere.co.th/p/1200x0/2021/06/09/qvydnoeefujy.jpg"></img>
           </div>
+          {/* <div>
+            <img src="https://static.wixstatic.com/media/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg/v1/fill/w_601,h_601,al_c,lg_1,q_85,enc_auto/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg"></img>
+          </div> */}
         </div>
 
         <div className="grid-item-3">
-          <div>
+           <div>
             <img src="https://static.wixstatic.com/media/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg/v1/fill/w_601,h_601,al_c,lg_1,q_85,enc_auto/3546ac_fb3075ee1ab049a7bbd4a6c1b14e45bc~mv2.jpg"></img>
           </div>
           <div className="grid-item-info">
@@ -155,22 +161,22 @@ function Home() {
           <h2>เบอร์ติดต่อ</h2>
         </div>
         <div className="grid-item-footer2">
-          <p>เปิดบริการวันจันทร์-ศุกร์ และอาทิตย์</p>
+          <h3>080-329-9545</h3>
         </div>
         <div className="grid-item-footer3">
-          <h3>0803299545</h3>
+          <h3>เปิดบริการวันจันทร์-ศุกร์ และ วันอาทิตย์</h3>
         </div>
         <div className="grid-item-footer4">
           <h2>Connect With Us</h2>
         </div>
         <div className="grid-item-footer5">
-          <p>SOCIAL MEDIA CHANNELS</p>
+          <p>Social Media Channels</p>
         </div>
         <div className="grid-item-footer6">
-          <IconButton color="secondary" href="https://www.facebook.com/profile.php?id=100088341936558" >
+          <IconButton color='secondary' href="https://www.facebook.com/Fahwanatsanan/" >
             <FacebookIcon />
           </IconButton>
-          <IconButton color="secondary" href="https://www.youtube.com/watch?v=pugRd6WapdM" >
+          <IconButton color='secondary' href="https://www.youtube.com/watch?v=jZGZ0OG6Zts&ab_channel=SweetTheKid" >
             <YouTubeIcon />
           </IconButton>
         </div>

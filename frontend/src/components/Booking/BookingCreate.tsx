@@ -15,7 +15,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import TextField, { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants } from "@mui/material/TextField";
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -31,6 +31,7 @@ import { Bookings, GetMemberByUID, GetEmployees } from "./services/BookingHttpCl
 import { GetServices } from "../Service/service/ServiceHttpClientService";
 import { JSX } from "react/jsx-runtime";
 
+
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -40,7 +41,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function BookingCreate() {
     const [booking, setBooking] = useState<BookingsInterface>({
-       Time: new Date(),
+    //    Time: new Dayjs(),
+        Time: new Date(),
         //Stop: new Date(),
     });
     const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
@@ -206,6 +208,7 @@ function BookingCreate() {
                             <DateTimePicker
                                         defaultValue={today}
                                         //disablePast
+                                        // inputFormat="yyyy-MM-dd-hh-mm"
                                         views={['year', 'month', 'day', 'hours', 'minutes']}
                                         value={booking.Time}
                                         onChange={(newValue: any) => {
@@ -214,7 +217,7 @@ function BookingCreate() {
                                             Time: newValue,
                                         });
                                     }}
-                                    renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />}
+                                    // renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
                         </FormControl>
