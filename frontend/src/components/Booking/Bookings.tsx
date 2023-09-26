@@ -13,7 +13,7 @@ import { MemberInterface } from "../../models/modelMember/IMember";
 import { EmployeeInterface } from "../../models/IManage";
 import { ServiceInterface } from "../../models/IService";
 
-function Bookings() {
+function NewBookings() {
     const [bookings, setBookings] = useState<BookingsInterface[]>([]);
     const [members, setMembers] = useState<MemberInterface>();
     const [employees, setEmployees] = useState<EmployeeInterface>();
@@ -57,9 +57,11 @@ function Bookings() {
     }
 
     const columns: GridColDef[] = [
-        { field: "Booking_Number", headerName: "เลขที่การจอง", width: 150 },
+        // { field: "New_Booking_Number", headerName: "เลขที่การจอง", width: 150 },
         //{ field: "Branch", headerName: "สาขา", width: 150, valueFormatter: (params) => params.value.B_name, },
         { field: "Service", headerName: "บริการ", width: 180, valueFormatter: (params) => params.value.Name, },
+        { field: "BookingDate", headerName: "วันที่", width: 180, valueFormatter: (params) => format(new Date(params.value), "dd-MM-yyyy"), },
+        { field: "TimeBooking", headerName: "บริการ", width: 180, valueFormatter: (params) => params.value.Start_End, },
         //{ field: "Total", headerName: "ราคาต่อวัน(บาท)", width: 100 },
         //{ field: "Start", headerName: "วันที่เริ่มเข้าพัก", width: 150, valueFormatter: (params) => format(new Date(params.value), "dd/MM/yyyy"), },
         //{ field: "Stop", headerName: "วันที่สิ้นสุดการเข้าพัก", width: 150, valueFormatter: (params) => format(new Date(params.value), "dd/MM/yyyy"), },
@@ -72,7 +74,7 @@ function Bookings() {
 
     return (
             <Container maxWidth="md">
-                <Box display="flex" sx={{ marginTop: 2, }}>
+                <Box display="flex" sx={{ marginTop: 5, }}>
                     <Box flexGrow={1}>
                         <Typography component="h2" variant="h6" color="primary" gutterBottom>
                             ข้อมูลการจองคิวของคุณ {members?.FirstName}
@@ -101,4 +103,4 @@ function Bookings() {
     );
 }
 
-export default Bookings;
+export default NewBookings;

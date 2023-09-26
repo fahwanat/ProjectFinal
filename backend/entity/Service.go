@@ -57,7 +57,8 @@ type Service struct {
 	Employee   Employee `valid:"-" gorm:"references:id"`
 
 	Bookings  []Booking   `gorm:"foreignKey:ServiceID"`
-
+	
+	
 	//HairID ทำหน้าที่เป็น FK
 	// HairID *uint
 	// Hair   Hair `valid:"-" gorm:"references:id"`

@@ -11,10 +11,10 @@ import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
-import TextField, { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants } from "@mui/material/TextField";
+import TextField, { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldProps} from "@mui/material/TextField";
 import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -24,12 +24,15 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 
 import { BookingsInterface } from "../../models/modelBooking/IBooking";
+import { TimeBookingInterface } from "../../models/modelBooking/ITimeBooking";
 import { EmployeeInterface } from "../../models/IManage";
 import { ServiceInterface } from "../../models/IService";
 import { MemberInterface } from "../../models/modelMember/IMember";
-import { Bookings, GetMemberByUID, GetEmployees } from "./services/BookingHttpClientService";
+import { Bookings, GetMemberByUID, GetEmployees} from "./services/BookingHttpClientService";
 import { GetServices } from "../Service/service/ServiceHttpClientService";
 import { JSX } from "react/jsx-runtime";
+import { DatePicker } from "@mui/x-date-pickers";
+
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -40,18 +43,17 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 function BookingCreate() {
-    const [booking, setBooking] = useState<BookingsInterface>({
-    //    Time: new Dayjs(),
-        Time: new Date(),
-        //Stop: new Date(),
-    });
+    const [booking, setBooking] = useState<Partial<BookingsInterface>>({});
+    const [timebooking, setTimeBooking] = useState<TimeBookingInterface[]>([]);
     const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
     const [services, setServices] = useState<ServiceInterface[]>([]);
     const [members, setMembers] = useState<MemberInterface>();
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [message, setAlertMessage] = useState("");
-    const today = dayjs().subtract(1, 'day');
+
+    const [BookingDate, setBookingDate] = React.useState<Dayjs | null>(dayjs());
+    // const today = dayjs().subtract(1, 'day');
 
     const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -99,7 +101,36 @@ function BookingCreate() {
         }
     }
 
+    const apiUrl = "http://localhost:8080";
+    const requestOptionsGet = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+    // const getTimeBooking = async () => {
+    //     let res = await GetTimeBookingByUID();
+    //     if (res) {
+    //         setTimeBooking(res);
+    //     }
+    // };
+   
+
+    const fetchTimeBooking = async () => {
+        fetch(`${apiUrl}/bookings/time_bookings`, requestOptionsGet)
+          .then((response) => response.json())
+          .then((result) => {
+            setTimeBooking(result.data);
+          });
+      };
+
+    // =========================(Fetch API)====================================================
+
     useEffect(() => {
+        // getTimeBooking();
+        fetchTimeBooking();
         getEmployees();
         getServices();
         getMember();
@@ -112,15 +143,38 @@ function BookingCreate() {
     };
 
     async function submit() {
+        setBookingDate(dayjs());
         let data = {
-           EmployeeID: convertType(booking.EmployeeID),
+            EmployeeID: convertType(booking.EmployeeID),
             ServiceID: convertType(booking.ServiceID),
-            Time: booking.Time,
+            BookingDate: BookingDate,
+            TimeBookingID: convertType(booking.TimeBookingID),
             //Stop: booking.Stop,
             MemberID: convertType(booking.MemberID),
         };
 
         console.log(data);
+
+        // const apiUrl = "http://localhost:8080/NewBook/Create";
+        // const requestOptions = {
+        //     method: "POST",
+        //     headers: {
+        //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(data),
+        // };
+        // fetch(apiUrl, requestOptions)
+        //     .then((response) => response.json())
+        //     .then((res) => {
+        //     if (res.data) {
+        //         setAlertMessage("บันทึกข้อมูลสำเร็จ");
+        //         setSuccess(true);
+        //     } else {
+        //         setAlertMessage(res.error);
+        //         setError(true);
+        //     }
+        // });
 
         let res = await Bookings(data);
         if (res.status) {
@@ -201,49 +255,49 @@ function BookingCreate() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                            <p>วันที่และเวลาที่จอง</p>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DateTimePicker
-                                        defaultValue={today}
-                                        //disablePast
-                                        // inputFormat="yyyy-MM-dd-hh-mm"
-                                        views={['year', 'month', 'day', 'hours', 'minutes']}
-                                        value={booking.Time}
-                                        onChange={(newValue: any) => {
-                                        setBooking({
-                                            ...booking,
-                                            Time: newValue,
-                                        });
-                                    }}
-                                    // renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />}
-                                />
-                            </LocalizationProvider>
+                            <p>วันที่จอง</p>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                // {...props}
+                                // slots={{
+                                //     textField: textFieldProps => <TextField {...textFieldProps} />
+                                // }}
+                            //   renderInput={(props) => <TextField {...props} />}
+                              label="BookingDate"
+                              value={BookingDate}
+                              onChange={(newValue) => {
+                                setBookingDate(newValue);
+                              
+                              }}
+                            />
+                          </LocalizationProvider>
                         </FormControl>
                     </Grid>
-                     {/* <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                            <p>วันที่และเวลาที่จอง</p>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DemoItem label="DateTimePicker">
-                                    <DateTimePicker
-                                        defaultValue={yesterday}
-                                        disablePast
-                                        views={['year', 'month', 'day', 'hours', 'minutes']}
-                                        value={booking.Time}
-                                        onChange={(newValue: any) => {
-                                        setBooking({
-                                            ...booking,
-                                            Time: newValue,
-                                        });
-                                    }}
-                                    renderInput={(params: JSX.IntrinsicAttributes & { variant?: TextFieldVariants | undefined; } & Omit<FilledTextFieldProps | OutlinedTextFieldProps | StandardTextFieldProps, "variant">) => <TextField {...params} />}
-                                    />
-                                </DemoItem>
-                            </LocalizationProvider>
+                            <p>เวลาที่ต้องการเข้าใช้บริการ</p>
+                            <Select
+                                native
+                                id="TimeBookingID"
+                                value={booking.TimeBookingID + ""}
+                                onChange={handleChange}
+                                inputProps={{
+                                    name: "TimeBookingID",
+                                }}
+                            >
+                                <option aria-label="None" value="">
+                                    กรุณาเลือกเวลา
+                                </option>
+                                {timebooking.map((item: TimeBookingInterface) => (
+                                    <option value={item.ID} key={item.ID}>
+                                    {item.Start_End}
+                                    </option>
+                                ))}
+                            </Select>
                         </FormControl>
-                    </Grid>  */}
+                    </Grid>
                     <Grid item xs={8}>
                         <FormControl fullWidth variant="outlined">
                             <p>จองโดย</p>

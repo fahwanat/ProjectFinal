@@ -18,7 +18,7 @@ import Manage_Show from "./components/Manage/Manage_Show";
 import Manage_Edit from "./components/Manage/Manage_Edit";
 import Bookings from "./components/Booking/Bookings";
 import BookingCreate from "./components/Booking/BookingCreate";
-import BookingUpdate from "./components/Booking/BookingUpdate";
+// import BookingUpdate from "./components/Booking/BookingUpdate";
 import ServiceShow from "./components/Service/ServiceShow";
 import Schedule from "./components/Scheduler/Scheduler";
 
@@ -48,6 +48,7 @@ export default function App() {
           <Route path="/home" element={<SignIn />} />
           <Route path="/member/create" element={<CreatMember />} />
           <Route path="/Book" element={<Bookings />} />
+          <Route path="/Book/Create" element={<BookingCreate />} />
         </Routes>
       </Router>
     );
@@ -73,14 +74,13 @@ export default function App() {
               <>
                 <Route path="/Homeshow" element={<Home />} />
                 <Route path="/Book" element={<Bookings />} /> 
-                 <Route path="/Book/Create" element={<BookingCreate />} />
-                <Route path="/Book/Edit" element={<BookingUpdate />} />
+                <Route path="/Book/Create" element={<BookingCreate />} />
+                {/* <Route path="/Book/Edit" element={<BookingUpdate />} /> */}
                 {/*<Route path="/Book/Delete" element={<BookingDelete />} /> */}
 
                  <Route path="/Schedule" element={<Schedule />} />
                 {/*<Route path="/Rep/Create" element={<RepRqCreate />} />
                 <Route path="/Rep/Edit/:id" element={<RepRqEdit />} /> */}
-
 
                 {/* <Route path="/Reviewlist" element={<Review_list />} /> */}
 
@@ -109,29 +109,7 @@ export default function App() {
               <Route path="/Manage-Save" element={<Manage_Save />} />
                 <Route path="/Manage-Show" element={<Manage_Show />} />
                 <Route path="/Manage-Edit/:id" element={<Manage_Edit />} /> 
-                <Route path="/ss" element={<ServiceShow />} />
-              
-              {/* <Route path="/RT" element={<RoomShow />} />
-              <Route path="/RT/Create" element={<RoomCreate />} />
-              <Route path="/RT/Edit" element={<RoomEdit />} />
-
-              <Route path="/CPM" element={<CHK_Payments />} />
-              <Route path="/CPM/Create" element={<CHK_PaymentCreate />} />
-              <Route path="/CPM/Edit" element={<CHK_PaymentUpdate />} />
-
-              <Route path="/RoomW" element={<StorageShow />} />
-              <Route path="/RoomW/Create" element={<StorageCreate />} />
-              <Route path="/RoomW/Edit" element={<StorageEdit />} />
-
-              <Route path="/CNCO" element={<CheckInOutShow />} />
-              <Route path="/CNCO/Create" element={<CheckInOutCreate />}/> 
-              <Route path="/CNCO/Edit/:id" element={<CheckInOutEdit />}/> 
-
-              <Route path="/checkroom/create" element={<Checkroom />} />
-              <Route path="/checkroom/list" element={<Checkroomlist />} />
-              <Route path="/checkroom/edit" element={<CheckroomEdit />} />
-
-              <Route path="/customer/showforadmin" element={<CustomerlistforAdmin />} /> */}
+                <Route path="/ss" element={<ServiceShow />} />  
               </>
             )
             }

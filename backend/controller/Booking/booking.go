@@ -16,6 +16,8 @@ func CreateBooking(c *gin.Context) {
 	var member entity.Member
 	var service entity.Service
 	var employee entity.Employee
+	var time_booking entity.TimeBooking
+	// var appointment [] interface{};
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร booking
 	if err := c.ShouldBindJSON(&booking); err != nil {
@@ -26,6 +28,12 @@ func CreateBooking(c *gin.Context) {
 	// แทรกการ validate ไว้ช่วงนี้ของ controller
 	if _, err := govalidator.ValidateStruct(booking); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	//9: ค้นหาด้วย id ของ TimeBooking
+	if tx := entity.DB().Where("id = ?", booking.TimeBookingID).First(&time_booking); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "TimeBooking not found"})
 		return
 	}
 
@@ -45,39 +53,45 @@ func CreateBooking(c *gin.Context) {
 	if tx := entity.DB().Where("id = ?", booking.MemberID).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})
 		return
-	}
+	}	
 
 	//start := time.Date(booking.Start.Year(), booking.Start.Month(), booking.Start.Day(), 0, 0, 0, 0, time.UTC)
 	//stop := time.Date(booking.Stop.Year(), booking.Stop.Month(), booking.Stop.Day(), 0, 0, 0, 0, time.UTC)
 	//for grouping
-	hashBk_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", service.ID, employee.ID))))
+	hashBk_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v", service.ID, employee.ID))))
 
 	// Loop over each day in the date range
 	//for d := start; d.Before(stop.AddDate(0, 0, 1)); d = d.AddDate(0, 0, 1) {
 		// Create a hash string from the room_id and dayeach
-		hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v",service.ID, employee.ID))))
-		// Create a booking for each day
-		// 12: สร้าง Booking
-		bk := entity.Booking{
-			Booking_Number: hashBk_No,
-			Tx_No:          hashTx_No,
-			Employee:         employee,
-			Service: service,
-			Time:     booking.Time,
-			//Stop:    stop,
-			Member:  member,
-			Total:   float64(service.Price),
-			//DayEach: d,
-		}
+	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v",service.ID, employee.ID))))
+	//Create a booking for each day
+	// 12: สร้าง Booking	
+	bk := entity.Booking{
+		Booking_Number: hashBk_No,
+		Tx_No:          hashTx_No,
+		Employee:       employee,
+		Service: 		service,
 
-		// Save the booking to the database
-		//13: save
-		if err := entity.DB().Create(&bk).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+		BookingDate:    booking.BookingDate,
+		TimeBooking: 	time_booking,
+
+			// Time:     booking.Time,
+			//Stop:    stop,
+		Member:  		member,
+		Total:   		float64(service.Price),	
+			//DayEach: d,
+	}
+
+
+
+// Save the booking to the database
+	//13: save
+	if err := entity.DB().Create(&bk).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 		}
 	
-	c.JSON(http.StatusCreated, gin.H{"data": booking})
+	c.JSON(http.StatusCreated, gin.H{"data": bk})
 }
 
 // GET /booking/:id
@@ -88,7 +102,7 @@ func GetBooking(c *gin.Context) {
 		Num_Of_Day  int
 		entity.Booking
 	}
-	if err := entity.DB().Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE id = ? GROUP BY booking_number", id).Find(&bookings).Error; err != nil {
+	if err := entity.DB().Preload("TimeBooking").Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE id = ? GROUP BY booking_number", id).Find(&bookings).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -102,7 +116,7 @@ func ListBookings(c *gin.Context) {
 		Num_Of_Day  int
 		entity.Booking
 	}
-	if err := entity.DB().Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings GROUP BY booking_number").Find(&b_total).Error; err != nil {
+	if err := entity.DB().Preload("TimeBooking").Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings GROUP BY booking_number").Find(&b_total).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -118,7 +132,7 @@ func ListBookingsByUID(c *gin.Context) {
 		entity.Booking
 	}
 
-	if err := entity.DB().Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE member_id = ? GROUP BY booking_number", id).Find(&bookings).Error; err != nil {
+	if err := entity.DB().Preload("TimeBooking").Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE member_id = ? GROUP BY booking_number", id).Find(&bookings).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -135,7 +149,7 @@ func ListBookingsBydate(c *gin.Context) {
 		Num_Of_Day  int
 		entity.Booking
 	}
-	if err := entity.DB().Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE start = ? GROUP BY booking_number", today).Find(&bookings).Error; err != nil {
+	if err := entity.DB().Preload("TimeBooking").Preload("Employee").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE start = ? GROUP BY booking_number", today).Find(&bookings).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -183,11 +197,12 @@ func UpdateBooking(c *gin.Context) {
 	var booking entity.Booking
 	var member entity.Member
 	var service entity.Service
+	var time_booking entity.TimeBooking
 	//var branch entity.Branch
 
 	id := c.Param("id")
 	if tx := entity.DB().Where("id = ?", id).First(&booking); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "booking not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "newbooking not found"})
 		return
 	}
 
@@ -207,12 +222,6 @@ func UpdateBooking(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	// 9: ค้นหา branch ด้วย id
-	// if tx := entity.DB().Where("id = ?", booking.BranchID).First(&branch); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "branch not found"})
-	// 	return
-	// }
 
 	// 10: ค้นหา room ด้วย id
 	if tx := entity.DB().Where("id = ?", booking.ServiceID).First(&service); tx.RowsAffected == 0 {
@@ -234,7 +243,7 @@ func UpdateBooking(c *gin.Context) {
 	/// Loop over each day in the date range
 	//for d := start; d.Before(stop.AddDate(0, 0, 1)); d = d.AddDate(0, 0, 1) {
 		// Create a hash string from the room_id and dayeach
-		hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v", service.ID))))
+	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v", service.ID))))
 		// Create a booking for each day
 		// 12: สร้าง Booking
 		bk := entity.Booking{
@@ -242,7 +251,11 @@ func UpdateBooking(c *gin.Context) {
 			Tx_No:          hashTx_No,
 			//Branch:         branch,
 			Service: service,
-			Time:     booking.Time,
+
+			BookingDate: booking.BookingDate,
+			TimeBooking: time_booking,
+
+			// Time:     booking.Time,
 			//Stop:    stop,
 			Member:  member,
 			Total:   float64(service.Price),
@@ -258,3 +271,4 @@ func UpdateBooking(c *gin.Context) {
 	
 	c.JSON(http.StatusCreated, gin.H{"data": booking})
 }
+

@@ -41,6 +41,7 @@ func SetupDatabase() {
 
 		// ระบบจองห้องพัก
 		&Booking{},
+		&TimeBooking{},
 
 
 	)

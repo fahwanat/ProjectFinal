@@ -486,37 +486,128 @@ func SetupIntoDatabase(db *gorm.DB) {
 	stop := time.Date(2023, 2, 8, 0, 0, 0, 0, time.UTC)
 	//for grouping
 	hashBk_No1 := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", stop.Unix(), start.Unix(), ServiceHair1.ID))))
-	hashBk_No2 := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", stop.Unix(), start.Unix(), ServiceNial1.ID))))
-
-	db.Model(&Booking{}).Create(&Booking{
-		Booking_Number: hashBk_No1,
-		Tx_No:          hashBk_No1,
-		Employee:         Manikan,
-		Service: ServiceHair1,
-		Time:   time.Date(2023, 2, 7, 0, 0, 0, 0, time.UTC),
-		//Stop:    time.Date(2023, 2, 8, 0, 0, 0, 0, time.UTC),
-		//DayEach: time.Date(2023, 2, 11, 0, 0, 0, 0, time.UTC),
-		Member:  Member1,
-		Total:   float64(ServiceHair1.Price),
-	})
+	// hashBk_No2 := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v_%v", stop.Unix(), start.Unix(), ServiceNial1.ID))))
 
 	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)
 
+	//TimeBooking
+	//Time 10.00-11.00
+	TimeBooking1 := TimeBooking{
+		Start_End: "10:00 - 11:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking1)
+
+	TimeBooking2 := TimeBooking{
+		Start_End: "11:00 - 12:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking2)
+	
+	TimeBooking3 := TimeBooking{
+		Start_End: "12:00 - 13:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking3)
+
+	TimeBooking4 := TimeBooking{
+		Start_End: "13:00 - 14:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking4)
+
+	TimeBooking5 := TimeBooking{
+		Start_End: "14:00 - 15:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking5)
+
+	TimeBooking6 := TimeBooking{
+		Start_End: "15:00 - 16:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking6)
+
+	TimeBooking7 := TimeBooking{
+		Start_End: "16:00 - 17:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking7)
+
+	TimeBooking8 := TimeBooking{
+		Start_End: "17:00 - 18:00 น.",
+	}
+	db.Model(&TimeBooking{}).Create(&TimeBooking8)
+
+
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "10:00 - 11:00 AM",
+	// })
+	// //Time 11.00-12.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "11:00 - 12:00 AM",
+	// })
+	// //Time 12.00-13.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "12:00 - 13:00 PM",
+	// })
+	// //Time 13.00-14.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "13:00 - 14:00 PM",
+	// })
+	// //Time 14.00-15.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "14:00 - 15:00 PM",
+	// })
+	// //Time 15.00-16.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "15:00 - 16:00 PM",
+	// })
+	// //Time 16.00-17.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "16:00 - 17:00 PM",
+	// })
+	// //Time 17.00-18.00
+	// db.Model(&TimeBooking{}).Create(&TimeBooking{
+	// 	Start_End: "17:00 - 18:00 PM",
+	// })
+
+	// var TimeBooking1 TimeBooking
+	// var TimeBooking2 TimeBooking
+	// var TimeBooking3 TimeBooking
+	// var TimeBooking4 TimeBooking
+	// var TimeBooking5 TimeBooking
+	// var TimeBooking6 TimeBooking
+	// var TimeBooking7 TimeBooking
+	// var TimeBooking8 TimeBooking
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "1").Scan(&TimeBooking1)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "2").Scan(&TimeBooking2)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "3").Scan(&TimeBooking3)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "4").Scan(&TimeBooking4)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "5").Scan(&TimeBooking5)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "6").Scan(&TimeBooking6)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "7").Scan(&TimeBooking7)
+	// db.Raw("SELECT * FROM timebookings WHERE id = ?", "8").Scan(&TimeBooking8)
+
+	
 	db.Model(&Booking{}).Create(&Booking{
-		Booking_Number: hashBk_No2,
-		Tx_No:          hashBk_No2,
+		Booking_Number: hashBk_No1,
+		Tx_No:          hashBk_No1,
 		Employee:         Apinya,
 		Service: ServiceNial1,
-		Time:   today,
+
+		BookingDate: today,
+		TimeBooking: TimeBooking1,
+
+		// Time:   today,
 		//Stop:    today.AddDate(0, 0, 1),
 		//DayEach: time.Date(2023, 2, 11, 0, 0, 0, 0, time.UTC),
-		Member:  Member2,
+		Member:  Member1,
 		Total:   float64(ServiceNial1.Price),
 	})
-
+	
 	var booking1 Booking
-	var booking2 Booking
-	db.Raw("SELECT * FROM bookings WHERE id = ?", "1").Scan(&booking1)
-	db.Raw("SELECT * FROM bookings WHERE id = ?", "2").Scan(&booking2)
+	// var newbooking2 Booking
+	db.Raw("SELECT * FROM newbookings WHERE id = ?", "1").Scan(&booking1)
+	// db.Raw("SELECT * FROM bookings WHERE id = ?", "2").Scan(&booking2)
+
+
 }
+
+
+
+
