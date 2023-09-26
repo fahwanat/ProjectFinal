@@ -103,13 +103,14 @@ func main() {
 			router.DELETE("/bookings/customer/:id", booking.DeleteBookingByCID)
 			router.GET("/bookingbydate", booking.ListBookingsBydate)
 			router.GET("/bookingtotalgroupbydate", booking.ListBookingsTotalbyCID)
-			// ---Branch---
-			// router.GET("/branchs", booking.ListBranchs)
-			// router.GET("/branch/:id", booking.GetBranch)
-			// router.POST("/branchs", booking.CreateBranch)
-			// router.PATCH("/branchs", booking.UpdateBranch)
-			// router.DELETE("/branchs/:id", booking.DeleteBranch)
-			//=================================================== Booking Routes
+		
+			//=================================================== TimeBooking Routes
+			//TimeBooking
+			r.GET("/bookings/time_bookings", booking.ListTimeBooking)
+			router.GET("/bookings/time_bookings/:id", booking.GetTimeBooking)
+			router.POST("/bookings/time_bookings", booking.CreateTimeBooking)
+			router.PATCH("/bookings/time_bookings", booking.UpdateTimeBooking)
+			router.DELETE("/bookings/time_bookings/:id", booking.DeleteTimeBooking)
 
 		}
 	}

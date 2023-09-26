@@ -1,20 +1,21 @@
 package entity
 
 import (
-	"time"
+	// "time"
 
 	//"github.com/asaskevich/govalidator"
+	"time"
+
 	"gorm.io/gorm"
 )
 
-// type Branch struct {
-// 	gorm.Model
-// 	//B_name string
-// 	// ส่งไป
-// 	Bookings []Booking `gorm:"foreignKey:BranchID"`
-// }
+type TimeBooking struct{
+	gorm.Model
+	Start_End string
+	Booking   	[]Booking  `gorm:"foreignKey:TimeBookingID"`
+}
 
- type Booking struct {
+type Booking struct {
 	gorm.Model
 	Booking_Number string
 	Tx_No          string `gorm:"uniqueIndex"`
@@ -25,26 +26,15 @@ import (
 	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
 	Service   Service `valid:"-" gorm:"references:id"`
 
-	Time    time.Time `valid:"วันที่และเวลาไม่ถูกต้อง"`
-	//Stop    time.Time `valid:"required~กรุณาเลือกวันที่สิ้นสุดการพัก, IsAfterStartOneDay~เวลาสิ้นสุดการพักต้องอยู่หลังวันเข้าพักอย่างน้อย 1 วัน"`
+	BookingDate	time.Time `valid:"วันที่ไม่ถูกต้อง"`
+
+	TimeBookingID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
+	TimeBooking		TimeBooking `valid:"-" gorm:"references:id"`
+	
 	Total   float64
-	//DayEach time.Time
+
 	//รับเข้ามา
 	MemberID *uint  `valid:"required~กรุณาเข้าสู่ระบบ"`
 	Member   Member `valid:"-" gorm:"references:id"`
 
-	//CheckInOut []CheckInOut `gorm:"foreignKey:BookingID"`
 }
-
-// func init() {
-// 	govalidator.CustomTypeTagMap.Set("IsAfterAndPresent", func(i interface{}, context interface{}) bool {
-// 		t := i.(time.Time)
-// 		return t.After(time.Now().AddDate(0, 0, -1)) // today ->
-// 	})
-
-// 	govalidator.CustomTypeTagMap.Set("IsAfterStartOneDay", func(i interface{}, context interface{}) bool {
-// 		t := i.(time.Time)
-// 		b := context.(Booking)
-// 		return t.After(b.Start) //Start ->
-// 	})
-// }

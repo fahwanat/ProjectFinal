@@ -2,30 +2,31 @@
 import { MemberInterface } from "../modelMember/IMember"
 import { ServiceInterface } from "../IService"
 import { EmployeeInterface } from "../IManage"
+import { TimeBookingInterface } from "./ITimeBooking"
 import { Dayjs } from "dayjs"
 
 export interface BookingsInterface {
     ID?: number,
 
-    EmployeeID?: number,
+    Booking_Number?: string,
+    Tx_No?: string,
+    Total?: number, 
+			
+	EmployeeID?: number,
     Employee?: EmployeeInterface,
 
     ServiceID?: number,
     Service?: ServiceInterface,
 
-    Time?: Date | null ,
-    // Time?: Dayjs | null ,
-    //Stop?: Date | null,
+	BookingDate?: Dayjs| null,
 
-    // Auto generate in backend
-    Booking_Number?: string,
-    Tx_No?: string,
-    Total?: number, // TypeScript's number type represents a floating-point number and can store integers and floating-point numbers.
-    //DayEech?: Date | null,
-    TotalAmount?: number,
-    Num_Of_Day?: number,
-    // Auto generate in backend
+	TimeBookingID?: number,
+    TimeBooking?: TimeBookingInterface,
 
     MemberID?: number,
     Member?: MemberInterface,
+
+    
+	TotalAmount?: number,
+			
 }

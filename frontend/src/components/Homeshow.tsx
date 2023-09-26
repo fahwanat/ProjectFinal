@@ -81,7 +81,7 @@ function Homeshow() {
           <Box sx={{ display: 'flex', width: '30%'}}>
             <Button component={RouterLink} to="/Homeshow"  color='secondary' sx={{ display: 'flex', width: '10%'}} >Home</Button>
             <Button component={RouterLink} to="/RW"  color='secondary' sx={{ display: 'flex', width: '10%'}}>รีวิว</Button>
-            <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '25%'}}>ข้อมูลต่างๆ</Button>
+            <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '20%'}}>ข้อมูลต่างๆ</Button>
           
           </Box>
           <Box sx={{ display: 'flex', width: '3%'}}>

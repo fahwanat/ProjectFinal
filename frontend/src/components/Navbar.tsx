@@ -237,7 +237,9 @@ function Navbar() {
             </Typography>
           </Box>
           <Box sx={{ display: 'center', width: '6.5%', }}>
-          <Button component={RouterLink} to="/home" variant="contained" color='secondary' >จองคิว</Button>
+          <Button component={RouterLink} to="Book/Create" variant="contained" color='secondary' >
+              จองคิว
+          </Button>
           </Box>
 
           <Button

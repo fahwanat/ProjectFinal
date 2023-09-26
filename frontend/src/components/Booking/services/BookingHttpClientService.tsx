@@ -1,5 +1,4 @@
 import { BookingsInterface } from "../../../models/modelBooking/IBooking";
-//import { BranchsInterface } from "../../../models/modelBooking/IBranch";
 
 
 const apiUrl = "http://localhost:8080";
@@ -120,15 +119,6 @@ async function DeleteEmployee(data: number) {
     return res;
 }
 /* -----------------------------------------------------------------------Booking--------------------------------------------------------------*/
-// //=================================================== Booking Routes
-// protected.GET("/bookings", booking.ListBookings)
-// protected.GET("/booking/:id", booking.GetBooking)
-// protected.GET("/bookings/user/:id", booking.ListBookingsByUID)
-// protected.POST("/bookings", booking.CreateBooking)
-// protected.PATCH("/bookings/:id", booking.UpdateBooking)
-// protected.DELETE("/bookings/:id", booking.DeleteBooking)
-// protected.GET("/bookingbydate", booking.ListBookingsBydate)
-// protected.GET("/bookingtotalgroupbydate", booking.ListBookingsTotalbyCID)
 
 //List Booking
 async function GetBookings() {
@@ -298,134 +288,6 @@ async function UppdateBooking(data: BookingsInterface) {
     return res;
 }
 
-// // ---Branch---
-//	r.GET("/branchs", booking.ListBranchs)
-	// r.GET("/branch/:id", booking.GetBranch)
-	// r.POST("/branchs", booking.CreateBranch)
-	// r.PATCH("/branchs", booking.UpdateBranch)
-	// r.DELETE("/branchs/:id", booking.DeleteBranch)
-// //=================================================== Booking Routes
-
-//GET List Branchs
-// async function GetBranchs() {
-//     const requestOptions = {
-//         method: "GET",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//     };
-
-//     let res = await fetch(`${apiUrl}/branchs`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
-
-//     return res;
-// }
-
-// //GET Get Branchs
-// async function GetBranch(data: BranchsInterface) {
-//     let br_id = data.ID;
-//     const requestOptions = {
-//         method: "GET",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//     };
-
-//     let res = await fetch(`${apiUrl}/branch/${br_id}`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
-
-//     return res;
-// }
-
-// //Craete Branchs
-// async function Branchs(data: BranchsInterface) {
-//     const requestOptions = {
-//         method: "POST",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     };
-
-//     let res = await fetch(`${apiUrl}/branchs`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
-
-//     return res;
-// }
-
-// // Delete Branch
-// async function DeleteBranch(data: BranchsInterface) {
-//     let branch_id = data.ID;
-//     const requestOptions = {
-//         method: "DELETE",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     }
-
-//     let res = await fetch(`${apiUrl}/branchs/${branch_id}`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
-
-//     return res;
-// }
-
-// // Update Branch
-// async function UppdateBranch(data: BranchsInterface) {
-//     const requestOptions = {
-//         method: "PATCH",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     }
-
-//     let res = await fetch(`${apiUrl}/branchs`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
-
-//     return res;
-// }
-
 export {
     GetMemberByUID,
     GetMembers,
@@ -441,9 +303,4 @@ export {
     DeleteBooking,
     UppdateBooking,
 
-    // Branchs,
-    // GetBranchs,
-    // GetBranch,
-    // UppdateBranch,
-    // DeleteBranch,
 };
