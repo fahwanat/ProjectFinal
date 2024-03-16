@@ -48,6 +48,7 @@ function ProfileMember() {
   
       setMember({ ...member, [id]: value });
     };
+
     const Onclick = async (id: number) => {
       let res = await DeleteMember(id);
       if (res) {
@@ -112,7 +113,7 @@ const getGender = async () => {
     });
 };
 
-    const apiUrl = "http://localhost:8080";
+  const apiUrl = "http://localhost:8080";
 
   async function GetMember() {
     let uid = localStorage.getItem("id");

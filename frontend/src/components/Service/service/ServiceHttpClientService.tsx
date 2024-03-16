@@ -7,16 +7,29 @@ const apiUrl = "http://localhost:8080";
 // router.PUT("/services", service.UpdateService)
 // router.DELETE("/services/:id", service.DeleteService)
 // List Room
-async function GetServices() {
-    const requestOptions = {
-        method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-    };
 
-    let res = await fetch(`${apiUrl}/services`, requestOptions)
+const requestOptionsGet = {
+    method: "GET",
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+    },
+}
+
+async function GetPrice(id: number) {
+    let res = await fetch(`${apiUrl}/services/${id}`, requestOptionsGet)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data.Price;
+            } else {
+                return false;
+            }
+        });
+    return res;
+}
+async function GetServiceType() {
+    let res = await fetch(`${apiUrl}/services_types`, requestOptionsGet)
         .then((response) => response.json())
         .then((res) => {
             if (res.data) {
@@ -25,21 +38,32 @@ async function GetServices() {
                 return false;
             }
         });
-
     return res;
 }
-
 // List Room
-async function GetService(id : any) {
-    const requestOptions = {
-        method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-    };
+async function GetService(id : number) {
+    // const requestOptions = {
+    //     method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //         "Content-Type": "application/json",
+    //       },
+    // };
 
-    let res = await fetch(`${apiUrl}/service/${id}`, requestOptions)
+    let res = await fetch(`${apiUrl}/services/service_type/${id}`, requestOptionsGet)
+    .then((response) => response.json())
+    .then((res) => {
+        if (res.data) {
+            return res.data;
+        } else {
+            return false;
+        }
+    });
+    return res;
+}
+
+async function GetTimeService(id : number) {
+    let res = await fetch(`${apiUrl}/time_services/service/${id}`, requestOptionsGet)
         .then((response) => response.json())
         .then((res) => {
             if (res.data) {
@@ -48,10 +72,8 @@ async function GetService(id : any) {
                 return false;
             }
         });
-
     return res;
 }
-
 
 // List Employee
 async function GetEmployees() {
@@ -76,111 +98,115 @@ async function GetEmployees() {
     return res;
 }
 
-//Craete service
-async function CreateService(data: ServiceInterface) {
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    };
+// //Craete service
+// async function CreateService(data: ServiceInterface) {
+//     const requestOptions = {
+//         method: "POST",
+//         headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(data),
+//     };
 
-    let res = await fetch(`${apiUrl}/services`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return {status: true, message: res.data};
-            } else {
-                return {status: false, message: res.error};
-            }
-        });
+//     let res = await fetch(`${apiUrl}/services`, requestOptions)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.data) {
+//                 return {status: true, message: res.data};
+//             } else {
+//                 return {status: false, message: res.error};
+//             }
+//         });
 
-    return res;
-}
+//     return res;
+// }
 
-//protected.PATCH("/services/id", service.Service)
-async function Service(data: number) {
-    let ServiceID = data;
-    const requestOptions = {
-        method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify(data),
-    }
+// //protected.PATCH("/services/id", service.Service)
+// async function Service(data: number) {
+//     let ServiceID = data;
+//     const requestOptions = {
+//         method: "PATCH",
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//           },
+//         body: JSON.stringify(data),
+//     }
 
-    let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
+//     let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.data) {
+//                 return res.data;
+//             } else {
+//                 return false;
+//             }
+//         });
 
-    return res;
-}
+//     return res;
+// }
 
-// Delete Service
-async function DeleteService(data: number) {
-    let ServiceID = data;
-    const requestOptions = {
-        method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify(data),
-    }
+// // Delete Service
+// async function DeleteService(data: number) {
+//     let ServiceID = data;
+//     const requestOptions = {
+//         method: "DELETE",
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//           },
+//         body: JSON.stringify(data),
+//     }
     
-    let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
+//     let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.data) {
+//                 return res.data;
+//             } else {
+//                 return false;
+//             }
+//         });
 
-    return res;
-}
+//     return res;
+// }
 
-//update room
-async function UpdateService(data: ServiceInterface) {
-    const requestOptions = {
-        method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify(data),
-    }
+// //update room
+// async function UpdateService(data: ServiceInterface) {
+//     const requestOptions = {
+//         method: "PUT",
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//           },
+//         body: JSON.stringify(data),
+//     }
 
-    let res = await fetch(`${apiUrl}/services`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
+//     let res = await fetch(`${apiUrl}/services`, requestOptions)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.data) {
+//                 return res.data;
+//             } else {
+//                 return false;
+//             }
+//         });
 
-    return res;
-}
+//     return res;
+// }
 
 
 export {
-    GetServices,
-    CreateService,
+
+    // CreateService,
     GetEmployees,
-    Service,
-    DeleteService,
-    UpdateService,
+    // Service,
+    // DeleteService,
+    // UpdateService,
     GetService,
+
+    GetServiceType,
+    GetPrice,
+    GetTimeService
 };

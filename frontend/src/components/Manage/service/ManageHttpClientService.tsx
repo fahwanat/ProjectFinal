@@ -186,6 +186,20 @@ import { EmployeeInterface } from "../../../models/IManage";
                     return res;
                 }
 
+                async function GetEmployeeBySID(id : number) {
+                    let res = await fetch(`${apiUrl}/employees/service_type/${id}`, requestOptionsGet)
+                    .then((response) => response.json())
+                    .then((res) => {
+                        if (res.data) {
+                            return res.data;
+                        } else {
+                            return false;
+                        }
+                    });
+                    return res;
+                }
+                
+
                 export{
                     GetPosition,
                     GetEmployeeByUID,
@@ -195,4 +209,5 @@ import { EmployeeInterface } from "../../../models/IManage";
                     GetEmployeeByID,
                     GetEmployeelist,
                     Employees,
+                    GetEmployeeBySID,
                 }

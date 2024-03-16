@@ -90,10 +90,10 @@ function Homeshow() {
             </IconButton>
           </Box>
           <Box sx={{ display: 'flex', width: '6.5%'}}>
-          <Button component={RouterLink} to="/home" variant="contained" color='secondary' >LOGIN</Button>
+          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >LOGIN</Button>
           </Box>
           <Box sx={{ display: 'flex', width: '10%'}}>
-          <Button component={RouterLink} to="/home" variant="contained" color='secondary' >จองคิว</Button>
+          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >จองคิว</Button>
           </Box>
           
         </Toolbar>

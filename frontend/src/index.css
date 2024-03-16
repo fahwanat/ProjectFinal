@@ -68,7 +68,7 @@ code {
 
 .grid-con-homepage-2 {
   display: grid;
-  grid-template-columns: repeat(9,1fr);
+  grid-template-columns: repeat(10,1fr);
   grid-template-rows: repeat(1,40px);
   grid-gap: 20px
 
@@ -307,7 +307,7 @@ code {
 
 .grid-item-23 {
   display: flex;
-  grid-column: 8 / 12;
+  grid-column: 8 / 13;
   grid-row: 3 / 5;
 }
 

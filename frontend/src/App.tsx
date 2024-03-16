@@ -19,11 +19,14 @@ import Manage_Edit from "./components/Manage/Manage_Edit";
 import Bookings from "./components/Booking/Bookings";
 import BookingCreate from "./components/Booking/BookingCreate";
 // import BookingUpdate from "./components/Booking/BookingUpdate";
-import ServiceShow from "./components/Service/ServiceShow";
-import Schedule from "./components/Scheduler/Scheduler";
+// import ServiceShow from "./components/Service/ServiceShow";
 
 // import About from "./components/About";
 import About from "./components/About";
+import TechnicianBooking from "./components/Technician/TechnicianBooking";
+import BookingAppointment from "./components/Booking/BookingApppointment";
+import TechnicianAppointment from "./components/Technician/TechnicianAppointment";
+import BookingConfirm from "./components/Booking/BookingConfirm";
 // import Roomhome from "./components/Roomhome";
 
 export default function App() {
@@ -45,7 +48,7 @@ export default function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/Homeshow" element={<Homeshow />} />
           <Route path="/About" element={<About />} />
-          <Route path="/home" element={<SignIn />} />
+          <Route path="/SignIn" element={<SignIn />} />
           <Route path="/member/create" element={<CreatMember />} />
           <Route path="/Book" element={<Bookings />} />
           <Route path="/Book/Create" element={<BookingCreate />} />
@@ -62,23 +65,26 @@ export default function App() {
           <Routes>
             {role === "Officer" && (
               <>
-                <Route path="/home" element={<Home />} />
+                <Route path="/Homeshow" element={<Home />} />
                  <Route path="/Manage-Save" element={<Manage_Save />} />
                 <Route path="/Manage-Show" element={<Manage_Show />} />
-                <Route path="/Manage-Edit/:id" element={<Manage_Edit />} /> 
-                <Route path="/ss" element={<ServiceShow />} />
+                <Route path="/Manage-Edit/:id" element={<Manage_Edit />} />
+                <Route path="/Book" element={<Bookings />} /> 
+                {/* <Route path="/ss" element={<ServiceShow />} /> */}
               </>
               )
             }
             {role === "Member" && (
               <>
                 <Route path="/Homeshow" element={<Home />} />
-                <Route path="/Book" element={<Bookings />} /> 
+                <Route path="/TechnicianBooking" element={<TechnicianBooking />} /> 
+                <Route path="/TechnicianAppointment" element={<TechnicianAppointment />} /> 
                 <Route path="/Book/Create" element={<BookingCreate />} />
+                <Route path="/Book/Appointment/:id" element={<BookingAppointment />} />
+                <Route path="/BookConfirm/:id" element={<BookingConfirm />} />
+                <Route path="/Book" element={<Bookings />} />
                 {/* <Route path="/Book/Edit" element={<BookingUpdate />} /> */}
                 {/*<Route path="/Book/Delete" element={<BookingDelete />} /> */}
-
-                 <Route path="/Schedule" element={<Schedule />} />
                 {/*<Route path="/Rep/Create" element={<RepRqCreate />} />
                 <Route path="/Rep/Edit/:id" element={<RepRqEdit />} /> */}
 
@@ -103,13 +109,14 @@ export default function App() {
             )
             }
 
-              {role === "Employee" && (
+              {role === "Technician" && (
               <>
-              <Route path="/home" element={<Home />} />
+              <Route path="/Homeshow" element={<Home />} />
               <Route path="/Manage-Save" element={<Manage_Save />} />
                 <Route path="/Manage-Show" element={<Manage_Show />} />
                 <Route path="/Manage-Edit/:id" element={<Manage_Edit />} /> 
-                <Route path="/ss" element={<ServiceShow />} />  
+                <Route path="/Book" element={<Bookings />} />
+                {/* <Route path="/ss" element={<ServiceShow />} />   */}
               </>
             )
             }
