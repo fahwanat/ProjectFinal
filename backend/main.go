@@ -78,39 +78,34 @@ func main() {
 			router.GET("/employees", employee.ListEmployees)
 			router.GET("/employee/:id", employee.GetEmployee)
 			router.GET("employees/officer/:id", employee.ListEmplooyeeByUID)
+			router.GET("/employees/service_type/:id", employee.ListEmployeeBySID)
 			router.POST("/employees", employee.CreateEmployee)
 			router.PATCH("/employees", employee.UpdateEmployee)
 			router.DELETE("/employees/:id", employee.DeleteEmployee)
 
-			//==================================================Service Routes
-			router.GET("/services", service.ListServices)
-			router.GET("/service/:id", service.GetService)
-			router.POST("/services", service.CreateService)
-			router.PUT("/services", service.UpdateService)
-			router.DELETE("/services/:id", service.DeleteService)
+			//============Service Routes
+			router.GET("/services_types", service.ListServiceTypes)
+			router.GET("/service_types/:id", service.GetServiceType)
+			router.GET("/services/service_type/:id", service.ListServicesByBID)
+			router.GET("/services/:id", service.GetService)
+			router.GET("/time_services/service/:id", service.ListTimeServiceByBID)
+			router.GET("/time_services/:id", service.GetTimeService)
 
 			// router.GET("/service_types", service.ListServiceTypes)
 			// router.GET("/service_types/:id", service.GetServiceType)
 			// router.POST("/service_types", service.CreateServiceType)
 
-			//=================================================== Booking Routes
+			//============Booking Routes
 			router.GET("/bookings", booking.ListBookings)
-			router.GET("/booking/:id", booking.GetBooking)
-			router.GET("/bookings/user/:id", booking.ListBookingsByUID)
+			router.GET("/bookings/:id", booking.GetBooking)
+			router.GET("/bookings/member/:id", booking.ListBookingsByUID)
 			router.POST("/bookings", booking.CreateBooking)
 			router.PATCH("/bookings/:id", booking.UpdateBooking)
 			router.DELETE("/bookings/:id", booking.DeleteBooking)
-			router.DELETE("/bookings/customer/:id", booking.DeleteBookingByCID)
-			router.GET("/bookingbydate", booking.ListBookingsBydate)
-			router.GET("/bookingtotalgroupbydate", booking.ListBookingsTotalbyCID)
+			router.DELETE("/bookings/member/:id", booking.DeleteBookingByCID)
+			router.GET("/bookingsbydate", booking.ListBookingsBydate)
+			router.GET("/bookingstotalgroupbydate", booking.ListBookingsTotalbyCID)
 		
-			//=================================================== TimeBooking Routes
-			//TimeBooking
-			r.GET("/bookings/time_bookings", booking.ListTimeBooking)
-			router.GET("/bookings/time_bookings/:id", booking.GetTimeBooking)
-			router.POST("/bookings/time_bookings", booking.CreateTimeBooking)
-			router.PATCH("/bookings/time_bookings", booking.UpdateTimeBooking)
-			router.DELETE("/bookings/time_bookings/:id", booking.DeleteTimeBooking)
 
 		}
 	}

@@ -6,6 +6,7 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/fahwanat/ProjectFinal/entity"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm/clause"
 
 	"github.com/gin-gonic/gin"
 
@@ -159,6 +160,7 @@ func CreateEmployee(c *gin.Context) {
 	var officer entity.Officer
 	var department entity.Department
 	var position entity.Position
+	var service_type entity.ServiceType
 	var employee entity.Employee
 
 	if err := c.ShouldBindJSON(&employee); err != nil {
@@ -191,6 +193,10 @@ func CreateEmployee(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Position not found"})
 		return
 	}
+	if tx := entity.DB().Where("id = ?", employee.ServiceTypeID).First(&service_type); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ServiceType not found"})
+		return
+	}
 
 	var userrole entity.UserRole
 	if err := entity.DB().Model(&entity.UserRole{}).Where("role_name = ?", "Employee").First(&userrole).Error; err != nil {
@@ -216,7 +222,8 @@ func CreateEmployee(c *gin.Context) {
 		Password:     SetupPasswordHash(employee.Password), // ตั้งค่าฟิลด์ Password
 		Salary:       employee.Salary,                      // ตั้งค่าฟิลด์ Salary
 		Phonenumber:  employee.Phonenumber,                 // ตั้งค่าฟิลด์ Tel
-		Gender:       employee.Gender,                      // ตั้งค่าฟิลด์ Gender
+		Gender:       employee.Gender,
+		ServiceType:  employee.ServiceType, // ตั้งค่าฟิลด์ Gender
 		Signin:       createuserlogin,
 	}
 
@@ -238,13 +245,29 @@ func ListEmplooyeeByUID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
 
+// GET /service/booking/:id
+func ListEmployeeBySID(c *gin.Context) {
+	var employee []entity.Employee
+	id := c.Param("id")
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE service_type_id = ?", id).Find(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+
 // GET /Employee/:id
 func GetEmployee(c *gin.Context) {
 
 	var employee entity.Employee
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+	// if err := entity.DB().Preload("ServiceType").Preload("ServiceType.Service."+clause.Associations).Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+	if err := entity.DB().Preload("Position").Preload("ServiceType").Preload("ServiceType.Service."+clause.Associations).Where("id = ?", id).First(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -256,7 +279,15 @@ func ListEmployees(c *gin.Context) {
 
 	var employee []entity.Employee
 
-	if err := entity.DB().Preload("Officer").Preload("Department").Preload("Position").Raw("SELECT * FROM employees").Find(&employee).Error; err != nil {
+	// if err := entity.DB().Preload("Officer").Preload("Department").Preload("Position").Preload("ServiceType").Raw("SELECT * FROM employees").Find(&employee).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+	// if err := entity.DB().Preload("ServiceType").Preload(clause.Associations).Preload("ServiceType.Service." + clause.Associations).Find(&employee).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+	if err := entity.DB().Preload("Position").Preload("ServiceType").Preload("ServiceType.Service." + clause.Associations).Find(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
