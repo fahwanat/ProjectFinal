@@ -45,7 +45,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleIcon from "@mui/icons-material/People";
 // import Logo1 from "../Image/LOGO.png"
 import EventIcon from '@mui/icons-material/Event';
-import Logo5 from "../Image/LOGO5.png"
+import Logo from "../Image/LOGO.png"
 
 const bgnavbar = createTheme({
   palette: {
@@ -147,16 +147,15 @@ function Navbar() {
 
   const MemberMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/Homeshow" },
-     { name: "Booking", icon: <ReceiptLongIcon />, path: "/Book" },
-     { name: "Schedule", icon: <EventIcon />, path: "/Schedule" },
-    
-    // { name: "Review", icon: <ReviewsIcon />, path: "/Reviewlist" },
-     //{ name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
+    { name: "TechnicianBooking", icon: <ReceiptLongIcon />, path: "/TechnicianBooking" },
+    { name: "TechnicianAppointment", icon: <ReceiptLongIcon />, path: "/TechnicianAppointment" },
+    { name: "BookingInfo", icon: <ReviewsIcon />, path: "/Book" },
+    { name: "BookConfirm", icon: <RoomServiceIcon />, path: "/BookConfirm" },
     // { name: "Payment", icon: <PaymentIcon />, path: "/ps" },
   ];
   const EmployeeMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
-    { name: "Service", icon: <RoomServiceIcon />, path: "/ss" },
+    { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
   //   { name: "Check IN - Check Out", icon: <FactCheckIcon />, path: "/CNCO" },
   //   { name: "Check Payment", icon: <PriceCheckIcon />, path: "/CPM" },
   //   {
@@ -166,7 +165,7 @@ function Navbar() {
   //   },
   //   { name: "Room Information", icon: <BedroomParentIcon />, path: "/RT" },
   //   { name: "Room Warehouse", icon: <WarehouseIcon />, path: "/RoomW" },
-    { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
+
     
   ];
   // const EmployeeMenu = [
@@ -181,6 +180,7 @@ function Navbar() {
   const OfficerMenu = [
     {name: "Manage Employee Information", icon: <ManageAccountsIcon />,path: "/Manage-Show",},
     {name: "Service Information", icon: <ManageAccountsIcon />,path: "/ss"},
+    { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
   ];
 
 
@@ -189,7 +189,7 @@ function Navbar() {
     case "Member":
       menu = MemberMenu;
       break;
-    case "Employee":
+    case "Technician":
       menu = EmployeeMenu;
       break;
     case "Officer":
@@ -222,7 +222,7 @@ function Navbar() {
             <MenuIcon />
           </IconButton>
           <div>
-            <img src={Logo5} width= "75px" height="75px"/>
+            <img src={Logo} width= "75px" height="75px"/>
           </div>
           <Box
             sx={{   display: "flex",
@@ -237,7 +237,7 @@ function Navbar() {
             </Typography>
           </Box>
           <Box sx={{ display: 'center', width: '6.5%', }}>
-          <Button component={RouterLink} to="Book/Create" variant="contained" color='secondary' >
+          <Button component={RouterLink} to="/TechnicianAppointment" variant="contained" color='secondary' >
               จองคิว
           </Button>
           </Box>

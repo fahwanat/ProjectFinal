@@ -34,28 +34,27 @@ import { GetEmployeeBySID } from "../Manage/service/ManageHttpClientService";
 import { DatePicker } from "@mui/x-date-pickers";
 
 
-
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
 ) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+})
 
-function BookingCreate() {
+function BookingAppointment() {
 
-    // let { id } = useParams();
+    let { id } = useParams();
     
     const [booking, setBooking] = useState<Partial<BookingsInterface>>({});
     
     const [servicetypes, setServiceTypes] = useState<ServiceTypeInterface[]>([]);
-    const [servicetypeid, setServicesTypesid] = useState(0);
+    const [servicetypeId, setServicesTypesId] = useState(0);
     const [services, setServices] = useState<ServiceInterface[]>([]);
-    const [serviceid, setServicesid] = useState(0);
+    const [serviceId, setServicesId] = useState(0);
     const [timeservice, setTimeService] = useState<TimeServiceInterface[]>([]);
-    const [timeserviceid, setTimeServiceid] = useState(0);
-    const [employees, setEmployees] = useState<EmployeeInterface[]>([]);
-    const [employeeid, setEmployeeid] = useState(0);
+    const [timeserviceid, setTimeServiceId] = useState(0);
+    const [employees, setEmployees] = useState<Partial<EmployeeInterface>>({});
+    const [employeeId, setEmployeeId] = useState(0);
     const [priceservice, setPriceService] = useState<number | null>(null);
     const [members, setMembers] = useState<MemberInterface>();
     const [success, setSuccess] = useState(false);
@@ -63,32 +62,41 @@ function BookingCreate() {
     const [message, setAlertMessage] = useState("");
 
     const [BookingDate, setBookingDate] = React.useState<Dayjs | null>(dayjs());
-    // const today = dayjs().subtract(1, 'day');
+    const [maxBookingDate, setMaxBookingDay] = useState(dayjs().add(2, 'day'))
 
+   
+  
+    const feachEmpolyeeID = async () => {
+        fetch(`${apiUrl}/employee/${id}`, requestOptionsGet)
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.data) {
+                setEmployees(result.data);
+                console.log("services:",result.data );
+                setEmployeeId(result.data.ID)
+                setServices(result.data.ServiceType.Service)
+            }
+          });
+      };
 
-    // const feachEmpolyeeID = async () => {
-    //     fetch(`${apiUrl}/employee/${id}`, requestOptionsGet)
-    //       .then((response) => response.json())
-    //       .then((result) => {
-    //         result.data && setEmployees(result.data);
-    //       });
-    //   };
+      const handleChangeEmployee = (event: SelectChangeEvent) => {
+        const name = event.target.name as keyof typeof employees;
+        
+        setEmployees({
+          ...employees,
+          [name]: event.target.value,
+        });
+      };
+      
+      const handleInputChangeEmployee = (
+        event: React.ChangeEvent<{ id?: string; value: any }>
+      ) => {
+        const id = event.target.id as keyof typeof employees;
+        const { value } = event.target;
+        setEmployees({ ...employees, [id]: value });
+      };
 
-    //   const handleChangeEmployee = (event: SelectChangeEvent) => {
-    //     const name = event.target.name as keyof typeof employees;
-    //     setEmployees({
-    //       ...employees,
-    //       [name]: event.target.value,
-    //     });
-    //   };
-    
-    //   const handleInputChangeEmployee = (
-    //     event: React.ChangeEvent<{ id?: string; value: any }>
-    //   ) => {
-    //     const id = event.target.id as keyof typeof employees;
-    //     const { value } = event.target;
-    //     setEmployees({ ...employees, [id]: value });
-    //   };
+   
 
     const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -109,22 +117,11 @@ function BookingCreate() {
         });
     };
 
-    const handleSerType = (event: { target: { name: string; value: any; }; }) => {
-        const name = event.target.name as keyof typeof booking;
-        const getsertypeid = event.target.value;
-
-        setServicesTypesid(getsertypeid);
-        setBooking({
-            ...booking,
-            [name]: event.target.value
-        });
-    };
-
     const handleSer = (event: { target: { name: string; value: any; }; }) => {
         const name = event.target.name as keyof typeof booking;
         const getserid = event.target.value;
 
-        setServicesid(getserid);
+        setServicesId(getserid);
         setBooking({
             ...booking,
             [name]: event.target.value
@@ -135,18 +132,7 @@ function BookingCreate() {
         const name = event.target.name as keyof typeof booking;
         const gettimeserid = event.target.value;
 
-        setTimeServiceid(gettimeserid);
-        setBooking({
-            ...booking,
-            [name]: event.target.value
-        });
-    };
-
-    const handleEmployee = (event: { target: { name: string; value: any; }; }) => {
-        const name = event.target.name as keyof typeof booking;
-        const employeeid = event.target.value;
-
-        setEmployeeid(employeeid);
+        setTimeServiceId(gettimeserid);
         setBooking({
             ...booking,
             [name]: event.target.value
@@ -171,25 +157,25 @@ function BookingCreate() {
         }
     };
     const getservice = async () => {
-        let res = await GetService(servicetypeid);
+        let res = await GetService(servicetypeId);
         if (res) {
-            setServices(res);
+            // setServices(res);
         }
     };
     const gettimeservice = async () => {
-        let res = await GetTimeService(serviceid);
+        let res = await GetTimeService(serviceId);
         if (res) {
             setTimeService(res);
         }
     };
     const getprice = async () => {
-        let res = await GetPrice(serviceid);
+        let res = await GetPrice(serviceId);
         if (res) {
             setPriceService(res);
         }
     }
     const getemployee = async () => {
-        let res = await GetEmployeeBySID(servicetypeid);
+        let res = await GetEmployeeBySID(servicetypeId);
         if (res) {
             setEmployees(res);
         }
@@ -204,6 +190,15 @@ function BookingCreate() {
     },
   };
 
+  const feachSerType = async () => {
+    fetch(`${apiUrl}/services_types`, requestOptionsGet)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result.data);
+        setServiceTypes(result.data);
+      });
+  };
+
  
     // =========================(Fetch API)====================================================
 
@@ -215,9 +210,10 @@ function BookingCreate() {
         gettimeservice();
         getprice();
         getemployee();
-        // feachEmpolyeeID();
+        feachEmpolyeeID();
+        // feachSerType();
 
-    }, [servicetypeid, serviceid]);
+    }, [servicetypeId, serviceId]);
 
     //for convert data type string to int
     const convertType = (data: string | number | undefined) => {
@@ -231,14 +227,17 @@ function BookingCreate() {
             // EmployeeID: convertType(booking.EmployeeID),
             MemberID: convertType(booking.MemberID),
             BookingDate: BookingDate,
-            ServiceTypeID: convertType(booking.ServiceTypeID),
+            ServiceTypeID: convertType(employees.ServiceTypeID),
             ServiceID: convertType(booking.ServiceID),
             TimeServiceID: convertType(booking.TimeServiceID),
-            EmployeeID: convertType(booking.EmployeeID),
+            EmployeeID: employeeId
             
         };
 
-        console.log(data);
+        console.log("employee name:",employees.Employeename);
+        
+
+        console.log("data on submit:", data);
 
         let res = await Bookings(data);
         if (res.status) {
@@ -254,7 +253,15 @@ function BookingCreate() {
     }
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xl"
+        sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+            backgroundSize: "contain",
+            backgroundImage:"url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
             <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
                 <Alert onClose={handleClose} severity="success">
                     {message}
@@ -265,6 +272,7 @@ function BookingCreate() {
                     {message}
                 </Alert>
             </Snackbar>
+            <Container maxWidth="xs" sx={{marginBottom: 5}}>
             <Paper>
                 <Box display="flex" sx={{ marginTop: 6, }} >
                     <Box sx={{ paddingX: 2, paddingY: 0.5 }}>
@@ -275,35 +283,15 @@ function BookingCreate() {
                 </Box>
                 <Divider />
                 <Grid container spacing={1} sx={{ padding: 1 }}>
-                    {/* <Grid item xs={12}>
-                    <FormControl fullWidth variant="outlined">
-                            <p>ข้อมูลช่าง **(1:ช่างทำผม, 2:ช่างทำเล็บ, 3:ช่างทำหน้า)</p>
-                            <Select
-                                native
-                                value={booking.EmployeeID + ""}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: "EmployeeID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกช่าง
-                                </option>
-                                {employees.map((item: EmployeeInterface) => (
-                                    <option value={item.ID} key={item.ID}>
-                                    {item.Employeename} : {item.PositionID}
-                                    </option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลประเภทบริการ</p>
                             <Select
+                                disabled
+                                id="ServiceType"
                                 native
-                                value={booking.ServiceTypeID + ""}
-                                onChange={handleSerType}
+                                value={employees.ServiceTypeID + ""}
+                                onChange={handleChangeEmployee}
                                 inputProps={{
                                     name: "ServiceTypeID",
                                 }}
@@ -317,26 +305,21 @@ function BookingCreate() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
                             <p>เลือกช่าง</p>
-                            <Select
-                                native
-                                value={booking.EmployeeID + ""}
-                                onChange={handleEmployee}
-                                inputProps={{
-                                    name: "EmployeeID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกช่าง
-                                </option>
-                                {employees.map((item: EmployeeInterface) => (
-                                    <option value={item.ID} >{item.Employeename}</option>
-                                ))}
-                            </Select>
+                            <TextField
+                            fullWidth
+                            disabled
+                            id="EmployeeID"
+                            type="string"
+                            variant="outlined"
+                            name="Employeename"
+                            value={employees.Employeename}
+                            onChange={handleInputChangeEmployee}
+                          />
                         </FormControl>
-                    </Grid> */}
+                    </Grid>
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลบริการ</p>
@@ -362,16 +345,11 @@ function BookingCreate() {
                             <p>วันที่จอง</p>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                // {...props}
-                                // slots={{
-                                //     textField: textFieldProps => <TextField {...textFieldProps} />
-                                // }}
-                            //   renderInput={(props) => <TextField {...props} />}
-                            //   label="BookingDate"
                               value={BookingDate}
+                              maxDate={maxBookingDate}
+                              disablePast
                               onChange={(newValue) => {
-                                setBookingDate(newValue);
-                              
+                                setBookingDate(newValue); 
                               }}
                             />
                           </LocalizationProvider>
@@ -429,9 +407,20 @@ function BookingCreate() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
+                        <Typography 
+                            variant="body1" 
+                            gutterBottom 
+                            marginTop={1} 
+                            marginBottom={-0.5}
+                            color="red"
+                        >
+                            *** เมื่อคุณกดบันทึกการจองแล้ว คุณจะไม่สามารถแก้ไขข้อมูลการจองได้อีก ***
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
                         <Button
                             component={RouterLink}
-                            to="/Book"
+                            to="/TechnicianAppointment"
                             variant="contained"
                             color="inherit"
                         >
@@ -448,7 +437,8 @@ function BookingCreate() {
                     </Grid>
                 </Grid>
             </Paper>
+            </Container>
         </Container>
     );
 }
-export default BookingCreate;
+export default BookingAppointment;

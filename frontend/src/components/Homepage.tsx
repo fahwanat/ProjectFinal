@@ -51,11 +51,11 @@ function Homepage() {
         </div> 
 
         <div className="grid-con-homepage-2">
-        <div className="grid-item-buttom-home">
+        {/* <div className="grid-item-buttom-home">
           <button className="button-booking" type="button" disabled> 
             <RouterLink className = "" rel="stylesheet" to="/Book" > Booking </RouterLink>
           </button> 
-        </div>
+        </div> */}
         <div className="grid-item-buttom-register">
           <button className="button-home" type="button" disabled> 
             <RouterLink className = "" rel="stylesheet" to="/Homeshow" > Home </RouterLink>

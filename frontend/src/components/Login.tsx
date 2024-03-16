@@ -176,7 +176,7 @@ function SignIn() {
                 type="submit"
                 fullWidth
                 component={RouterLink}
-                to="/home"
+                to="/Homeshow"
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={login}
@@ -187,7 +187,7 @@ function SignIn() {
                 <Grid item xs={12}>
                   <Button
                     component={RouterLink}
-                    to="/homeshow"
+                    to="/Homeshow"
                     variant="contained"
                     color="inherit"
                     style={{ float: "left" }}

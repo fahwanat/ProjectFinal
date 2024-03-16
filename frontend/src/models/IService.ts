@@ -1,16 +1,32 @@
-import { EmployeeInterface } from "./IManage";
+// import { EmployeeInterface } from "./IManage";
 import { MemberInterface } from "./modelMember/IMember";
+
+export interface ServiceTypeInterface {
+	ID: number,
+	Name: string,	
+}
 
 export interface ServiceInterface {
     ID: number;
-	Name:   string; 
-	Time?: Date | null;
-	Price: number   ;
+	Service_Name: string
+	Price:	number,
+	
+	ServiceTypeID:   number,
+	ServiceType:     ServiceTypeInterface,
 
-	MemberID?: number | null;
-   Member?: MemberInterface;
+	MemberID: number | null,
+    Member: MemberInterface,
 
-	EmployeeID?: number | null;
-    Employee?: EmployeeInterface;
+	// EmployeeID?: number | null;
+    // Employee?: EmployeeInterface;
 
 }
+
+export interface TimeServiceInterface {
+	ID: number,
+	Start_End: string,
+	
+	ServiceID: number,
+	Service:  ServiceInterface,
+}
+

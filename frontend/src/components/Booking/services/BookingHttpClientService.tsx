@@ -72,54 +72,6 @@ async function GetEmployeeByUID() {
     return res;
 }
 
-async function GetEmployees() {
-    const requestOptions = {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-        },
-    }
-
-    let res = await fetch(`${apiUrl}/employees`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
-
-    return res;
-}
-
-
-async function DeleteEmployee(data: number) {
-    let member= data;
-    const requestOptions = {
-        method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify(data),
-    }
-    
-    let res = await fetch(`${apiUrl}/employees/${member}`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
-
-    return res;
-}
-/* -----------------------------------------------------------------------Booking--------------------------------------------------------------*/
-
 //List Booking
 async function GetBookings() {
     const requestOptions = {
@@ -178,10 +130,11 @@ async function GetBookingsBYUID() {
         },
     };
 
-    let res = await fetch(`${apiUrl}/bookings/user/${uid}`, requestOptions)
+    let res = await fetch(`${apiUrl}/bookings/member/${uid}`, requestOptions)
         .then((response) => response.json())
         .then((res) => {
             if (res.data) {
+                console.log(res.data)
                 return res.data;
             } else {
                 return false;
@@ -293,7 +246,7 @@ export {
     GetMembers,
 
     GetEmployeeByUID,
-    GetEmployees,
+    // GetEmployees,
 
     Bookings,
     GetBookings,
