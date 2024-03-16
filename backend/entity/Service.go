@@ -1,77 +1,54 @@
 package entity
 
 import (
-
-	"time"
+	// "time"
 	//"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
-//	type Staff struct {
-	// 	gorm.Model
-	// 	Name     string
-	// 	Email    string `gorm:"uniqueIndex"`
-	// 	Password string
-	// 	Rooms    []Room `gorm:"foreignKey:StaffID"`
-	// }
+// ประเภทบริการ เช่น ทำผม ทำเล็บ ทำสปาหน้า
+type ServiceType struct {
+	gorm.Model
+	Name string `valid:"required~Name not blank"`
+	// Time  time.Time
+	// Price int `valid:"required~กรุณากรอกราคา, range(0|9223372036854775807)~กรุณากรอกราคาเป็นจำนวนเต็มบวก"`
 
+	// MemberID int    `valid:"required~Please Login"`
+	// Member   Member `valid:"-" gorm:"references:id"`
 
-// type ServiceType struct {
-// 	gorm.Model
-// 	Name     string
-// 	Services []Service `gorm:"foreignKey:ServiceTypeID"`
-// }
+	Employee []Employee `gorm:"foreignKey:ServiceTypeID"`
 
-// type Hair struct {
-// 	gorm.Model
-// 	Name     string
-// 	Price    int
-// 	Services []Service `gorm:"foreignKey:ServiceTypeID"`
-// }
+	Service []Service `gorm:"foreignKey:ServiceTypeID"`
+	Booking []Booking `gorm:"foreignKey:ServiceTypeID"`
+	// BookingHair			[]BookingHair	`gorm:"foreignKey:ServiceTypeID"`
+	// BookingNial			[]BookingNial	`gorm:"foreignKey:ServiceTypeID"`
+	// BookingFaceSpa		[]BookingFaceSpa	`gorm:"foreignKey:ServiceTypeID"`
+}
 
-// type Nail struct {
-// 	gorm.Model
-// 	Name     string
-// 	Price    int
-// 	Services []Service `gorm:"foreignKey:ServiceTypeID"`
-// }
-
-// type Facial struct {
-// 	gorm.Model
-// 	Name     string
-// 	Price    int
-// 	Services []Service `gorm:"foreignKey:ServiceTypeID"`
-// }
-
+// บริการต่างๆ เช่น ตัดผม สระ/ไดร์ ย้อมสีผม ดัดผม ยืดผม ทาสีเจล เพ้นต์เล็บ ต่อเล็บ สปาหน้า
 type Service struct {
 	gorm.Model
-	Name   string `valid:"required~Name not blank"`
-	Time        time.Time
-	Price int    `valid:"required~กรุณากรอกราคา, range(0|9223372036854775807)~กรุณากรอกราคาเป็นจำนวนเต็มบวก"`
+	Service_Name string
+	Price        int
 
+	ServiceTypeID int
+	ServiceType   ServiceType `gorm:"references:ID"`
 
-	MemberID      int           `valid:"required~Please Login"`
-	Member        Member      `valid:"-" gorm:"references:id"`
+	TimeService []TimeService `gorm:"foreignKey:ServiceID"`
+	// BookingHair			[]BookingHair	`gorm:"foreignKey:ServiceID"`
+	// BookingNial			[]BookingNial	`gorm:"foreignKey:ServiceID"`
+	// BookingFaceSpa		[]BookingFaceSpa	`gorm:"foreignKey:ServiceID"`
+}
 
-	EmployeeID *uint
-	Employee   Employee `valid:"-" gorm:"references:id"`
+// เวลาที่สามารถเข้าใช้บริกาาต่างๆได้
+type TimeService struct {
+	gorm.Model
+	Start_End string
 
-	Bookings  []Booking   `gorm:"foreignKey:ServiceID"`
-	
-	
-	//HairID ทำหน้าที่เป็น FK
-	// HairID *uint
-	// Hair   Hair `valid:"-" gorm:"references:id"`
+	ServiceID int
+	Service   Service `gorm:"references:ID"`
 
-	//NailID ทำหน้าที่เป็น FK
-	// NailID *uint
-	// Nail   Nail `valid:"-" gorm:"references:id"`
-
-	//FacialID ทำหน้าที่เป็น FK
-	// FacialID *uint
-	// Facial   Facial `valid:"-" gorm:"references:id"`
-	
-	//ServiceTypeID ทำหน้าที่เป็น FK
-// 	ServiceTypeID *uint
-// 	ServiceType   ServiceType `valid:"-" gorm:"references:id"`
+	// BookingHair			[]BookingHair	`gorm:"foreignKey:TimeServiceID"`
+	// BookingNial			[]BookingNial	`gorm:"foreignKey:TimeServiceID"`
+	// BookingFaceSpa		[]BookingFaceSpa	`gorm:"foreignKey:TimeServiceID"`
 }

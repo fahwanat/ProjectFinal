@@ -30,19 +30,19 @@ func SetupDatabase() {
 		&Position{},
 		&Employee{},
 
-		//Service
-		&Service{},
-		//&ServiceType{},
-		
 		//ระบบสมัครสมาขิก(ข้อมูลลูกค้า)
 		&Gender{},
 		&Prefix{},
 		&Member{},
 
-		// ระบบจองห้องพัก
+		// ระบบจองคิว
 		&Booking{},
-		&TimeBooking{},
-
+		// &BookingHair{},
+		// &BookingNial{},
+		// &BookingFaceSpa{},
+		&Service{},
+		&ServiceType{},
+		&TimeService{},
 
 	)
 	//////////////////////////////////////////////

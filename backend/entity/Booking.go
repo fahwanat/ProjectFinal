@@ -3,38 +3,132 @@ package entity
 import (
 	// "time"
 
-	//"github.com/asaskevich/govalidator"
+	// "github.com/asaskevich/govalidator"
 	"time"
 
 	"gorm.io/gorm"
 )
 
-type TimeBooking struct{
-	gorm.Model
-	Start_End string
-	Booking   	[]Booking  `gorm:"foreignKey:TimeBookingID"`
-}
-
 type Booking struct {
 	gorm.Model
 	Booking_Number string
 	Tx_No          string `gorm:"uniqueIndex"`
-	//รับเข้ามา
-	EmployeeID *uint  `valid:"required~กรุณาเลือกช่าง"`
-	Employee   Employee `valid:"-" gorm:"references:id"`
-	//รับเข้ามา
-	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
-	Service   Service `valid:"-" gorm:"references:id"`
-
 	BookingDate	time.Time `valid:"วันที่ไม่ถูกต้อง"`
-
-	TimeBookingID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
-	TimeBooking		TimeBooking `valid:"-" gorm:"references:id"`
 	
-	Total   float64
-
+	// //รับเข้ามา
+	// EmployeeID *uint  `valid:"required~กรุณาเลือกช่าง"`
+	// Employee   Employee `valid:"-" gorm:"references:id"`
+	
 	//รับเข้ามา
 	MemberID *uint  `valid:"required~กรุณาเข้าสู่ระบบ"`
 	Member   Member `valid:"-" gorm:"references:id"`
 
+	//รับเข้ามา
+	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
+	Service   Service `valid:"-" gorm:"references:id"`
+
+	ServiceTypeID *uint   `valid:"required~กรุณาเลือกประเภทบริการ"`
+	ServiceType   ServiceType `valid:"-" gorm:"references:id"`
+
+	TimeServiceID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
+	TimeService		TimeService `valid:"-" gorm:"references:id"`
+	
+	EmployeeID 		*uint	`valid:"required~กรุณาเลือกช่าง"`
+	Employee		Employee	`valid:"-" gorm:"references:id"`
+	
+	Total   float64
+
 }
+
+// type BookingHair struct {
+// 	gorm.Model
+// 	Booking_Number string
+// 	Tx_No          string `gorm:"uniqueIndex"`
+// 	BookingDate	time.Time `valid:"วันที่ไม่ถูกต้อง"`
+	
+// 	// //รับเข้ามา
+// 	// EmployeeID *uint  `valid:"required~กรุณาเลือกช่าง"`
+// 	// Employee   Employee `valid:"-" gorm:"references:id"`
+	
+// 	//รับเข้ามา
+// 	MemberID *uint  `valid:"required~กรุณาเข้าสู่ระบบ"`
+// 	Member   Member `valid:"-" gorm:"references:id"`
+
+// 	//รับเข้ามา
+// 	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
+// 	Service   Service `valid:"-" gorm:"references:id"`
+
+// 	ServiceTypeID *uint   `valid:"required~กรุณาเลือกประเภทบริการ"`
+// 	ServiceType   ServiceType `valid:"-" gorm:"references:id"`
+
+// 	TimeServiceID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
+// 	TimeService		TimeService `valid:"-" gorm:"references:id"`
+	
+// 	EmployeeID 		*uint	`valid:"required~กรุณาเลือกช่าง"`
+// 	Employee		Employee	`valid:"-" gorm:"references:id"`
+	
+// 	Total   float64
+
+// }
+
+// type BookingNial struct {
+// 	gorm.Model
+// 	Booking_Number string
+// 	Tx_No          string `gorm:"uniqueIndex"`
+// 	BookingDate	time.Time `valid:"วันที่ไม่ถูกต้อง"`
+	
+// 	// //รับเข้ามา
+// 	// EmployeeID *uint  `valid:"required~กรุณาเลือกช่าง"`
+// 	// Employee   Employee `valid:"-" gorm:"references:id"`
+	
+// 	//รับเข้ามา
+// 	MemberID *uint  `valid:"required~กรุณาเข้าสู่ระบบ"`
+// 	Member   Member `valid:"-" gorm:"references:id"`
+
+// 	//รับเข้ามา
+// 	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
+// 	Service   Service `valid:"-" gorm:"references:id"`
+
+// 	ServiceTypeID *uint   `valid:"required~กรุณาเลือกประเภทบริการ"`
+// 	ServiceType   ServiceType `valid:"-" gorm:"references:id"`
+
+// 	TimeServiceID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
+// 	TimeService		TimeService `valid:"-" gorm:"references:id"`
+	
+// 	EmployeeID 		*uint	`valid:"required~กรุณาเลือกช่าง"`
+// 	Employee		Employee	`valid:"-" gorm:"references:id"`
+	
+// 	Total   float64
+
+// }
+
+// type BookingFaceSpa struct {
+// 	gorm.Model
+// 	Booking_Number string
+// 	Tx_No          string `gorm:"uniqueIndex"`
+// 	BookingDate	time.Time `valid:"required~กรุณาเลือกวันที่จอง, IsAfterAndPresent~เวลาในการเข้าพักไม่ถูกต้อง(ห้ามเป็นอดีต)"`
+	
+// 	// //รับเข้ามา
+// 	// EmployeeID *uint  `valid:"required~กรุณาเลือกช่าง"`
+// 	// Employee   Employee `valid:"-" gorm:"references:id"`
+	
+// 	//รับเข้ามา
+// 	MemberID *uint  `valid:"required~กรุณาเข้าสู่ระบบ"`
+// 	Member   Member `valid:"-" gorm:"references:id"`
+
+// 	//รับเข้ามา
+// 	ServiceID *uint   `valid:"required~กรุณาเลือกบริการ"`
+// 	Service   Service `valid:"-" gorm:"references:id"`
+
+// 	ServiceTypeID *uint   `valid:"required~กรุณาเลือกประเภทบริการ"`
+// 	ServiceType   ServiceType `valid:"-" gorm:"references:id"`
+
+// 	TimeServiceID	*uint `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
+// 	TimeService		TimeService `valid:"-" gorm:"references:id"`
+	
+// 	EmployeeID 		*uint	`valid:"required~กรุณาเลือกช่าง"`
+// 	Employee		Employee	`valid:"-" gorm:"references:id"`
+	
+// 	Total   float64
+
+// }

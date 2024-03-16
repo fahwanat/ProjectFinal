@@ -88,10 +88,10 @@ func Login(c *gin.Context) {
 	var EmployeeRole entity.UserRole
 	var MemberRole entity.UserRole
 	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Officer").First(&OfficerRole)
-	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Employee").First(&EmployeeRole)
+	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Technician").First(&EmployeeRole)
 	entity.DB().Raw("SELECT * FROM user_roles WHERE role_name = ?", "Member").First(&MemberRole)
 	
-	// ตรวจสอบว่าใครเป็น หมอ หรือ ใครเป็น แอดมิน
+	// ตรวจสอบว่าใครเป็น พนักงาน หรือ ใครเป็น สมาชิก
 	if signin.UserRole.RoleName == EmployeeRole.RoleName {
 		var employee entity.Employee
 		if tx := entity.DB().

@@ -66,5 +66,14 @@ type Employee struct {
 	PositionID *uint    `valid:"-"`
 	Position   Position `gorm:"references:ID" valid:"-"`
 
-	Bookings  []Booking   `gorm:"foreignKey:EmployeeID"`
+	// MemberID		*uint	`valid:"-"`
+	// Member			Member	`gorm:"references:ID" valid:"-"`
+
+	ServiceTypeID *uint
+	ServiceType   ServiceType `valid:"-"`
+
+	Booking []Booking `gorm:"foreignKey:EmployeeID"`
+	// BookingHair	[]BookingHair `gorm:"foreignKey:EmployeeID"`
+	// BookingNial  []BookingNial   `gorm:"foreignKey:EmployeeID"`
+	// BookingFaceSpa  []BookingFaceSpa   `gorm:"foreignKey:EmployeeID"`
 }
