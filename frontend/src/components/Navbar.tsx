@@ -232,7 +232,7 @@ function Navbar() {
           >
             <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2}>
             <div className="word-header-navbar">
-                <h2>BUEATY SALON</h2>
+                <h2>BEAUTY SALON</h2>
                 </div>
             </Typography>
           </Box>

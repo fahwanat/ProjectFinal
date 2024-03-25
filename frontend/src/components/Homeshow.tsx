@@ -74,13 +74,13 @@ function Homeshow() {
                       width: '50%'}}>
             <Typography variant="h6" color='secondary' noWrap component="div" marginLeft={2} >
               <div className="word-header-navbar">
-                <h1>Bueaty Salon</h1>
+                <h1>Beauty Salon</h1>
               </div>
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', width: '30%'}}>
             <Button component={RouterLink} to="/Homeshow"  color='secondary' sx={{ display: 'flex', width: '10%'}} >Home</Button>
-            <Button component={RouterLink} to="/RW"  color='secondary' sx={{ display: 'flex', width: '10%'}}>รีวิว</Button>
+            <Button component={RouterLink} to="/Review"  color='secondary' sx={{ display: 'flex', width: '10%'}}>รีวิว</Button>
             <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '20%'}}>ข้อมูลต่างๆ</Button>
           
           </Box>
@@ -110,7 +110,7 @@ function Homeshow() {
         </div>
         <div className="grid-item-22">
           <div className="word-headder-homeshow">
-            <h1>Welcom To Bueaty Salon</h1>
+            <h1>Welcom To Beauty Salon</h1>
           </div>
         </div>
         <div className="grid-item-23">

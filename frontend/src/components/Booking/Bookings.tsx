@@ -75,8 +75,13 @@ function NewBookings() {
                         </Typography>
                     </Box>
                     <Box>
-                        <Button component={RouterLink} to="/Book/Create" variant="contained" color="primary">
-                            จองคิว
+                        <Button component={RouterLink} to="/Payment/Create" variant="contained" color="primary">
+                            ชำระค่ามัดจำ
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button component={RouterLink} to="/Book/Appointment/1" variant="contained" color="primary">
+                            ย้อนกลับ
                         </Button>
                     </Box>
                     {/* <Box>

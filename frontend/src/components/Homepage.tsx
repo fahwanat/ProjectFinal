@@ -45,7 +45,7 @@ function Homepage() {
         <div className="grid-con-homepage-1">
         <div className="grid-item-22-3">
           <div className="word-homepage">
-            <h1>Welcom To Bueaty Salon</h1>
+            <h1>Welcom To Beauty Salon</h1>
           </div>
         </div>
         </div> 
