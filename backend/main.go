@@ -7,6 +7,7 @@ import (
 	booking "github.com/fahwanat/ProjectFinal/controller/Booking"
 	employee "github.com/fahwanat/ProjectFinal/controller/Manage"
 	member "github.com/fahwanat/ProjectFinal/controller/Member"
+	payment "github.com/fahwanat/ProjectFinal/controller/Payment"
 	service "github.com/fahwanat/ProjectFinal/controller/Service"
 	"github.com/fahwanat/ProjectFinal/entity"
 	"github.com/fahwanat/ProjectFinal/middlewares"
@@ -105,7 +106,19 @@ func main() {
 			router.DELETE("/bookings/member/:id", booking.DeleteBookingByCID)
 			router.GET("/bookingsbydate", booking.ListBookingsBydate)
 			router.GET("/bookingstotalgroupbydate", booking.ListBookingsTotalbyCID)
-		
+
+			// ======================================= PAYMENT
+			router.GET("/payments", payment.ListPayments)
+			router.GET("/payment/:id", payment.GetPayment)
+			router.GET("/payment/member/:id", payment.ListPaymentByUID)
+			router.POST("/payment", payment.CreatePayment)
+			router.PATCH("/payments", payment.UpdatePayment)
+
+			router.GET("/paymentmethods", payment.ListPaymentMethods)
+			router.GET("/methods", payment.ListMethods)
+			router.GET("/method/:id", payment.GetMethod)
+			router.GET("/pricebooking/member/:id", payment.PriceBookingCID)
+			router.GET("/priceservice/member/:id", payment.PriceServiceCID)
 
 		}
 	}

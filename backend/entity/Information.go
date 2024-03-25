@@ -152,7 +152,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	db.Raw("SELECT * FROM positions WHERE name = ?", "Nail Artist").Scan(&Nail)
 	db.Raw("SELECT * FROM positions WHERE name = ?", "Facial Therapist").Scan(&Facial)
 
-	
 	// Service
 	// ServiceType Data
 	serviceTpyeA := ServiceType{
@@ -179,19 +178,19 @@ func SetupIntoDatabase(db *gorm.DB) {
 
 	//Set Data Technician
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1430099536148",
-		Employeename:  "Manikan Raksa",
-		Email:         "Manikan@gmail.com",
-		Tusername:     "TManikan",
-		Password:      SetupPasswordHash("Manikan01"),
-		Position:      Hair,
-		Department:    Technician,
-		Salary:        17000,
-		Phonenumber:   "0905962001",
-		Gender:        "Female",
-		Officer:       OFNatcha,
-		Signin:        loginTechnician1,
-		ServiceType: serviceTpyeA,
+		PersonalID:   "1430099536148",
+		Employeename: "Manikan Raksa",
+		Email:        "Manikan@gmail.com",
+		Tusername:    "TManikan",
+		Password:     SetupPasswordHash("Manikan01"),
+		Position:     Hair,
+		Department:   Technician,
+		Salary:       17000,
+		Phonenumber:  "0905962001",
+		Gender:       "Female",
+		Officer:      OFNatcha,
+		Signin:       loginTechnician1,
+		ServiceType:  serviceTpyeA,
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
@@ -211,99 +210,99 @@ func SetupIntoDatabase(db *gorm.DB) {
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1460099353148",
-		Employeename:  "Somphorn Akkaraweerachon",
-		Email:         "Somphorn@gmail.com",
-		Tusername:     "TSomphorn",
-		Password:      SetupPasswordHash("Somphorn03"),
-		Position:      Hair,
-		Department:    Technician,
-		Salary:        17000,
-		Phonenumber:   "0952000541",
-		Gender:        "Female",
-		Officer:       OFNatcha,
-		Signin:        loginTechnician3,
-		ServiceType: serviceTpyeA,
-	})
-	
-	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1460099353148",
-		Employeename:  "Somphorn Akkaraweerachon",
-		Email:         "Somphorn@gmail.com",
-		Tusername:     "TSomphorn",
-		Password:      SetupPasswordHash("Somphorn03"),
-		Position:      Hair,
-		Department:    Technician,
-		Salary:        17000,
-		Phonenumber:   "0952000541",
-		Gender:        "Female",
-		Officer:       OFNatcha,
-		Signin:        loginTechnician3,
-		ServiceType:   serviceTpyeA,
+		PersonalID:   "1460099353148",
+		Employeename: "Somphorn Akkaraweerachon",
+		Email:        "Somphorn@gmail.com",
+		Tusername:    "TSomphorn",
+		Password:     SetupPasswordHash("Somphorn03"),
+		Position:     Hair,
+		Department:   Technician,
+		Salary:       17000,
+		Phonenumber:  "0952000541",
+		Gender:       "Female",
+		Officer:      OFNatcha,
+		Signin:       loginTechnician3,
+		ServiceType:  serviceTpyeA,
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1495361300948",
-		Employeename:  "Apinya Somraksa",
-		Email:         "Apinya@gmail.com",
-		Tusername:     "TApinya",
-		Password:      SetupPasswordHash("Apinya04"),
-		Position:      Nail,
-		Department:    Technician,
-		Salary:        15000,
-		Phonenumber:   "0920010545",
-		Gender:        "Female",
-		Officer:       OFNatcha,
-		Signin:        loginTechnician4,
-		ServiceType:   serviceTpyeB,
+		PersonalID:   "1460099353148",
+		Employeename: "Somphorn Akkaraweerachon",
+		Email:        "Somphorn@gmail.com",
+		Tusername:    "TSomphorn",
+		Password:     SetupPasswordHash("Somphorn03"),
+		Position:     Hair,
+		Department:   Technician,
+		Salary:       17000,
+		Phonenumber:  "0952000541",
+		Gender:       "Female",
+		Officer:      OFNatcha,
+		Signin:       loginTechnician3,
+		ServiceType:  serviceTpyeA,
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1340099536148",
-		Employeename:  "Natthika Suksai",
-		Email:         "Natthika@gmail.com",
-		Tusername:     "TNatthika",
-		Password:      SetupPasswordHash("Natthika05"),
-		Position:      Nail,
-		Department:    Technician,
-		Salary:        15000,
-		Phonenumber:   "0910545200",
-		Gender:        "Female",
-		Officer:       OFPhariphat,
-		Signin:        loginTechnician5,
-		ServiceType: serviceTpyeB,
+		PersonalID:   "1495361300948",
+		Employeename: "Apinya Somraksa",
+		Email:        "Apinya@gmail.com",
+		Tusername:    "TApinya",
+		Password:     SetupPasswordHash("Apinya04"),
+		Position:     Nail,
+		Department:   Technician,
+		Salary:       15000,
+		Phonenumber:  "0920010545",
+		Gender:       "Female",
+		Officer:      OFNatcha,
+		Signin:       loginTechnician4,
+		ServiceType:  serviceTpyeB,
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1484300995361",
-		Employeename:  "Praani Silapasawat",
-		Email:         "Praani@gmail.com",
-		Tusername:     "TPraani",
-		Password:      SetupPasswordHash("Praani06"),
-		Position:      Facial,
-		Department:    Technician,
-		Salary:        18000,
-		Phonenumber:   "0905452561",
-		Gender:        "Female",
-		Officer:       OFPhariphat,
-		Signin:        loginTechnician6,
-		ServiceType: serviceTpyeC,
+		PersonalID:   "1340099536148",
+		Employeename: "Natthika Suksai",
+		Email:        "Natthika@gmail.com",
+		Tusername:    "TNatthika",
+		Password:     SetupPasswordHash("Natthika05"),
+		Position:     Nail,
+		Department:   Technician,
+		Salary:       15000,
+		Phonenumber:  "0910545200",
+		Gender:       "Female",
+		Officer:      OFPhariphat,
+		Signin:       loginTechnician5,
+		ServiceType:  serviceTpyeB,
 	})
 
 	db.Model(&Employee{}).Create(&Employee{
-		PersonalID:    "1361430099548",
-		Employeename:  "Jittima Akkaraweerachon",
-		Email:         "Jittima@gmail.com",
-		Tusername:     "TJittima",
-		Password:      SetupPasswordHash("Jittima07"),
-		Position:      Facial,
-		Department:    Technician,
-		Salary:        18000,
-		Phonenumber:   "0972456001",
-		Gender:        "Female",
-		Officer:       OFPhariphat,
-		Signin:        loginTechnician7,
-		ServiceType: serviceTpyeC,
+		PersonalID:   "1484300995361",
+		Employeename: "Praani Silapasawat",
+		Email:        "Praani@gmail.com",
+		Tusername:    "TPraani",
+		Password:     SetupPasswordHash("Praani06"),
+		Position:     Facial,
+		Department:   Technician,
+		Salary:       18000,
+		Phonenumber:  "0905452561",
+		Gender:       "Female",
+		Officer:      OFPhariphat,
+		Signin:       loginTechnician6,
+		ServiceType:  serviceTpyeC,
+	})
+
+	db.Model(&Employee{}).Create(&Employee{
+		PersonalID:   "1361430099548",
+		Employeename: "Jittima Akkaraweerachon",
+		Email:        "Jittima@gmail.com",
+		Tusername:    "TJittima",
+		Password:     SetupPasswordHash("Jittima07"),
+		Position:     Facial,
+		Department:   Technician,
+		Salary:       18000,
+		Phonenumber:  "0972456001",
+		Gender:       "Female",
+		Officer:      OFPhariphat,
+		Signin:       loginTechnician7,
+		ServiceType:  serviceTpyeC,
 	})
 	var Manikan Employee
 	var Napaporn Employee
@@ -322,64 +321,64 @@ func SetupIntoDatabase(db *gorm.DB) {
 
 	// db.Model(&Service{}).Create(&ServiceHair1)
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "สระผม/ไดร์ผม",
-		ServiceType: serviceTpyeA,
-		Price:         100,
+		Service_Name: "สระผม/ไดร์ผม",
+		ServiceType:  serviceTpyeA,
+		Price:        100,
 	})
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "ตัดผม/ซอยผม",
-		ServiceType: serviceTpyeA,
-		Price:         150,
+		Service_Name: "ตัดผม/ซอยผม",
+		ServiceType:  serviceTpyeA,
+		Price:        150,
 	})
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "ย้อมสีผม",
-		ServiceType: serviceTpyeA,
-		Price:         300,
+		Service_Name: "ย้อมสีผม",
+		ServiceType:  serviceTpyeA,
+		Price:        300,
 	})
 
 	db.Model(&Service{}).Create(&Service{
 
-		Service_Name:  "ยืดผม",
-		ServiceType: serviceTpyeA,
-		Price:         400,
+		Service_Name: "ยืดผม",
+		ServiceType:  serviceTpyeA,
+		Price:        400,
 	})
 	//ServiceHair5
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "ดัดผม",
-		ServiceType: serviceTpyeA,
-		Price:         600,
+		Service_Name: "ดัดผม",
+		ServiceType:  serviceTpyeA,
+		Price:        600,
 	})
 
 	//ServiceNail1
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "ทาสีเจล",
-		ServiceType: serviceTpyeB,
-		Price:         199,
+		Service_Name: "ทาสีเจล",
+		ServiceType:  serviceTpyeB,
+		Price:        199,
 	})
 	//ServiceNail2
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "เพ้นต์เล็บ",
-		ServiceType: serviceTpyeB,
-		Price:         399,
+		Service_Name: "เพ้นต์เล็บ",
+		ServiceType:  serviceTpyeB,
+		Price:        399,
 	})
 	//ServiceNail3
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "ต่อเล็บ",
-		ServiceType: serviceTpyeB,
-		Price:         499,
+		Service_Name: "ต่อเล็บ",
+		ServiceType:  serviceTpyeB,
+		Price:        499,
 	})
 
 	//ServiceFaceSpa1
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "สปาหน้า คอร์ส 799",
-		ServiceType: serviceTpyeC,
-		Price:         799,
+		Service_Name: "สปาหน้า คอร์ส 799",
+		ServiceType:  serviceTpyeC,
+		Price:        799,
 	})
 	//ServiceFace2
 	db.Model(&Service{}).Create(&Service{
-		Service_Name:  "สปาหน้า คอร์ส 999",
-		ServiceType: serviceTpyeC,
-		Price:         999,
+		Service_Name: "สปาหน้า คอร์ส 999",
+		ServiceType:  serviceTpyeC,
+		Price:        999,
 	})
 
 	var ServiceHair Service
@@ -850,4 +849,90 @@ func SetupIntoDatabase(db *gorm.DB) {
 	// 	db.Raw("SELECT * FROM booking_face_spas WHERE id = ?", "1").Scan(&bookingfacespa1)
 	// 	// db.Raw("SELECT * FROM bookings WHERE id = ?", "2").Scan(&booking2)
 
+	// ===============     PAYMENT     ===============
+
+	// ===============     วิธี     ===============
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "THB",
+	// 	Destination:     "Employee",
+	// 	PaymentMethodID: 1,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "USD",
+	// 	Destination:     "Employee",
+	// 	PaymentMethodID: 1,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "EUR",
+	// 	Destination:     "Employee",
+	// 	PaymentMethodID: 1,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "Ethereum",
+	// 	Destination:     "Asd54f98sadf84sa9d8f49sad4f",
+	// 	PaymentMethodID: 2,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "Tether",
+	// 	Destination:     "A4s59df4a9s8df489as4f89dsa4",
+	// 	PaymentMethodID: 2,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "DogECoin",
+	// 	Destination:     "Gfds98g79ds8fgsdf5gs4d65564",
+	// 	PaymentMethodID: 2,
+	// })
+	// db.Model(&Method{}).Create(&Method{
+	// 	Name:            "BitCoin",
+	// 	Destination:     "S6a5d4sdfsf9asd48f9asd6f24a",
+	// 	PaymentMethodID: 2,
+	// })
+	// ===============     ธนาคาร     ===============
+	db.Model(&Method{}).Create(&Method{
+		Name:            "PromptPay",
+		Destination:     "080-329-9545",
+		PaymentMethodID: 2,
+	})
+	db.Model(&Method{}).Create(&Method{
+		Name:            "SCB",
+		Destination:     "165-253-6729",
+		PaymentMethodID: 2,
+	})
+	db.Model(&Method{}).Create(&Method{
+		Name:            "Krungthai",
+		Destination:     "678-512-6355",
+		PaymentMethodID: 2,
+	})
+	db.Model(&Method{}).Create(&Method{
+		Name:            "Kasikorn",
+		Destination:     "851-956-9877",
+		PaymentMethodID: 2,
+	})
+
+	var dodgrcoin Method
+	db.Raw("SELECT * FROM methods WHERE name = ?", "DogECoin").Scan(&dodgrcoin)
+
+	// ===============     ช่องทางการชำระเงิน     ===============
+	db.Model(&PaymentMethod{}).Create(&PaymentMethod{
+		Name: "Cash",
+	})
+	// db.Model(&PaymentMethod{}).Create(&PaymentMethod{
+	// 	Name: "Crypto",
+	// })
+	db.Model(&PaymentMethod{}).Create(&PaymentMethod{
+		Name: "Transfer",
+	})
+	var Transfer PaymentMethod
+	db.Raw("SELECT * FROM payment_methods WHERE name = ?", "Transfer").Scan(&Transfer)
+
+	// ===============     ตารางหลัก     ===============
+	db.Model(&Payment{}).Create(&Payment{
+		Member:        Member1,
+		PaymentMethod: Transfer,
+		Method:        dodgrcoin,
+		Price:         150,
+		Time:          time.Now(),
+	})
+	var payment1 Payment
+	db.Raw("SELECT * FROM payments WHERE id = ?", "1").Scan(&payment1) // dump test by earth
 }

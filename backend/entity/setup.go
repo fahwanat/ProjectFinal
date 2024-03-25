@@ -44,11 +44,13 @@ func SetupDatabase() {
 		&ServiceType{},
 		&TimeService{},
 
+		// ระบบชำระเงิน
+		&PaymentMethod{},
+		&Method{},
+		&Payment{},
 	)
 	//////////////////////////////////////////////
 	db = database
 
-	SetupIntoDatabase(db) 
+	SetupIntoDatabase(db)
 }
-
-	
