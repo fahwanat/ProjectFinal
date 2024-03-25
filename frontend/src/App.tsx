@@ -27,6 +27,10 @@ import TechnicianBooking from "./components/Technician/TechnicianBooking";
 import BookingAppointment from "./components/Booking/BookingApppointment";
 import TechnicianAppointment from "./components/Technician/TechnicianAppointment";
 import BookingConfirm from "./components/Booking/BookingConfirm";
+import PaymentCreate from "./components/Payment/PaymentCreate";
+import Review from "./components/Review";
+import PaymentSave from "./components/Payment/PatmentSave";
+import PaymentShow from "./components/Payment/PaymentShow";
 // import Roomhome from "./components/Roomhome";
 
 export default function App() {
@@ -52,6 +56,7 @@ export default function App() {
           <Route path="/member/create" element={<CreatMember />} />
           <Route path="/Book" element={<Bookings />} />
           <Route path="/Book/Create" element={<BookingCreate />} />
+          <Route path="/Review" element={<Review />} />
         </Routes>
       </Router>
     );
@@ -88,13 +93,16 @@ export default function App() {
                 {/*<Route path="/Rep/Create" element={<RepRqCreate />} />
                 <Route path="/Rep/Edit/:id" element={<RepRqEdit />} /> */}
 
-                {/* <Route path="/Reviewlist" element={<Review_list />} /> */}
+                <Route path="/Review" element={<Review />} />
 
                  {/* <Route path="/ss" element={<ServiceShow />} /> */}
                {/*<Route path="/sa" element={<ServiceAdd />} />
                 <Route path="/su/:id" element={<ServiceUpdate />} />
                 <Route path="/sd" element={<ServiceDelete />} /> */}
 
+                <Route path="/Payment/Create" element={<PaymentCreate />} />
+                <Route path="/Payment/Save" element={<PaymentSave />} />
+                <Route path="/Payment/Show" element={<PaymentShow />} />
                 {/* <Route path="/ps" element={<PaymentShow />} />
                 <Route path="/pai" element={<PaymentAddIn />} />
                 <Route path="/pao" element={<PaymentAddOut />} />

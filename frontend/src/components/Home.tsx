@@ -62,7 +62,7 @@ function Home() {
         </div>
         <div className="grid-item-22">
           <div className="word-headder-homeshow">
-            <h1>Welcom To Bueaty Salon</h1>
+            <h1>Welcom To Beauty Salon</h1>
           </div>
         </div>
         <div className="grid-item-23">
