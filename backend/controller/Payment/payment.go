@@ -50,8 +50,9 @@ func CreatePayment(c *gin.Context) {
 		PaymentMethod: paymentmethod,
 		Method:        method,
 		Price:         payment.Price,
-		Time:          payment.Time,
-		Picture:       payment.Picture,
+		// Total:         payment.Total,
+		Time:    payment.Time,
+		Picture: payment.Picture,
 	}
 
 	//15: save
@@ -129,7 +130,8 @@ func UpdatePayment(c *gin.Context) {
 		Method:        method,
 		Member:        member,
 		Price:         payment.Price,
-		Picture:       payment.Picture,
+		// Total:         payment.Total,
+		Picture: payment.Picture,
 	}
 
 	if err := entity.DB().Where("id = ?", payment.ID).Updates(&patchpayment).Error; err != nil {

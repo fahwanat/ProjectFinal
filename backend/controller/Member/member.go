@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"github.com/asaskevich/govalidator"
-	"github.com/gin-gonic/gin"
-	"github.com/fahwanat/ProjectFinal/entity"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
+
+	"github.com/asaskevich/govalidator"
+	"github.com/fahwanat/ProjectFinal/entity"
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // POST
@@ -48,7 +49,7 @@ func CreateMember(c *gin.Context) {
 	}
 
 	createuserlogin := entity.Signin{
-		Username: member.Email,
+		Username: member.Phone,
 		Password: SetupPasswordHash(member.Password),
 		UserRole: userrole,
 	}
@@ -57,18 +58,17 @@ func CreateMember(c *gin.Context) {
 
 	//12:สร้าง entity member
 	mem := entity.Member{
-		Gender : 	gender,
-		Prefix : 	prefix,
-		FirstName: 	member.FirstName,
-		LastName: 	member.LastName,
-		Nickname: 	member.Nickname,
-		Age:		member.Age,
-		Email: 		member.Email,
-		Password: 	string(password),
-		Phone:		member.Phone,		
-		Signin:     createuserlogin,
+		Gender:    gender,
+		Prefix:    prefix,
+		FirstName: member.FirstName,
+		LastName:  member.LastName,
+		Nickname:  member.Nickname,
+		Age:       member.Age,
+		Line:      member.Line,
+		Password:  string(password),
+		Phone:     member.Phone,
+		Signin:    createuserlogin,
 	}
-	
 
 	//13:บันทึก
 	if err := entity.DB().Create(&mem).Error; err != nil {
@@ -80,7 +80,7 @@ func CreateMember(c *gin.Context) {
 
 }
 
-/// GET Member/:id
+// / GET Member/:id
 func GetMemberByID(c *gin.Context) {
 	var member entity.Member
 	id := c.Param("id")
@@ -100,6 +100,7 @@ func ListMembers(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": members})
 }
+
 // DELETE /members/:id
 func DeleteMembers(c *gin.Context) {
 	id := c.Param("id")
@@ -113,7 +114,7 @@ func DeleteMembers(c *gin.Context) {
 
 // PATCH /Members
 func UpdateMember(c *gin.Context) {
-var member entity.Member
+	var member entity.Member
 	id := c.Param("id")
 	if tx := entity.DB().Where("id = ?", id).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})

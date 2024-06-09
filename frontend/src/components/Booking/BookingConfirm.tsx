@@ -1,325 +1,198 @@
-import { useEffect, useState } from "react";
-import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import React, { useState, useEffect, useCallback} from "react";
+import Paper from "@mui/material/Paper";
+import Grid from '@mui/material/Grid';
+import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
+import FormLabel from "@mui/material/FormLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import Button from "@mui/material/Button";
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
-import { format, set } from 'date-fns';
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import Stack from '@mui/material/Stack';
 import { BookingsInterface } from "../../models/modelBooking/IBooking";
-import { GetBookingsBYUID, GetMemberByUID} from "./services/BookingHttpClientService";
-// import { GetService, GetServiceType ,GetPrice, GetTimeService } from "../Service/service/ServiceHttpClientService";
-import { MemberInterface } from "../../models/modelMember/IMember";
-// import { EmployeeInterface } from "../../models/IManage";
-import { ServiceTypeInterface, ServiceInterface, TimeServiceInterface } from "../../models/IService";
-import { FormControl, FormLabel, Grid, InputBase, Paper, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { ServiceInterface, ServiceTypeInterface, TimeServiceInterface } from "../../models/IService";
+import Logo2 from "../../Image/LOGO2.png"
 import { styled } from '@mui/material/styles';
-import { EmployeeInterface } from "../../models/IManage";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
-import React from "react";
-import { GetService, GetServiceType, GetTimeService } from "../Service/service/ServiceHttpClientService";
+import { FormControl, Select, SelectChangeEvent } from "@mui/material";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
 
-  
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { pink , common} from "@mui/material/colors";
+import { BiSearchAlt } from "react-icons/bi";
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { ButtonGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { GetBookingsBYUID, GetMemberByUID } from "./services/BookingHttpClientService";
+import { MemberInterface } from "../../models/modelMember/IMember";
 
-function BookingConfirm() {
-
-    let { id } = useParams();
-    
-    const [booking, setBooking] = useState<BookingsInterface>({});
-    const [bookingId, setBookingId] = useState(0);
-    const [members, setMembers] = useState<MemberInterface>();
-    const [employees, setEmployees] = useState<Partial<EmployeeInterface>>({});
-    const [employeeId, setEmployeeId] = useState(0);
-    
-    const [servicetypes, setServiceTypes] = useState<ServiceTypeInterface[]>([]);
-    const [servicetypeId, setServicesTypesId] = useState(0);
-    const [services, setServices] = useState<ServiceInterface[]>([]);
-    const [serviceId, setServicesId] = useState(0);
-    const [timeservice, setTimeService] = useState<TimeServiceInterface[]>([]);
-    const [timeserviceid, setTimeServiceId] = useState(0);
-    const [priceservice, setPriceService] = useState<number | null>(null);
-    const [BookingDate, setBookingDate] = React.useState<Dayjs | null>(dayjs());
-    const [maxBookingDate, setMaxBookingDay] = useState(dayjs().add(2, 'day'))
-
-    
-
-    const feachBookingID = async () => {
-        fetch(`${apiUrl}/bookings/${id}`, requestOptionsGet)
-            .then((response) => response.json())
-            .then((result) => {
-                if (result.data) {
-                    setBooking(result.data);
-                    // console.log("services:",result.data );
-                    setBookingId(result.data.ID)
-                    // setServices(result.data.ServiceType.Service)
-                }
-            });
-          };
-
-    const apiUrl = "http://localhost:8080";
-      const requestOptionsGet = {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
+const Img = styled('img')({
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '80%',
+    maxHeight: '80%',
+  });
+  const bgnavbar = createTheme({
+    palette: {
+      primary: {
+        main: pink[200],
       },
-    };
-      
-      const handleInputChange = (
-        event: React.ChangeEvent<{ id?: string; value: any }>
-      ) => {
-        const id = event.target.id as keyof typeof booking;
-    
-        const { value } = event.target;
-    
-        setBooking({ ...booking, [id]: value });
-      };
-    
-      
-    const handleChange = (event: SelectChangeEvent) => {
-        const name = event.target.name as keyof typeof booking;
-        console.log(event.target.name);
-        console.log(event.target.value);
-        
-        setBooking({
-          ...booking,
-          [name]: event.target.value,
-        });
-        console.log(booking);
-      };
+      secondary: {
+        main: common['black'],
+      },
+  
+    },
+  });
+  const FullScreenContainer = styled('div')({
+    height: '80vw',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+  });
 
+function SelectTechByHair() {
+  const [bookings, setBookings] = useState<BookingsInterface[]>([]);
+  const [members, setMembers] = useState<MemberInterface>();
 
-    const handleSer = (event: { target: { name: string; value: any; }; }) => {
-        const name = event.target.name as keyof typeof booking;
-        const getserid = event.target.value;
+  const [services, setServices] = useState<ServiceInterface[]>([]);
+  const [serviceid, setServicesid] = useState('');
+  
+  const [filter, setFilter] = useState(bookings);
+  let navigate = useNavigate();
+  useEffect(() => {
+      getBookings();
+      getMember();
+      // getEmployee();
+      // getservice();
+      // getservicetype();
+      // gettimeservice();
+      // getprice();
 
-        setServicesId(getserid);
-        setBooking({
-            ...booking,
-            [name]: event.target.value
-        });
-    };
+  }, []);
 
-    const handleTimeSer = (event: { target: { name: string; value: any; }; }) => {
-        const name = event.target.name as keyof typeof booking;
-        const gettimeserid = event.target.value;
-
-        setTimeServiceId(gettimeserid);
-        setBooking({
-            ...booking,
-            [name]: event.target.value
-        });
-    };
-
+  const getBookings = async () => {
+      let res = await GetBookingsBYUID();
+      if (res) {
+          setBookings(res);
+          
+      }
+  };
+  
+  const getMember = async() => {
+      let res = await GetMemberByUID();
+      if (res) {
+          setMembers(res);
+      }
+  }
     useEffect(() => {
-        getBookings();
-        getMember();
-        feachBookingID();
-        
-    }, []);
-
-    const getBookings = async () => {
-        let res = await GetBookingsBYUID();
-        if (res) {
-            setBooking(res);
-        }
-    };
+        const NewFilter = bookings.filter((bookings) => {
+          return([]);
+        });
     
-    const getMember = async() => {
-        let res = await GetMemberByUID();
-        if (res) {
-            setMembers(res);
-        }
-    }
-
-    // const getservicetype = async () => {
-    //     let res = await GetServiceType();
-    //     if (res) {
-    //         setServiceTypes(res);
-    //     }
-    // };
-    // const getservice = async () => {
-    //     let res = await GetService(servicetypeId);
-    //     if (res) {
-    //         setServices(res);
-    //     }
-    // };
-    // const gettimeservice = async () => {
-    //     let res = await GetTimeService(serviceId);
-    //     if (res) {
-    //         setTimeService(res);
-    //     }
-    // };
-    // const getprice = async () => {
-    //     let res = await GetPrice(serviceid);
-    //     if (res) {
-    //         setPriceService(res);
-    //     }
-    // }
-
+        setFilter(NewFilter);
+      }, [bookings]);
     
     return (
-            <Container maxWidth="md">
-                <Box display="flex" sx={{ marginTop: 5, }}>
-                    <Box flexGrow={1}>
-                        <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                            ข้อมูลการจองคิวของคุณ {members?.FirstName} {members?.LastName}
-                        </Typography>
+    <FullScreenContainer>
+      <Container maxWidth="md" sx={{ marginTop: 2, justifyContent: "center" }}>
+        <Box flexGrow={1} sx={{ marginTop: 1 }} textAlign={"center"}>
+          <Typography component="h2" variant="h6" gutterBottom sx={{ fontSize: '2rem', fontWeight: 'bold' }}>
+            ข้อมูลการจองคิวของคุณ {members?.FirstName}
+          </Typography>
+        </Box>
+        <Stack direction="row" sx={{ marginTop: 2 ,marginBottom: 2, marginRight: 0, marginLeft: 0 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={RouterLink}
+            to="/SelectService"
+            sx={{ marginRight: 0 }}
+          >
+            กลับ
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            component={RouterLink}
+            to="/Payment/Create"
+            sx={{ marginLeft: 1 }}
+          >
+            ชำระค่ามัดจำ
+          </Button>
+        </Stack>
+        <Grid container spacing={2}>
+          {filter.map((row, idx) => (
+            <Grid item xs={12} sm={6} md={4} key={idx}>
+              <Paper
+                sx={{
+                  p: 2,
+                  margin: 'auto',
+                  maxWidth: 300,
+                  flexGrow: 1,
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md container>
+                    <Grid item xs>  
+                      <ListItem>
+                        <ListItemText primary={`บริการที่จอง: ${row.ServiceType?.Name}`} />
+                      </ListItem>
+  
+                      <ListItem>
+                        <ListItemText primary={`ช่างที่จอง: ${row.Employee?.Employeename}`} />
+                      </ListItem>
 
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                '& > :not(style)': {
-                                m: 1,
-                                width: 500,
-                                height: 650,
-                                },
-                            }}
-                        >
-                            <Paper>
-                            <Grid container spacing={1} sx={{ padding: 1 }}>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>ข้อมูลประเภทบริการ</p>
-                            <Select
-                                // disabled
-                                id="ServiceType"
-                                native
-                                value={booking.ServiceTypeID + ""}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: "ServiceTypeID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกประเภทบริการ
-                                </option>
-                                {servicetypes.map((item: ServiceTypeInterface) => (
-                                    <option value={item.ID} >{item.Name}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
+                      <ListItem>
+                        <ListItemText primary={`วันที่จอง : ${row.BookingDate}`} />
+                      </ListItem>
+
+                      <ListItem>
+                        <ListItemText primary={`เวลาที่จอง: ${row.TimeService?.Start_End}`} />
+                      </ListItem>
+
+                      <ListItem>
+                        <ListItemText primary={`ราคา: ${row.Total}`} />
+                      </ListItem>
                     </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>เลือกช่าง</p>
-                            <TextField
-                            fullWidth
-                            disabled
-                            id="EmployeeID"
-                            type="string"
-                            variant="outlined"
-                            name="Employeename"
-                            value={booking.Employee}
-                            onChange={handleInputChange}
-                          />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>ข้อมูลบริการ</p>
-                            <Select
-                                native
-                                value={booking.ServiceID + ""}
-                                onChange={handleSer}
-                                inputProps={{
-                                    name: "ServiceID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกบริการ
-                                </option>
-                                {services.map((item: ServiceInterface) => (
-                                    <option value={item.ID} >{item.Service_Name}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>วันที่จอง</p>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
-                              value={BookingDate}
-                              maxDate={maxBookingDate}
-                              disablePast
-                              onChange={(newValue) => {
-                                setBookingDate(newValue); 
-                              }}
-                            />
-                          </LocalizationProvider>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>เวลาที่ต้องการเข้าใช้บริการ</p>
-                            <Select
-                                native
-                                value={booking.TimeServiceID + ""}
-                                onChange={handleTimeSer}
-                                inputProps={{
-                                    name: "TimeServiceID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกเวลาที่ต้องการเข้าใช้บริการ
-                                </option>
-                                {timeservice.map((item: TimeServiceInterface) => (
-                                    <option value={item.ID} >{item.Start_End}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <FormLabel sx={{ fontFamily: "Comic Sans MS" }}> ราคาบริการ </FormLabel>
-                                <TextField
-                                    variant="outlined"
-                                    value={priceservice}
-                                    InputProps={{
-                                        style: { fontFamily: 'Comic Sans MS' },
-                                        readOnly: true,
-                                    }}
-                                />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>จองโดย</p>
-                            <Select
-                                native
-                                disabled
-                                value={booking.MemberID + ""}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: "MemberID",
-                                }}
-                            >
-                                <option value={members?.ID} key={members?.ID}>
-                                    {members?.FirstName} {members?.LastName}
-                                </option>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    </Grid>
-                                
-                            </Paper>
-                        </Box>                                           
-                    </Box>
-                </Box>
-                
-            </Container>
-    );
+                  </Grid>
+                  
+                </Grid>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+        {/* <Stack direction="row" sx={{ marginTop: 2, marginRight: -15, marginLeft: 15 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={RouterLink}
+            to="/SelectService"
+            sx={{ marginRight: 15 }}
+          >
+            กลับ
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            component={RouterLink}
+            to="/Payment/Create"
+            sx={{ marginLeft: 45 }}
+          >
+            ชำระค่ามัดจำ
+          </Button>
+        </Stack> */}
+      </Container>
+    </FullScreenContainer>
+  );
 }
-export default BookingConfirm;
+export default SelectTechByHair

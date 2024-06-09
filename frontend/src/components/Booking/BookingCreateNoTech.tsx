@@ -42,7 +42,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function BookingCreate() {
+function BookingCreateNoTech() {
 
     // let { id } = useParams();
     
@@ -63,7 +63,8 @@ function BookingCreate() {
     const [message, setAlertMessage] = useState("");
 
     const [BookingDate, setBookingDate] = React.useState<Dayjs | null>(dayjs());
-    // const today = dayjs().subtract(1, 'day');
+    const [maxBookingDate, setMaxBookingDay] = useState(dayjs().add(2, 'day'))
+
 
 
     // const feachEmpolyeeID = async () => {
@@ -362,16 +363,11 @@ function BookingCreate() {
                             <p>วันที่จอง</p>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                // {...props}
-                                // slots={{
-                                //     textField: textFieldProps => <TextField {...textFieldProps} />
-                                // }}
-                            //   renderInput={(props) => <TextField {...props} />}
-                            //   label="BookingDate"
                               value={BookingDate}
+                              maxDate={maxBookingDate}
+                              disablePast
                               onChange={(newValue) => {
-                                setBookingDate(newValue);
-                              
+                                setBookingDate(newValue); 
                               }}
                             />
                           </LocalizationProvider>
@@ -451,4 +447,4 @@ function BookingCreate() {
         </Container>
     );
 }
-export default BookingCreate;
+export default BookingCreateNoTech;

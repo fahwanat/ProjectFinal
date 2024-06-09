@@ -18,8 +18,6 @@ func CreateBooking(c *gin.Context) {
 	var service entity.Service
 	var time_services entity.TimeService
 	var employee entity.Employee
-	// var employee entity.Employee
-	// var appointment [] interface{};
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 8 จะถูก bind เข้าตัวแปร booking
 	if err := c.ShouldBindJSON(&booking); err != nil {
@@ -58,60 +56,36 @@ func CreateBooking(c *gin.Context) {
 	if tx := entity.DB().Where("id = ?", booking.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
-	}	
-
-	//start := time.Date(booking.Start.Year(), booking.Start.Month(), booking.Start.Day(), 0, 0, 0, 0, time.UTC)
-	//stop := time.Date(booking.Stop.Year(), booking.Stop.Month(), booking.Stop.Day(), 0, 0, 0, 0, time.UTC)
-	//for grouping
+	}
 	hashBk_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
-
-	// Loop over each day in the date range
-	//for d := start; d.Before(stop.AddDate(0, 0, 1)); d = d.AddDate(0, 0, 1) {
-		// Create a hash string from the room_id and dayeach
-	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v",service_types.ID, service.ID, time_services.ID))))
+	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
 	//Create a booking for each day
-	// 12: สร้าง Booking	
+	// 12: สร้าง Booking
 	bk := entity.Booking{
 		Booking_Number: hashBk_No,
 		Tx_No:          hashTx_No,
 		// Employee:       employee,
-		BookingDate:    booking.BookingDate,
-		Member:  		member,
+		BookingDate: booking.BookingDate,
+		Member:      member,
 
-		ServiceType: 	service_types,
-		Service: 		service,		
-		TimeService: 	time_services,
-		Employee: 		employee,	
+		ServiceType: service_types,
+		Service:     service,
+		TimeService: time_services,
+		Employee:    employee,
 
-		Total:   		float64(service.Price),	
+		Total: float64(service.Price),
 	}
 
-
-
-// Save the booking to the database
+	// Save the booking to the database
 	//13: save
 	if err := entity.DB().Create(&bk).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
-		}
-	
+	}
+
 	c.JSON(http.StatusCreated, gin.H{"data": bk})
 }
 
-// GET /booking/:id
-// func GetBooking(c *gin.Context) {
-// 	id := c.Param("id")
-// 	var bookings struct {
-// 		TotalAmount float64
-// 		Num_Of_Day  int
-// 		entity.Booking
-// 	}
-// 	if err := entity.DB().Preload("TimeService").Preload("SerViceType").Preload("Service").Preload("Member").Raw("SELECT *, SUM(total) as total_amount, COUNT(booking_number) as Num_Of_Day FROM bookings WHERE id = ? GROUP BY booking_number", id).Find(&bookings).Error; err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{"data": bookings})
-// }
 func GetBooking(c *gin.Context) {
 	id := c.Param("id")
 	var bookings struct {
@@ -185,6 +159,43 @@ func ListBookingsTotalbyCID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": b_total})
+}
+
+func GETBookedTimeServices(c *gin.Context) {
+
+	var booking []entity.Booking
+
+	if err := entity.DB().Raw("SELECT * FROM bookings").Scan(&booking).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": booking})
+}
+
+func ListBookedTimeServices(c *gin.Context) {
+	// สร้าง slice เพื่อเก็บ time_service_id
+	var timeServiceIDs []int
+
+	// ดึง time_service_id ทั้งหมดที่ไม่ซ้ำกันจาก bookings
+	rows, err := entity.DB().Table("bookings").Select("DISTINCT time_service_id").Rows()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var timeServiceID int
+		if err := rows.Scan(&timeServiceID); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		// เพิ่ม time_service_id ลงใน slice
+		timeServiceIDs = append(timeServiceIDs, timeServiceID)
+	}
+
+	// ส่งผลลัพธ์เป็น JSON ที่มีโครงสร้างเป็น array ของ time_service_id
+	c.JSON(http.StatusOK, gin.H{"data": timeServiceIDs})
 }
 
 // DELETE /bookings/:id
@@ -268,40 +279,31 @@ func UpdateBooking(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})
 		return
 	}
-
-	//start := time.Date(booking.Start.Year(), booking.Start.Month(), booking.Start.Day(), 0, 0, 0, 0, time.UTC)
-	//stop := time.Date(booking.Stop.Year(), booking.Stop.Month(), booking.Stop.Day(), 0, 0, 0, 0, time.UTC)
 	//for grouping
 	hashBk_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
-
-	// Loop over each day in the date range
-	//for d := start; d.Before(stop.AddDate(0, 0, 1)); d = d.AddDate(0, 0, 1) {
-		// Create a hash string from the room_id and dayeach
-	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v",service_types.ID, service.ID, time_services.ID))))
+	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
 	//Create a booking for each day
-	// 12: สร้าง Booking	
+	// 12: สร้าง Booking
 	ubk := entity.Booking{
 		Booking_Number: hashBk_No,
 		Tx_No:          hashTx_No,
 		// Employee:       employee,
-		BookingDate:    bookings.BookingDate,
-		Member:  		member,
+		BookingDate: bookings.BookingDate,
+		Member:      member,
 
-		ServiceType: 	service_types,
-		Service: 		service,		
-		TimeService: 	time_services,
-		Employee: 		employee,	
+		ServiceType: service_types,
+		Service:     service,
+		TimeService: time_services,
+		Employee:    employee,
 
-		Total:   		float64(service.Price),	
+		Total: float64(service.Price),
+	}
+	// Save the booking to the database
+	//13: save
+	if err := entity.DB().Where("id = ?", bookings.ID).Updates(&ubk).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
-		// Save the booking to the database
-		//13: save
-		if err := entity.DB().Where("id = ?", bookings.ID).Updates(&ubk).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-	
 	c.JSON(http.StatusCreated, gin.H{"data": bookings})
 }
-

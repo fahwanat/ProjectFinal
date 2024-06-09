@@ -48,6 +48,13 @@ func SetupDatabase() {
 		&PaymentMethod{},
 		&Method{},
 		&Payment{},
+
+		//ระบบรีวิว
+		&Review{},
+
+		// ระบบตรวจสอบการชำระเงิน
+		&CHK_Payment{},
+		&CHK_PaymentStatus{},
 	)
 	//////////////////////////////////////////////
 	db = database

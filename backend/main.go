@@ -5,9 +5,11 @@ import (
 
 	"github.com/fahwanat/ProjectFinal/controller"
 	booking "github.com/fahwanat/ProjectFinal/controller/Booking"
+	chk_payment "github.com/fahwanat/ProjectFinal/controller/CheckPayment"
 	employee "github.com/fahwanat/ProjectFinal/controller/Manage"
 	member "github.com/fahwanat/ProjectFinal/controller/Member"
 	payment "github.com/fahwanat/ProjectFinal/controller/Payment"
+	reviewht "github.com/fahwanat/ProjectFinal/controller/Review"
 	service "github.com/fahwanat/ProjectFinal/controller/Service"
 	"github.com/fahwanat/ProjectFinal/entity"
 	"github.com/fahwanat/ProjectFinal/middlewares"
@@ -85,16 +87,20 @@ func main() {
 			router.DELETE("/employees/:id", employee.DeleteEmployee)
 
 			//============Service Routes
+			router.GET("/services", service.ListServices)
 			router.GET("/services_types", service.ListServiceTypes)
 			router.GET("/service_types/:id", service.GetServiceType)
 			router.GET("/services/service_type/:id", service.ListServicesByBID)
 			router.GET("/services/:id", service.GetService)
 			router.GET("/time_services/service/:id", service.ListTimeServiceByBID)
 			router.GET("/time_services/:id", service.GetTimeService)
+			router.POST("/services", service.CreateService)
+			router.PATCH("/services/:id", service.UpdateService)
+			router.DELETE("/services/:id", service.DeleteService)
 
 			// router.GET("/service_types", service.ListServiceTypes)
 			// router.GET("/service_types/:id", service.GetServiceType)
-			// router.POST("/service_types", service.CreateServiceType)
+			router.POST("/service/service_types", service.CreateServiceType)
 
 			//============Booking Routes
 			router.GET("/bookings", booking.ListBookings)
@@ -106,6 +112,8 @@ func main() {
 			router.DELETE("/bookings/member/:id", booking.DeleteBookingByCID)
 			router.GET("/bookingsbydate", booking.ListBookingsBydate)
 			router.GET("/bookingstotalgroupbydate", booking.ListBookingsTotalbyCID)
+			r.GET("/bookings/timeservice", booking.GETBookedTimeServices)
+			r.GET("/bookings/timeservices", booking.ListBookedTimeServices)
 
 			// ======================================= PAYMENT
 			router.GET("/payments", payment.ListPayments)
@@ -120,6 +128,27 @@ func main() {
 			router.GET("/pricebooking/member/:id", payment.PriceBookingCID)
 			router.GET("/priceservice/member/:id", payment.PriceServiceCID)
 
+			//----------review----------------------
+			// Review Routes
+			r.GET("/Reviews", reviewht.ListReviews)
+			router.GET("/Review/:id", reviewht.GetReview)
+			router.POST("/Reviews", reviewht.CreateReview)
+			router.PATCH("/Reviews", reviewht.UpdateReview)
+			router.DELETE("/Reviews/:id", reviewht.DeleteReview)
+
+			//=================================================== Check Payment Routes
+			router.GET("/chk_payments", chk_payment.ListCHK_Payments)
+			router.GET("/chk_payment/:id", chk_payment.GetCHK_Payment)
+			router.POST("/chk_payments", chk_payment.CreateCHK_Payment)
+			router.PATCH("/chk_payments/:id", chk_payment.UpdateCHK_Payment)
+			router.DELETE("/chk_payments/:id", chk_payment.DeleteCHK_Payment)
+			// ---Status---
+			router.GET("/chk_payment/statuses", chk_payment.ListStatuses)
+			router.GET("/chk_payment/status/:id", chk_payment.GetStatus)
+			router.POST("/chk_payment/statuses", chk_payment.CreateStatus)
+			router.PATCH("/chk_payment/statuses", chk_payment.UpdateStatus)
+			router.DELETE("/chk_payment/statuses/:id", chk_payment.DeleteStatus)
+			//=================================================== Check Payment Routes
 		}
 	}
 	r.POST("/login", controller.Login)

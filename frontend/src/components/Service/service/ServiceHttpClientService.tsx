@@ -1,4 +1,4 @@
-import { ServiceInterface } from "../../../models/IService";
+import { ServiceInterface, ServiceTypeInterface } from "../../../models/IService";
 
 const apiUrl = "http://localhost:8080";
 // router.GET("/services", service.ListServices)
@@ -25,11 +25,32 @@ async function GetPrice(id: number) {
             } else {
                 return false;
             }
-        });
+        }); 
     return res;
 }
+// async function GetServiceType() {
+//     let res = await fetch(`${apiUrl}/services_types`, requestOptionsGet)
+//         .then((response) => response.json())
+//         .then((res) => {
+//             if (res.data) {
+//                 return res.data;
+//             } else {
+//                 return false;
+//             }
+//         });
+//     return res;
+// }
+
 async function GetServiceType() {
-    let res = await fetch(`${apiUrl}/services_types`, requestOptionsGet)
+    const requestOptions = {
+        method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+    };
+
+    let res = await fetch(`${apiUrl}/services_types`, requestOptions)
         .then((response) => response.json())
         .then((res) => {
             if (res.data) {
@@ -38,6 +59,7 @@ async function GetServiceType() {
                 return false;
             }
         });
+
     return res;
 }
 // List Room
@@ -61,6 +83,31 @@ async function GetService(id : number) {
     });
     return res;
 }
+
+//Get Services
+async function GetServices(data: string | null) {
+    let s_id = data;
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
+
+    let res = await fetch(`${apiUrl}/services/${s_id}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+}
+
 
 async function GetTimeService(id : number) {
     let res = await fetch(`${apiUrl}/time_services/service/${id}`, requestOptionsGet)
@@ -98,29 +145,76 @@ async function GetEmployees() {
     return res;
 }
 
-// //Craete service
-// async function CreateService(data: ServiceInterface) {
-//     const requestOptions = {
-//         method: "POST",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//     };
+async function GetServicelist() {
+    const requestOptions = {
+        method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+    };
 
-//     let res = await fetch(`${apiUrl}/services`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return {status: true, message: res.data};
-//             } else {
-//                 return {status: false, message: res.error};
-//             }
-//         });
+    let res = await fetch(`${apiUrl}/services`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
 
-//     return res;
-// }
+    return res;
+}
+//Craete service
+async function CreateService(data: ServiceInterface) {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    };
+
+    let res = await fetch(`${apiUrl}/services`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return {status: true, message: res.data};
+            } else {
+                return {status: false, message: res.error};
+            }
+        });
+
+    return res;
+}
+
+// Update service
+async function UppdateService(data: ServiceInterface) {
+    let sv_id = data.ID;
+    const requestOptions = {
+        method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    }
+
+    let res = await fetch(`${apiUrl}/services/${sv_id}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return { status: true, message: res.data };
+            } else {
+                console.log(res.error);
+                return { status: false, message: res.error };
+            }
+        });
+
+    return res;
+}
 
 // //protected.PATCH("/services/id", service.Service)
 // async function Service(data: number) {
@@ -147,55 +241,54 @@ async function GetEmployees() {
 //     return res;
 // }
 
-// // Delete Service
-// async function DeleteService(data: number) {
-//     let ServiceID = data;
-//     const requestOptions = {
-//         method: "DELETE",
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//           },
-//         body: JSON.stringify(data),
-//     }
+// Delete Service
+async function DeleteService(data: number) {
+    let ServiceID = data;
+    const requestOptions = {
+        method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(data),
+    }
     
-//     let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
+    let res = await fetch(`${apiUrl}/services/${ServiceID}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
 
-//     return res;
-// }
+    return res;
+}
 
-// //update room
-// async function UpdateService(data: ServiceInterface) {
-//     const requestOptions = {
-//         method: "PUT",
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//             "Content-Type": "application/json",
-//           },
-//         body: JSON.stringify(data),
-//     }
+//Craete ServiceType
+async function ServiceType(data: ServiceTypeInterface) {
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    };
 
-//     let res = await fetch(`${apiUrl}/services`, requestOptions)
-//         .then((response) => response.json())
-//         .then((res) => {
-//             if (res.data) {
-//                 return res.data;
-//             } else {
-//                 return false;
-//             }
-//         });
+    let res = await fetch(`${apiUrl}/service/service_types`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
 
-//     return res;
-// }
-
+    return res;
+}
 
 export {
 
@@ -205,8 +298,13 @@ export {
     // DeleteService,
     // UpdateService,
     GetService,
-
+    CreateService,
     GetServiceType,
     GetPrice,
-    GetTimeService
+    GetTimeService,
+    GetServicelist,
+    UppdateService,
+    GetServices,
+    DeleteService,
+    ServiceType,
 };

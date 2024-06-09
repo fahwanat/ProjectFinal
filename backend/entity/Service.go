@@ -3,13 +3,14 @@ package entity
 import (
 	// "time"
 	//"github.com/asaskevich/govalidator"
+
 	"gorm.io/gorm"
 )
 
 // ประเภทบริการ เช่น ทำผม ทำเล็บ ทำสปาหน้า
 type ServiceType struct {
 	gorm.Model
-	Name string `valid:"required~Name not blank"`
+	Name string
 	// Time  time.Time
 	// Price int `valid:"required~กรุณากรอกราคา, range(0|9223372036854775807)~กรุณากรอกราคาเป็นจำนวนเต็มบวก"`
 
@@ -52,3 +53,49 @@ type TimeService struct {
 	// BookingNial			[]BookingNial	`gorm:"foreignKey:TimeServiceID"`
 	// BookingFaceSpa		[]BookingFaceSpa	`gorm:"foreignKey:TimeServiceID"`
 }
+
+// func (s *Service) UnmarshalJSON(data []byte) error {
+// 	// สร้าง struct ชั่วคราวเพื่อรับข้อมูล JSON
+// 	var aux struct {
+// 		Service_Name  string          `json:"Service_Name"`
+// 		Price         int             `json:"Price"`
+// 		ServiceTypeID json.RawMessage `json:"ServiceTypeID"`
+// 	}
+
+// 	if err := json.Unmarshal(data, &aux); err != nil {
+// 		return err
+// 	}
+
+// 	s.Service_Name = aux.Service_Name
+// 	s.Price = aux.Price
+
+// 	// แปลง ServiceTypeID จาก string หรือ number เป็น uint
+// 	var id uint64
+// 	if err := json.Unmarshal(aux.ServiceTypeID, &id); err != nil {
+// 		var idStr string
+// 		if err := json.Unmarshal(aux.ServiceTypeID, &idStr); err != nil {
+// 			return err
+// 		}
+// 		if id, err = strconv.ParseUint(idStr, 10, 32); err != nil {
+// 			return err
+// 		}
+// 	}
+
+// 	// idUint := uint(id)
+// 	// s.ServiceTypeID = &idUint
+
+// 	return nil
+// }
+
+// func main() {
+// 	jsonString := `{"Service_Name": "Test Service", "Price": 100, "ServiceTypeID": "123"}`
+
+// 	var service Service
+// 	if err := json.Unmarshal([]byte(jsonString), &service); err != nil {
+// 		fmt.Println("Error unmarshaling JSON:", err)
+// 		return
+// 	}
+
+// 	fmt.Printf("Service: %+v\n", service)
+// 	// fmt.Printf("ServiceTypeID as uint: %d\n", *service.ServiceTypeID)
+// }

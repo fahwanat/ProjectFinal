@@ -272,15 +272,15 @@ const getGender = async () => {
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
                 >
                 <FormLabel sx={{ marginRight: 7, fontSize: 17 }}>
-                Email:
+                Line:
                 </FormLabel>
                 <TextField
-                type="email"
+                type="line"
                 id="outlined-basic"
                 disabled
                 required
                 fullWidth
-                value={member.Email}
+                value={member.Line}
                 />
                 </Grid>
                 

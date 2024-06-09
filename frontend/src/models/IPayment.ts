@@ -1,3 +1,4 @@
+import { BookingsInterface } from "./modelBooking/IBooking";
 import { MemberInterface } from "./modelMember/IMember";
 
 export interface PaymentsInterface {
@@ -11,6 +12,9 @@ export interface PaymentsInterface {
     Price?: number ;
     Time?: Date | null;
     Picture?: string | ArrayBuffer | null;
+
+    BookingID?: number | null,
+    Booking?: BookingsInterface,
 }
 
 export interface PaymentMethodsInterface {
@@ -25,9 +29,4 @@ export interface MethodsInterface {
     // Picture: string,
     // PaymentMethodID: number,
     // PaymentMethod: PaymentMethodsInterface;
-}
-
-export interface PlacesInterface {
-    ID?: number,
-    Name: string,
 }

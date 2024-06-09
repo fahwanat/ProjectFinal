@@ -136,7 +136,7 @@ function EditMember() {
       Lastname: member.LastName,
       Age: member.Age,
       Phone: member.Phone,
-      Email: member.Email,
+      Line: member.Line,
       Password: member.Password,
     };
     console.log(newdata);
@@ -318,15 +318,15 @@ function EditMember() {
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
                 <FormLabel sx={{ marginRight: 7, fontSize: 17 }}>
-                  Email:
+                  Line:
                 </FormLabel>
                 <FormControl fullWidth variant="outlined">
                   <TextField
-                    id="Email"
+                    id="Line"
                     variant="outlined"
                     type="string"
                     size="medium"
-                    value={member.Email || ""}
+                    value={member.Line || ""}
                     onChange={handleInputChange}
                   />
                 </FormControl>

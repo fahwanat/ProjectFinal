@@ -32,6 +32,34 @@ const requestOptionsGet = {
 //     return res;
 // }
 
+// async function AddPayment(data: PaymentsInterface) {
+//     const requestOptions = {
+//         method: "POST",
+//         headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(data),
+//     };
+
+//     try {
+//         const response = await fetch(`${apiUrl}/payment`, requestOptions);
+//         if (response.ok) {
+//             const resData = await response.json();
+//             if (resData.data) {
+//                 return { status: true, message: resData.data };
+//             } else {
+//                 return { status: false, message: resData.error };
+//             }
+//         } else {
+//             throw new Error('Failed to add payment');
+//         }
+//     } catch (error: any) {
+//         console.error('Error adding payment:', error);
+//         return { status: false, message: error.message };
+//     }
+// }
+
 async function AddPayment(data: PaymentsInterface) {
     const requestOptions = {
         method: "POST",
@@ -42,22 +70,16 @@ async function AddPayment(data: PaymentsInterface) {
         body: JSON.stringify(data),
     };
 
-    try {
-        const response = await fetch(`${apiUrl}/payment`, requestOptions);
-        if (response.ok) {
-            const resData = await response.json();
-            if (resData.data) {
-                return { status: true, message: resData.data };
+    let res = await fetch(`${apiUrl}/payment`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return { status: true, message: res.data };
             } else {
-                return { status: false, message: resData.error };
+                return { status: false, message: res.error };
             }
-        } else {
-            throw new Error('Failed to add payment');
-        }
-    } catch (error: any) {
-        console.error('Error adding payment:', error);
-        return { status: false, message: error.message };
-    }
+        });
+    return res;
 }
 
 async function UpdatePayment(data: PaymentsInterface) {
@@ -296,7 +318,7 @@ async function GetMembers() {
     return res;
 }
 
-async function GetPayment(id: string) {
+async function GetPayments(id: string) {
     let res = await fetch(`${apiUrl}/payment/member/${id}`, requestOptionsGet)
         .then((response) => response.json())
         .then((res) => {
@@ -309,6 +331,49 @@ async function GetPayment(id: string) {
     return res;
 }
 
+async function GetPayment() {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
+
+    let res = await fetch(`${apiUrl}/payments`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+}
+
+async function GetBookings() {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
+
+    let res = await fetch(`${apiUrl}/bookings`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+}
 
 export {
     // AddPayment,
@@ -325,4 +390,6 @@ export {
     GetMember,
     GetMemberByUID,
     GetPriceBookingCID, AddPayment,
+    GetPayments,
+    GetBookings,
 };

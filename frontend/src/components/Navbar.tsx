@@ -142,20 +142,19 @@ function Navbar() {
   function MemberMenuBar() {
     if (localStorage.getItem("role") == "Member"){
     return(
-    <MenuItem onClick={handleClose} component={RouterLink} to="/member/profile">Profile</MenuItem>)}
+    <MenuItem onClick={handleClose} component={RouterLink} to="/member/profile">ข้อมูลส่วนตัว</MenuItem>)}
   };
 
   const MemberMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/Homeshow" },
-    { name: "TechnicianBooking", icon: <ReceiptLongIcon />, path: "/TechnicianBooking" },
-    { name: "TechnicianAppointment", icon: <ReceiptLongIcon />, path: "/TechnicianAppointment" },
-    { name: "BookingInfo", icon: <ReviewsIcon />, path: "/Book" },
-    { name: "BookConfirm", icon: <RoomServiceIcon />, path: "/BookConfirm" },
-    // { name: "Payment", icon: <PaymentIcon />, path: "/ps" },
+    { name: "จองคิว", icon: <HomeIcon />, path: "/SelectService" },
+    { name: "ข้อมูลการจองคิว", icon: <RoomServiceIcon />, path: "/BookConfirm" },
+    { name: "รีวิว", icon: <ReviewsIcon />, path: "/AddReview" },
   ];
   const EmployeeMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/home" },
     { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
+    { name: "Payment", icon: <PaymentIcon />, path: "/CheckPay" },
   //   { name: "Check IN - Check Out", icon: <FactCheckIcon />, path: "/CNCO" },
   //   { name: "Check Payment", icon: <PriceCheckIcon />, path: "/CPM" },
   //   {
@@ -178,9 +177,13 @@ function Navbar() {
   //   },
   // ];
   const OfficerMenu = [
-    {name: "Manage Employee Information", icon: <ManageAccountsIcon />,path: "/Manage-Show",},
-    {name: "Service Information", icon: <ManageAccountsIcon />,path: "/ss"},
-    { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
+    {name: "จัดการข้อมูลพนักงาน", icon: <ManageAccountsIcon />,path: "/ManageShow",},
+    {name: "ข้อมูลบริการ", icon: <ManageAccountsIcon />,path: "/Service"},
+    // { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
+    { name: "ข้อมูลชำระเงินค่ามัดจำ", icon: <PaymentIcon />, path: "/CheckPay" },
+    { name: "ข้อมูลตรวจสอบการชำระเงิน", icon: <PriceCheckIcon />, path: "/CPM" },
+    { name: "ข้อมูลการจองคิวของลูกค้า", icon: <PaymentIcon />, path: "/Payment/Show" },
+
   ];
 
 
@@ -236,11 +239,11 @@ function Navbar() {
                 </div>
             </Typography>
           </Box>
-          <Box sx={{ display: 'center', width: '6.5%', }}>
-          <Button component={RouterLink} to="/TechnicianAppointment" variant="contained" color='secondary' >
+          {/* <Box sx={{ display: 'center', width: '6.5%', }}>
+          <Button component={RouterLink} to="/SelectService" variant="contained" color='secondary' >
               จองคิว
           </Button>
-          </Box>
+          </Box> */}
 
           <Button
             // sx={{display: 'center', width: '10%',}}
@@ -272,7 +275,7 @@ function Navbar() {
             {MemberMenuBar()}
             <MenuItem onClick={SignOut}>
             <LogoutIcon style={{ marginRight: ".5rem" }} />
-              Log out
+              ออกจากระบบ
             </MenuItem>
           </Menu>
 

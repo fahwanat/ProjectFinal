@@ -8,7 +8,7 @@ export interface MemberInterface {
   Nickname?: string;
   Age?: number;
   Phone?: string;
-  Email?: string;
+  Line?: string;
   Password?: string;
 
   Gender?: GenderInterface;

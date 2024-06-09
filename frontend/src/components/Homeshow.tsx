@@ -13,6 +13,7 @@ import { AppBar, Box, Button, Grid, IconButton, ThemeProvider } from "@mui/mater
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import Logo from "../Image/LOGO.png"
 
 const bgnavbar = createTheme({
   palette: {
@@ -64,7 +65,7 @@ function Homeshow() {
   return (
   <ThemeProvider theme={bgnavbar}>
       <AppBar position="fixed">
-        <Toolbar>
+      <Toolbar>
           <div>
             <img src={Logo5} width= "75px" height="75px"/>
           </div>
@@ -79,23 +80,26 @@ function Homeshow() {
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', width: '30%'}}>
-            <Button component={RouterLink} to="/Homeshow"  color='secondary' sx={{ display: 'flex', width: '10%'}} >Home</Button>
-            <Button component={RouterLink} to="/Review"  color='secondary' sx={{ display: 'flex', width: '10%'}}>รีวิว</Button>
-            <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '20%'}}>ข้อมูลต่างๆ</Button>
-          
+            <Button component={RouterLink} to="/Homeshow"  color='secondary' sx={{ display: 'flex', width: '20%'}} >หน้าแรก</Button>
+            <Button component={RouterLink} to="/Review"  color='secondary' sx={{ display: 'flex', width: '10%'}}>แนะนำ</Button>
+            <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '25%'}}>เกี่ยวกับ</Button>
+
           </Box>
-          <Box sx={{ display: 'flex', width: '3%'}}>
+          {/* <Box sx={{ display: 'flex', width: '3%'}}>
             <IconButton component={RouterLink} to="/member/create" sx={{ display: 'flex', width: '10%'}} color='secondary' >
               <PersonAddIcon />
             </IconButton>
+          </Box> */}
+          <Box sx={{ display: 'flex', width: '8.5%'}}>
+          <Button component={RouterLink} to="/member/create" variant="contained" color='secondary' >สมัครสมาชิก</Button>
           </Box>
-          <Box sx={{ display: 'flex', width: '6.5%'}}>
-          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >LOGIN</Button>
+          <Box sx={{ display: 'flex', width: '7.4%'}}>
+          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >เข้าสู่ระบบ</Button>
           </Box>
-          <Box sx={{ display: 'flex', width: '10%'}}>
+          <Box sx={{ display: 'flex', width: '8.5%'}}>
           <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >จองคิว</Button>
           </Box>
-          
+
         </Toolbar>
 
       </AppBar>
@@ -116,7 +120,7 @@ function Homeshow() {
         <div className="grid-item-23">
           <div className="details-headder-homeshow">
             <h4>บริการทุกระดับประทับใจ ลูกค้าต้องการแบบไหนบอกช่างได้เลย</h4>
-            <h4>ร้านเปิดบริการวันจันทร์-ศุกร์ และอาทิตย์ ตั้งแต่เวลา 10:00-17:00 น.</h4>
+            <h4>ร้านเปิดบริการวันจันทร์-ศุกร์ และอาทิตย์ ตั้งแต่เวลา 09:00-19:00 น.</h4>
             <h4>ร้านของเรามีบริการต่างๆ ดังนี้</h4>
             <h4>*****************************</h4>
             <h4>1. ทำผม --- สระผม/ไดร์ผม ตัดผม/ซอยผม ยืดผม ย้อมผม ดัดผม </h4>

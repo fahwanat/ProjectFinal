@@ -21,7 +21,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { BookingsInterface } from "../../models/modelBooking/IBooking";
 import { ServiceInterface } from "../../models/IService";
 import { MemberInterface } from "../../models/modelMember/IMember";
-import { MethodsInterface, PaymentMethodsInterface, PaymentsInterface, PlacesInterface } from "../../models/IPayment";
+import { MethodsInterface, PaymentMethodsInterface, PaymentsInterface } from "../../models/IPayment";
 import { AddPayment,DeleteBookings, DeleteServices, GetDestination, GetMethods, GetPaymentMethods, GetPriceBookingCID, } from "./service/PaymentHttpClientService";
 
 import { DatePicker, DateTimeField } from "@mui/x-date-pickers";
@@ -65,16 +65,29 @@ function PaymentCreate() {
     setOpenForCreate(false);
   };
 
-  const handleImageChange = (event: any) => {
-    const image = event.target.files[0];
-
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => {
-        const base64Data = reader.result;
-        setImage(base64Data)
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const base64Data = reader.result;
+            setImage(base64Data);
+        };
     }
-}
+};
+
+
+//   const handleImageChange = (event: any) => {
+//     const image = event.target.files[0];
+
+//     const reader = new FileReader();
+//     reader.readAsDataURL(image);
+//     reader.onload = () => {
+//         const base64Data = reader.result;
+//         setImage(base64Data)
+//     }
+// }
 
 const handleMet = (event: { target: { name: string; value: any; }; }) => {
     const name = event.target.name as keyof typeof payment;
@@ -123,13 +136,19 @@ const convertType = (data: string | number | undefined | null) => {
 };
 
 async function submit() {
+        if (!image) {
+        setAlertMessage("กรุณาแนบรูปสลิป");
+        setError(true);
+        return;
+    }
+
     let data = {
         MemberID: convertType(id_mem),
         PaymentMethodID: convertType(payment.PaymentMethodID),
         MethodID: convertType(payment.MethodID),
         Price: price,
         Time: time,
-
+        Picture: image,
     };
     let res = await AddPayment(data);
     if (res.status) {
@@ -137,13 +156,43 @@ async function submit() {
         setAlertMessage("ชำระเงินสำเร็จ");
         setSuccess(true);
         setInterval(() => {
-            window.location.assign("/Payment/Show");
+            window.location.assign("/Payment/Save");
         }, 2000);
     } else {
         setAlertMessage(res.message);
         setError(true);
     }
 }
+
+// async function submit() {
+//     if (!image) {
+//         setAlertMessage("กรุณาแนบรูปสลิป");
+//         setError(true);
+//         return;
+//     }
+
+//     let data = {
+//         MemberID: convertType(id_mem),
+//         PaymentMethodID: convertType(payment.PaymentMethodID),
+//         MethodID: convertType(payment.MethodID),
+//         Price: price,
+//         Time: time,
+//         Image: image,
+//     };
+//     let res = await AddPayment(data);
+//     if (res.status) {
+//         await DeleteBookings(id_mem);
+//         setAlertMessage("ชำระเงินสำเร็จ");
+//         setSuccess(true);
+//         setInterval(() => {
+//             window.location.assign("/Payment/Save");
+//         }, 2000);
+//     } else {
+//         setAlertMessage(res.message);
+//         setError(true);
+//     }
+// }
+
 
 const getpaymentMethods = async () => {
     let res = await GetPaymentMethods();
@@ -203,193 +252,144 @@ useEffect(() => {
 console.log(price);
 
     return (
-        <div>
-             <Container
-        maxWidth="xl"
-        sx={{
-          display: "flex",
-          height: '134vh',
-          justifyContent: "center",
-          alignItems: "center",
-          overflow: "hidden",
-        //   backgroundSize: "contain",
-        //   backgroundImage:"url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
-            }}>
-        <Container maxWidth="md" sx={{ marginTop: 1, }} >
-            <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
-                <Alert onClose={handleClose} severity="success">
-                    {message}
-                </Alert>
-            </Snackbar>
-            <Snackbar open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
-                <Alert onClose={handleClose} severity="error">
-                    {message}
-                </Alert>
-            </Snackbar>
-            <Paper sx={{
-        p: 2,
-        margin: 'auto',
-        marginTop: 0.5,
-        maxWidth: 500,
-        flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-      }}>
-                <Box display="flex" sx={{ marginTop: 0.1, }} >
-                    <Box sx={{ paddingX: 2, paddingY: 0.5 }}>
-                        <Typography component="h2" variant="h6" color="primary" gutterBottom >
-                            ชำระค่ามัดจำ
-                        </Typography>
-                    </Box>
+        <Container maxWidth="md" sx = {{ marginTop: 3,}} >
+        <Snackbar open={success} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
+            <Alert onClose={handleClose} severity="success">
+                {message}
+            </Alert>
+        </Snackbar>
+        <Snackbar open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
+            <Alert onClose={handleClose} severity="error">
+                {message}
+            </Alert>
+        </Snackbar>
+        <Paper>
+            <Box display="flex" sx={{ marginTop: 2, }} >
+                <Box sx={{ paddingX: 2, paddingY: 1 }}>
+                    <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        ชำระค่ามัดจำ
+                    </Typography>
                 </Box>
-                <Divider />
-                <Grid container spacing={1} sx={{ padding: 1 }} >
-                    {/* <Grid item xs={6}>
+            </Box>
+            <Divider />
+            <Grid container spacing={3} sx={{ padding: 2 }}>
+                {/* <Grid item xs={6}>
                     <FormControl fullWidth variant="outlined">
-                            <p>วิธีชำระเงิน</p>
-                            <Select
-                                native
-                                value={payment.PaymentMethodID + ""}
-                                    onChange={handlePayMet}
-                                    inputProps={{
-                                    name: "PaymentMethodID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกวิธีชำระเงิน
-                                </option>
-                                {paymet.map((item: PaymentMethodsInterface) => (
-                                   <option value={item.ID} >{item.Name}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>ช่องทางการชำระเงิน</p>
-                            <Select
-                                native
-                                value={payment.MethodID + ""}
-                                    onChange={handleMet}
-                                    inputProps={{
-                                    name: "MethodID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกช่องทางการชำระเงิน
-                                </option>
-                                {method.map((item: MethodsInterface) => (
-                                    <option value={item.ID}>{item.Name}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                                            <FormControl fullWidth variant="outlined">
-                                                <p>หมายเลข </p>
-                                                <TextField
-                                                    variant="outlined"
-                                                    value={destination}
-                                                    InputProps={{
-                                                        // style: { fontFamily: 'Comic Sans MS' },
-                                                        readOnly: true,
-                                                    }}
-                                                />
-                                            </FormControl>
-                                        </Grid>
-                                        <Grid item xs={12}>
+                        <p>วิธีชำระเงิน</p>
+                        <Select
+                        native
+                        value={payment.PaymentMethodID + ""}
+                        onChange={handlePayMet}
+                        inputProps={{
+                            name: "PaymentMethodID",
+                            }}
+                        >
+                        <option aria-label="None" value="">
+                            กรุณาเลือกวิธีชำระเงิน
+                        </option>
+                        {paymet.map((item: PaymentMethodsInterface) => (
+                            <option value={item.ID} >{item.Name}</option>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid> */}
+                <Grid item xs={6}>
                     <FormControl fullWidth variant="outlined">
-                            <p>จำนวนเงิน คิด 50 %</p>
-                                <TextField
-                                    variant="outlined"
-                                    value={Math.floor(price * 0.5)}
-                                    InputProps={{
-                                    // style: { fontFamily: 'Comic Sans MS' },
-                                    readOnly: true,
-                                        }}
-                                            />
-                                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>วันที่ชำระเงิน</p>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimeField
-                            disabled
-                            //   label="Format without meridiem"
-                           defaultValue={dayjs()}
-                           format="L HH:mm"
-                            />
-                          </LocalizationProvider>
-                        </FormControl>
-                    </Grid>
-                    <Typography
-                                gutterBottom
-                            >
-                            </Typography>
-
-                            <Grid
-                                container
-                                sx={{
-                                    flexGrow: 1,
-                                    // fontFamily: "Comic Sans MS",
-                                }}
-                            >
-                                <Grid
-                                sx={{ marginTop: 2, }}
-                                    container
-                                    justifyContent="center"
-                                    
-                                    // gap={2.5}
-                                >
-                                    <img src={`${image}`} width="270" height="400" />
-                                    <FormControl fullWidth variant="outlined"  >
-                                        <p>โปรดแนบ Slip ยืนยัน</p>
-                                        <input type="file" onChange={handleImageChange} />
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-
-                    {/* <Grid item xs={8}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>ชื่อผู้ชำระเงิน</p>
-                            <Select
-                                native
-                                disabled
-                                value={booking.MemberID + ""}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: "MemberID",
-                                }}
-                            >
-                                <option value={members?.ID} key={members?.ID}>
-                                    {members?.FirstName} {members?.LastName}
-                                </option>
-                            </Select>
-                        </FormControl> */}
-                    {/* </Grid> */}
-                    <Grid item xs={12}>
-                        <Button sx={{ marginTop: 1, }}
-                            component={RouterLink}
-                            to="/Book"
-                            variant="contained"
-                            color="inherit"
+                        <p>ช่องทางการชำระเงิน</p>
+                        <Select
+                        native
+                        value={payment.MethodID + ""}
+                        onChange={handleMet}
+                        inputProps={{
+                            name: "MethodID",
+                        }}
                         >
-                            ยกเลิก
-                        </Button>
-                        <Button sx={{ marginTop: 2, float: "right"}}
-                            onClick={submit}
-                            variant="contained"
-                            color="primary"
-                        >
-                            ยืนยันการชำระเงิน
-                        </Button>
-                    </Grid>  
+                        <option aria-label="None" value="">
+                            กรุณาเลือกช่องทางการชำระเงิน
+                        </option>
+                        {method.map((item: MethodsInterface) => (
+                        <option value={item.ID}>{item.Name}</option>
+                        ))}
+                        </Select>
+                    </FormControl>
                 </Grid>
-            </Paper>
-        </Container>
-        </Container>
-        </div>
+                <Grid item xs={6}>
+                    <FormControl fullWidth variant="outlined">
+                        <p>หมายเลขบัญชี </p>
+                        <TextField
+                        variant="outlined"
+                        value={destination}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        />
+                    </FormControl>
+                </Grid>
+                
+                <Grid item xs={6}>
+                    <FormControl fullWidth variant="outlined">
+                        <p>จำนวนเงินที่ต้องชำระ คิด 50 %</p>
+                        <TextField
+                        variant="outlined"
+                        value={Math.floor(price * 0.5)}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                    <FormControl fullWidth variant="outlined">
+                        <p>วันที่ชำระเงิน</p>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimeField
+                        disabled
+                        defaultValue={dayjs()}
+                        format="L HH:mm"
+                        />
+                        </LocalizationProvider>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography gutterBottom></Typography>
+                    <Grid container sx={{ flexGrow: 1,}} >
+                    {/* <Grid
+                    sx={{ marginTop: 2, }}
+                    container
+                    justifyContent="center"
+                    > */}
+                        <FormControl fullWidth variant="outlined"  >
+                        <p>โปรดแนบสลิปยืนยัน</p>
+                        <img src={`${image}`} style={{ maxWidth: '270%', height: '400' }}/>
+                        <input type="file" onChange={handleImageChange} />
+                        </FormControl>
+                    {/* </Grid> */}
+                    </Grid>
+                </Grid>
+                
+                
+                <Grid item xs={12}>
+                    <Button
+                        component={RouterLink}
+                        to="/Payment/Show"
+                        variant="contained"
+                        color="inherit"
+                    >
+                        กลับ
+                    </Button>
+                    <Button
+                        style={{ float: "right" }}
+                        onClick={submit}
+                        variant="contained"
+                        color="primary"
+                    >
+                        บันทึก
+                    </Button>
+                </Grid>
+            </Grid>
+        </Paper>
+    </Container>
+
     );
 }
 export default PaymentCreate;

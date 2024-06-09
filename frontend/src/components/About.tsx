@@ -12,7 +12,7 @@ import hair1 from "../Image/hair1.jpg"
 import hair2 from "../Image/hair2.jpg"
 import hair3 from "../Image/hair3.jpg"
 import hair4 from "../Image/hair4.jpg"
-
+import Logo5 from "../Image/LOGO5.png"
 import Logo from "../Image/LOGO.png"
 import employee1 from "../Image/employee1.jpg"
 import Toolbar from "@mui/material/Toolbar";
@@ -74,36 +74,42 @@ function About() {
   return (
     <ThemeProvider theme={bgnavbar}>
         <AppBar position="fixed">
-          <Toolbar>
-            <div>
-              <img src={Logo} width= "75px" height="75px"/>
-            </div>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '50%'}}>
-              <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2}>
-                <div className="word-header-navbar">
-                  <h1>Beauty Salon</h1>
-                </div>
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', width: '30%'}}>
-              <Button component={RouterLink} to="/Homeshow"  color="secondary" sx={{ display: 'flex', width: '20%'}} >หน้าแรก</Button>
-              <Button component={RouterLink} to="/Review"  color="secondary" sx={{ display: 'flex', width: '10%'}}>รีวิว</Button>
-              <Button component={RouterLink} to="/About"  color="secondary" sx={{ display: 'flex', width: '25%'}}>เกี่ยวกับ</Button>
-  
-            </Box>
-            <Box sx={{ display: 'flex', width: '3%'}}>
-              <IconButton component={RouterLink} to="/member/create" sx={{ display: 'flex', width: '10%'}} color="secondary" >
-                <PersonAddIcon />
-              </IconButton>
-            </Box>
-            <Box sx={{ display: 'flex', width: '6.5%'}}>
-            <Button component={RouterLink} to="/home" variant="contained" color="secondary" >LOGIN</Button>
-            </Box>
-            <Box sx={{ display: 'flex', width: '10%'}}>
-            <Button component={RouterLink} to="/home" variant="contained" color="secondary" >จองคิว</Button>
-            </Box>
-            
-          </Toolbar>
+        <Toolbar>
+          <div>
+            <img src={Logo5} width= "75px" height="75px"/>
+          </div>
+          <Box sx={{  display: 'flex', 
+                      justifyContent: 'space-between', 
+                      alignItems: 'center', 
+                      width: '50%'}}>
+            <Typography variant="h6" color='secondary' noWrap component="div" marginLeft={2} >
+              <div className="word-header-navbar">
+                <h1>Beauty Salon</h1>
+              </div>
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', width: '30%'}}>
+            <Button component={RouterLink} to="/Homeshow"  color='secondary' sx={{ display: 'flex', width: '20%'}} >หน้าแรก</Button>
+            <Button component={RouterLink} to="/Review"  color='secondary' sx={{ display: 'flex', width: '10%'}}>แนะนำ</Button>
+            <Button component={RouterLink} to="/About"  color='secondary' sx={{ display: 'flex', width: '25%'}}>เกี่ยวกับ</Button>
+
+          </Box>
+          {/* <Box sx={{ display: 'flex', width: '3%'}}>
+            <IconButton component={RouterLink} to="/member/create" sx={{ display: 'flex', width: '10%'}} color='secondary' >
+              <PersonAddIcon />
+            </IconButton>
+          </Box> */}
+          <Box sx={{ display: 'flex', width: '8.5%'}}>
+          <Button component={RouterLink} to="/member/create" variant="contained" color='secondary' >สมัครสมาชิก</Button>
+          </Box>
+          <Box sx={{ display: 'flex', width: '7.4%'}}>
+          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >เข้าสู่ระบบ</Button>
+          </Box>
+          <Box sx={{ display: 'flex', width: '8.5%'}}>
+          <Button component={RouterLink} to="/SignIn" variant="contained" color='secondary' >จองคิว</Button>
+          </Box>
+
+        </Toolbar>
   
         </AppBar>
         <div>

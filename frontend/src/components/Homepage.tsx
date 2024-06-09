@@ -58,12 +58,12 @@ function Homepage() {
         </div> */}
         <div className="grid-item-buttom-register">
           <button className="button-home" type="button" disabled> 
-            <RouterLink className = "" rel="stylesheet" to="/Homeshow" > Home </RouterLink>
+            <RouterLink className = "" rel="stylesheet" to="/Homeshow" > หน้าแรก </RouterLink>
           </button> 
         </div>
         <div className="grid-item-buttom-login">
           <button className="button-login" type="button" disabled> 
-            <RouterLink className = "" rel="stylesheet" to="/home" > Login </RouterLink>
+            <RouterLink className = "" rel="stylesheet" to="/SignIn" > เข้าสู่ระบบ </RouterLink>
           </button> 
         </div>
         </div>   

@@ -241,6 +241,28 @@ async function UppdateBooking(data: BookingsInterface) {
     return res;
 }
 
+async function GetBookedTimeServices(data: BookingsInterface) {
+    let t_id = data.ID;
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
+
+    let res = await fetch(`${apiUrl}/booked_time_services/${t_id}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+    return res;
+}
+
 export {
     GetMemberByUID,
     GetMembers,
@@ -255,5 +277,6 @@ export {
     GetBookingsSumTotal,
     DeleteBooking,
     UppdateBooking,
+    GetBookedTimeServices
 
 };
