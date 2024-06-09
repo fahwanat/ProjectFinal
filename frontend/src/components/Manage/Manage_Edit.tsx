@@ -11,7 +11,9 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
   createTheme,
   FormControlLabel,
@@ -29,7 +31,10 @@ import {
   OfficerInterface,
   PositionInterface,
 } from "../../models/IManage";
+import { BookingsInterface} from "../../models/modelBooking/IBooking";
+
 import { grey } from "@mui/material/colors";
+import { MemberInterface } from "../../models/modelMember/IMember";
 
 const bgbutton = createTheme({
   palette: {
@@ -69,6 +74,61 @@ function Manage_Edit() {
   const [yearOfStart, setYearOfStart] = React.useState<Date | null>(new Date());
   const { id } = useParams();
   const [message, setAlertMessage] = React.useState("");
+
+  const [bookings, setBookings] = useState<Partial<BookingsInterface>>({});
+  const [member, setMember] = useState<MemberInterface>({});
+
+  const getBookings = async () => {
+    const apiUrl = `http://localhost:8080/bookings`;
+  
+    const requestOptions = {
+      method: "GET",
+  
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    //การกระทำ //json
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
+  
+      .then((res) => {
+      //   console.log(res.data); //show ข้อมูล
+  
+        if (res.data) {
+          setBookings(res.data);
+        } else {
+          // console.log("else");
+        }
+      });
+  };
+
+  const getMembers = async () => {
+    const apiUrl = `http://localhost:8080/members`;
+  
+    const requestOptions = {
+      method: "GET",
+  
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    //การกระทำ //json
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
+  
+      .then((res) => {
+      //   console.log(res.data); //show ข้อมูล
+  
+        if (res.data) {
+          setMember(res.data);
+        } else {
+          // console.log("else");
+        }
+      });
+  };
 
   //-----------เริ่มดึงข้อมูล-----------//
 //---------------------Department-------------------------------------
@@ -126,7 +186,7 @@ const getPosition = async () => {
 
 
 const getEmployee = async () => {
-    const apiUrl = `http://localhost:8080/Employee/${id}`;
+    const apiUrl = `http://localhost:8080/employee/${id}`;
   
     const requestOptions = {
       method: "GET",
@@ -211,12 +271,13 @@ const getEmployee = async () => {
       Salary: typeof employee.Salary === "string" ? parseInt(employee.Salary) : employee.Salary,
       Phonenumber: employee.Phonenumber,
       Gender: gender,
+      DateOfBirth: dateOfBirth,
       DepartmentID: typeof employee.DepartmentID === "string" ? parseInt(employee.DepartmentID) : employee.DepartmentID,
       PositionID: typeof employee.PositionID === "string" ? parseInt(employee.PositionID) : employee.PositionID,
     }
 
     console.log(dataemployee)
-    const apiUrlUpdate = "http://localhost:8080/Employees";
+    const apiUrlUpdate = "http://localhost:8080/employees";
 
     const requestUpdateOptions = {
         method: "PATCH",
@@ -234,7 +295,7 @@ const getEmployee = async () => {
         if (res.data) {
           setSuccess(true);
           setInterval(() => {
-            window.location.assign("/Manage-Show");
+            window.location.assign("/ManageShow");
           }, 1000);
         } else {
           
@@ -251,6 +312,8 @@ const getEmployee = async () => {
     getDepartment();
     getPosition();
     getEmployee();
+    getBookings();
+    getMembers();
 
   }, []);
 
@@ -292,8 +355,9 @@ const getEmployee = async () => {
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
             >
-              Edit Employee Information
+              แก้ไขข้อมูลพนักงาน
             </Typography>
           </Box>
         </Box>
@@ -301,15 +365,15 @@ const getEmployee = async () => {
         <Divider />
 
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-         <Grid item xs={5}>
+        <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "14.5%"}}>
+         <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Personal ID</FormLabel>
+              <FormLabel>เลขประจำตัวประชาชน</FormLabel>
               <TextField
                 id="PersonalID"
                 variant="outlined"
                 size="medium"
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 value={employee.PersonalID}
                 onChange={handleInputChange}
                 inputProps = {{ maxLength : 13 }}
@@ -317,14 +381,14 @@ const getEmployee = async () => {
             </FormControl>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Name</FormLabel>
+              <FormLabel>ชื่อ-นามสกุล</FormLabel>
               <TextField
                 id="Employeename"
                 variant="outlined"
                 size="medium"
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 value={employee.Employeename}
                 onChange={handleInputChangeedit}
               />
@@ -332,8 +396,8 @@ const getEmployee = async () => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
-          {/* ComboboxDepartment */}
+        {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+
           <Grid item xs={4}>
             <FormLabel>Department</FormLabel>
             <FormControl fullWidth variant="outlined">
@@ -353,7 +417,6 @@ const getEmployee = async () => {
             </FormControl>
           </Grid>
 
-          {/* ComboboxPosition */}
           <Grid item xs={4}>
             <FormLabel>Position</FormLabel>
             <FormControl fullWidth variant="outlined">
@@ -373,19 +436,19 @@ const getEmployee = async () => {
             </FormControl>
           </Grid>
 
-        </Grid>
+        </Grid> */}
 
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Username</FormLabel>
+              <FormLabel>ชื่อผู้ใช้งาน</FormLabel>
 
               <TextField
-                id="Tusername"
+                id="Eusername"
                 variant="outlined"
                 size="medium"
                 value={employee.Tusername}
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 onChange={handleInputChange}
               />
             </FormControl>
@@ -393,14 +456,14 @@ const getEmployee = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Password</FormLabel>
+              <FormLabel>รหัสผ่าน</FormLabel>
 
               <TextField
                 id="Password"
                 variant="outlined"
                 type="string"
                 size="medium"
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 value={employee.Password}
                 onChange={handleInputChange}
               />
@@ -412,14 +475,14 @@ const getEmployee = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Email</FormLabel>
+              <FormLabel>อีเมล</FormLabel>
 
               <TextField
                 id="Email"
                 variant="outlined"
-                type="strdium"
+                // type="strdium"
                 value={employee.Email}
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 onChange={handleInputChange}
               />
             </FormControl>
@@ -427,7 +490,7 @@ const getEmployee = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Tel</FormLabel>
+              <FormLabel>หมายเลขติดต่อ</FormLabel>
 
               <TextField
                 id="Phonenumber"
@@ -435,7 +498,7 @@ const getEmployee = async () => {
                 type="string"
                 size="medium"
                 value={employee.Phonenumber}
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 onChange={handleInputChange}
               />
             </FormControl>
@@ -443,16 +506,35 @@ const getEmployee = async () => {
         </Grid>
 
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+        <Grid item xs={4}>
+            <FormLabel>ตำแหน่ง</FormLabel>
+            <FormControl fullWidth variant="outlined">
+              <Select
+                native
+                // disabled={btnDisabled}
+                value={employee.PositionID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "PositionID",
+                }}
+              >
+                {position.map((item: PositionInterface) => (
+                  <option value={item.ID}>{item.Name}</option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Salary</FormLabel>
+              <FormLabel>เงินเดือน</FormLabel>
 
               <TextField
                 id="Salary"
                 variant="outlined"
                 type="string"
                 size="medium"
-                disabled={btnDisabled}
+                // disabled={btnDisabled}
                 value={employee.Salary || ""}
                 onChange={handleInputChange}
               />
@@ -460,7 +542,7 @@ const getEmployee = async () => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+        {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={6}>
             <FormControl>
               <FormLabel>Gender</FormLabel>
@@ -488,7 +570,62 @@ const getEmployee = async () => {
               </RadioGroup>
             </FormControl>
           </Grid>
+        </Grid> */}
+
+        {/* <Grid container spacing={3} sx={{ padding: 2 }}>
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <FormLabel>Address</FormLabel>
+
+              <TextField
+                id="Address"
+                // multiline=True
+                variant="outlined"
+                type="string"
+                size="medium"
+                multiline
+                rows={5}
+                value={employee.Address}
+                disabled={btnDisabled}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+          </Grid>
+        </Grid> */}
+
+        {/* วันเกิด */}
+      {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+        <Grid item xs={4}>
+          <FormControl fullWidth variant="outlined">
+            <FormLabel>BirthDay</FormLabel>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disabled={btnDisabled}
+                value={dateOfBirth}
+                onChange={setDateOfBirth}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </FormControl>
+        </Grid> */}
+
+        {/* วันที่ทำงาน */}
+
+        {/* <Grid item xs={4}>
+          <FormControl fullWidth variant="outlined">
+            <FormLabel>Start Date</FormLabel>
+
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                disabled
+                value={yearOfStart}
+                onChange={setYearOfStart}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </FormControl>
         </Grid>
+      </Grid> */}
 
         <Grid container spacing={3} sx={{ padding: 2 }}>
           <Grid item xs={4}>
@@ -505,29 +642,29 @@ const getEmployee = async () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Button component={RouterLink} to="/Manage-Show" variant="contained">
-              Show Information
+            <Button component={RouterLink} to="/ManageShow" variant="contained">
+             แสดงข้อมูลพนักงานทั้งหมด
             </Button>
 
             <Button 
               style={{ float: "right" }}
               onClick={editEmployee}
-              disabled={btnDisabled}
+              // disabled={btnDisabled}
               variant="contained"
               color="primary"
             >
-              Save
+              บันทึก
             </Button>
 
-            <Button 
+            {/* <Button 
             
               style={{ float: "right" , marginRight: "15px"}}
               onClick={handleClickedit}
               variant="contained"
               color="primary"
             >
-              Edit
-            </Button>
+              แก้ไข
+            </Button> */}
           </Grid>
         </Grid>
       </Paper>

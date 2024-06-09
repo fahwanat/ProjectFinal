@@ -161,7 +161,7 @@ const getPosition = async () => {
       PersonalID: employee.PersonalID,
       Employeename:  employee.Employeename ,
       Email: employee.Email ,
-      Eusername: employee.Tusername ?? "",
+      Tusername: employee.Tusername ?? "",
       Password: employee.Password ?? "",
       Salary: typeof employee.Salary === "string" ? parseInt(employee.Salary) : 0,
       Phonenumber: employee.Phonenumber ?? "",
@@ -176,7 +176,7 @@ const getPosition = async () => {
       }
     };
 
-    const apiUrl = "http://localhost:8080/Employees";
+    const apiUrl = "http://localhost:8080/employees";
 
     const requestOptions = {
       method: "POST",
@@ -198,7 +198,7 @@ const getPosition = async () => {
         if (res.data) {
           setSuccess(true);
           setInterval(() => {
-            window.location.assign("/Manage-Show");
+            window.location.assign("/ManageShow");
           }, 1000);
         } else {
         
@@ -256,18 +256,19 @@ const getPosition = async () => {
               variant="h6"
               color="primary"
               gutterBottom
+              sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
             >
-              Record Employee Information
+              เพิ่มข้อมูลพนักงาน
             </Typography>
           </Box>
         </Box>
 
         <Divider />
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "6.5%"}}>
-          <Grid item xs={5}>
+        <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "14.5%"}}>
+          <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Personal ID</FormLabel>
+              <FormLabel>เลขประจำตัวประชาชน</FormLabel>
 
               <TextField
                 id="PersonalID"
@@ -282,9 +283,9 @@ const getPosition = async () => {
             </FormControl>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Name</FormLabel>
+              <FormLabel>ชื่อ-นามสกุล</FormLabel>
               <TextField
                 id="Employeename"
                 variant="outlined"
@@ -298,53 +299,9 @@ const getPosition = async () => {
         </Grid>
 
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
-          {/* ComboboxDepartment */}
-          <Grid item xs={4}>
-            <FormLabel>Department</FormLabel>
-            <FormControl fullWidth variant="outlined">
-              <Select
-                native
-                value={employee.DepartmentID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "DepartmentID",
-                }}
-              >
-                <option value={0} key={0}>
-                </option>
-                {department.map((item: DepartmentInterface) => (
-                  <option value={item.ID}>{item.Name}</option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          {/* ComboboxPosition */}
-          <Grid item xs={4}>
-            <FormLabel>Position</FormLabel>
-            <FormControl fullWidth variant="outlined">
-              <Select
-                native
-                value={employee.PositionID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "PositionID",
-                }}
-              >
-                <option value={0} key={0}>
-                </option>
-                {position.map((item: PositionInterface) => (
-                  <option value={item.ID}>{item.Name}</option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Username</FormLabel>
+              <FormLabel>ชื่อผู้ใช้งาน</FormLabel>
 
               <TextField
                 id="Tusername"
@@ -359,7 +316,7 @@ const getPosition = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Password</FormLabel>
+              <FormLabel>รหัสผ่าน</FormLabel>
 
               <TextField
                 id="Password"
@@ -376,7 +333,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Email</FormLabel>
+              <FormLabel>อีเมล</FormLabel>
 
               <TextField
                 id="Email"
@@ -391,7 +348,7 @@ const getPosition = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Tel</FormLabel>
+              <FormLabel>หมายเลขติดต่อ</FormLabel>
 
               <TextField
                 id="Phonenumber"
@@ -406,9 +363,31 @@ const getPosition = async () => {
         </Grid>
 
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+        {/* ComboboxPosition */}
+          <Grid item xs={4}>
+            <FormLabel>ตำแหน่ง</FormLabel>
+            <FormControl fullWidth variant="outlined">
+              <Select
+                native
+                value={employee.PositionID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "PositionID",
+                }}
+              >
+                <option value={0} key={0}>
+                  กรุณาเลือกตำแหน่ง
+                </option>
+                {position.map((item: PositionInterface) => (
+                  <option value={item.ID}>{item.Name}</option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Salary</FormLabel>
+              <FormLabel>เงินเดือน</FormLabel>
 
               <TextField
                 id="Salary"
@@ -425,7 +404,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={6}>
             <FormControl>
-              <FormLabel>Gender</FormLabel>
+              <FormLabel>เพศ</FormLabel>
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -450,9 +429,9 @@ const getPosition = async () => {
         </Grid>
 
         <Grid container spacing={3} sx={{ padding: 2 }}>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Officer</FormLabel>
+              <FormLabel>บันทึกข้อมูลโดย</FormLabel>
 
               <TextField
                 fullWidth
@@ -463,11 +442,11 @@ const getPosition = async () => {
                 // onChange={(event) => setOffID(Number(event.target.value)) }
               />
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12}>
-            <Button component={RouterLink} to="/Manage-Show" variant="contained">
-              Show Information
+            <Button component={RouterLink} to="/ManageShow" variant="contained">
+              แสดงข้อมูลพนักงานทั้งหมด
             </Button>
 
             <Button 
@@ -476,7 +455,7 @@ const getPosition = async () => {
               variant="contained"
               color="primary"
             >
-              Submit
+              บันทึก
             </Button>
           </Grid>
         </Grid>

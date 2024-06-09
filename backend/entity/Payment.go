@@ -33,7 +33,8 @@ type Payment struct {
 	MethodID int    `valid:"required~กรุณาเลือกช่องทางชำระเงิน"`
 	Method   Method `gorm:"references:ID"`
 
-	Price   int `valid:"required~Price not found"`
+	Price int `valid:"required~Price not found"`
+	// Total   int `valid:"required~Total not found"`
 	Time    time.Time
 	Picture string
 }

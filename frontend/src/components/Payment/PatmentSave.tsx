@@ -21,13 +21,13 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { BookingsInterface } from "../../models/modelBooking/IBooking";
 import { ServiceInterface } from "../../models/IService";
 import { MemberInterface } from "../../models/modelMember/IMember";
-import { MethodsInterface, PaymentMethodsInterface, PaymentsInterface, PlacesInterface } from "../../models/IPayment";
+import { MethodsInterface, PaymentMethodsInterface, PaymentsInterface } from "../../models/IPayment";
 import { DeleteBookings, DeleteServices, GetDestination, GetMethods, GetPayment, GetPaymentByID, GetPaymentMethods, GetPriceBookingCID, } from "./service/PaymentHttpClientService";
 
 import { DatePicker, DateTimeField } from "@mui/x-date-pickers";
 import { GetMemberByUID } from "../Member/service/servicecus";
 
-import QR from "../../Image/QR code.png"
+import thx from "../../Image/thx.jpg"
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref
@@ -108,14 +108,14 @@ function PaymentSave() {
         p: 2,
         margin: 'auto',
         marginTop: 5,
-        maxWidth: 500,
+        maxWidth: 350,
         flexGrow: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       }}>
-                <Box display="flex" sx={{ marginTop: 0.1, }} >
-                    <Box sx={{ paddingX: 2, paddingY: 0.5 }}>
-                        <Typography component="h2" variant="h6" color="primary" gutterBottom >
+                <Box display="flex" sx={{ marginTop: 0.1, justifyContent: "center" }} >
+                    <Box sx={{ paddingX: 2, paddingY: 0.5 }} textAlign="center">
+                        <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                             ข้อมูลการชำระเงิน
                         </Typography>
                     </Box>
@@ -124,15 +124,8 @@ function PaymentSave() {
                 <Grid container spacing={1} sx={{ padding: 1 }} >
                     <Grid item xs={12}>
                     <FormControl fullWidth variant="outlined">
-                                                <p>ชื่อผู้ชำระเงิน</p>
-                                                <TextField
-                                                disabled
-                                                    variant="outlined"
-                                                    value={members?.FirstName + " " + members?.LastName}
-                                                    InputProps={{
-                                                        readOnly: true,
-                                                    }}
-                                                />
+                    <center><Typography variant="body1" sx={{ marginBottom: 1 }}> ผู้ชำระเงิน : {members?.FirstName + " " + members?.LastName}</Typography></center>
+
                                             </FormControl>
                     </Grid>
                     {/* <Grid item xs={12}>
@@ -148,54 +141,30 @@ function PaymentSave() {
                                                 />
                                             </FormControl>
                                         </Grid> */}
-                                        <Grid item xs={12}>
+                                        {/* <Grid item xs={12}>
                     <FormControl fullWidth variant="outlined">
-                            <p>จำนวนเงินทั้งหมด</p>
-                                <TextField
-                                disabled
-                                    variant="outlined"
-                                    value={Math.floor(payment * 0.5)}
-                                    InputProps={{
-                                    // style: { fontFamily: 'Comic Sans MS' },
-                                    readOnly: true,
-                                        }}
-                                            />
+                    <center><Typography variant="body2" sx={{ marginBottom: 1 }}>จำนวนเงินทั้งหมด : {Math.floor(payment * 0.5)} บาท</Typography></center>
                                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <FormControl fullWidth variant="outlined">
-                            <p>วันที่ชำระเงิน</p>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimeField
-                            disabled
-                            //   label="Format without meridiem"
-                           defaultValue={dayjs()}
-                           format="L HH:mm"
-                            />
-                          </LocalizationProvider>
+                        <center><Typography variant="body2" sx={{ marginBottom: 1 }}>วันที่ชำระเงิน : {dayjs().format('DD/MM/YYYY')}</Typography></center>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                    <center><p >เพิ่มเพื่อน เพื่อรับการแจ้งเตือนเพิ่มเติม</p></center>
-                        <div><center><img src={QR} width= "150px" height="150px"/></center></div>
+                    {/* <center><p >เพิ่มเพื่อน เพื่อรับการแจ้งเตือนเพิ่มเติม</p></center> */}
+                        <div><center><img src={thx} width= "240px" height="210px"/></center></div>
         </Grid>
-                    <Grid item xs={12}>
-                        <Button sx={{ marginTop: 1, }}
-                            component={RouterLink}
-                            to="/Payment/Create"
-                            variant="contained"
-                            color="inherit"
-                        >
-                            ย้อนกลับ
-                        </Button>
-                        <Button sx={{ marginTop: 2, float: "right"}}
+        <Grid item xs={12} sx={{ textAlign: "center" }}>
+                        <Button
                             onClick={submit}
                             variant="contained"
                             color="primary"
+                            sx={{ margin: "auto" }} // Set margin to auto to center the button
                         >
                             เสร็จสิ้น
                         </Button>
-                    </Grid>  
+                    </Grid>   
                 </Grid>
             </Paper>
         {/* </Container> */}

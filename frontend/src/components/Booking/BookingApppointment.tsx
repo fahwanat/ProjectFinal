@@ -28,7 +28,7 @@ import { BookingsInterface } from "../../models/modelBooking/IBooking";
 import { EmployeeInterface } from "../../models/IManage";
 import { ServiceTypeInterface, ServiceInterface, TimeServiceInterface } from "../../models/IService";
 import { MemberInterface } from "../../models/modelMember/IMember";
-import { Bookings, GetMemberByUID} from "./services/BookingHttpClientService";
+import { Bookings, GetMemberByUID, GetBookedTimeServices} from "./services/BookingHttpClientService";
 import { GetService, GetServiceType ,GetPrice, GetTimeService } from "../Service/service/ServiceHttpClientService";
 import { GetEmployeeBySID } from "../Manage/service/ManageHttpClientService";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -64,7 +64,8 @@ function BookingAppointment() {
     const [BookingDate, setBookingDate] = React.useState<Dayjs | null>(dayjs());
     const [maxBookingDate, setMaxBookingDay] = useState(dayjs().add(2, 'day'))
 
-   
+    const [selectedTimeServiceID, setSelectedTimeServiceID] = useState("");
+    const [bookedTimeServiceIDs, setBookedTimeServiceIDs] = useState<number[]>([]);
   
     const feachEmpolyeeID = async () => {
         fetch(`${apiUrl}/employee/${id}`, requestOptionsGet)
@@ -77,8 +78,35 @@ function BookingAppointment() {
                 setServices(result.data.ServiceType.Service)
             }
           });
-      };
-
+    };
+    const fetchBookedTimeServices = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/bookings/timeservices`, requestOptionsGet);
+            const result = await response.json();
+    
+            // Log the entire response
+            console.log("Fetched result:", result);
+    
+            // Check if result.data exists and is an array
+            if (Array.isArray(result.data)) {
+                console.log("Fetched booked time services:", result.data);
+    
+                // Directly use the fetched data
+                const bookedIDs = result.data;
+    
+                // Log the IDs
+                console.log("Booked time service IDs:", bookedIDs);
+    
+                // Update the state or perform other operations with the fetched IDs
+                setBookedTimeServiceIDs(bookedIDs);
+            } else {
+                console.error("Unexpected data structure:", result.data);
+            }
+        } catch (error) {
+            console.error("Error fetching booked time services:", error);
+        }
+    };
+    
       const handleChangeEmployee = (event: SelectChangeEvent) => {
         const name = event.target.name as keyof typeof employees;
         
@@ -95,8 +123,6 @@ function BookingAppointment() {
         const { value } = event.target;
         setEmployees({ ...employees, [id]: value });
       };
-
-   
 
     const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -131,7 +157,7 @@ function BookingAppointment() {
     const handleTimeSer = (event: { target: { name: string; value: any; }; }) => {
         const name = event.target.name as keyof typeof booking;
         const gettimeserid = event.target.value;
-
+        setSelectedTimeServiceID(event.target.value);
         setTimeServiceId(gettimeserid);
         setBooking({
             ...booking,
@@ -199,6 +225,7 @@ function BookingAppointment() {
       });
   };
 
+    const filteredTimeService = timeservice.filter(item => !bookedTimeServiceIDs.includes(item.ID));
  
     // =========================(Fetch API)====================================================
 
@@ -211,6 +238,7 @@ function BookingAppointment() {
         getprice();
         getemployee();
         feachEmpolyeeID();
+        fetchBookedTimeServices();
         // feachSerType();
 
     }, [servicetypeId, serviceId]);
@@ -244,7 +272,7 @@ function BookingAppointment() {
             setAlertMessage("จองคิวสำเร็จ");
             setSuccess(true);
             setInterval(() => {
-                window.location.assign("/Book");
+                window.location.assign("/BookConfirm");
             }, 2000);
         } else {
             setAlertMessage(res.message);
@@ -255,12 +283,15 @@ function BookingAppointment() {
     return (
         <Container maxWidth="xl"
         sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden",
-            backgroundSize: "contain",
-            backgroundImage:"url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
         }}>
             <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
                 <Alert onClose={handleClose} severity="success">
@@ -272,7 +303,7 @@ function BookingAppointment() {
                     {message}
                 </Alert>
             </Snackbar>
-            <Container maxWidth="xs" sx={{marginBottom: 5}}>
+            <Container maxWidth="md" sx={{marginBottom: 5}}>
             <Paper>
                 <Box display="flex" sx={{ marginTop: 6, }} >
                     <Box sx={{ paddingX: 2, paddingY: 0.5 }}>
@@ -283,7 +314,7 @@ function BookingAppointment() {
                 </Box>
                 <Divider />
                 <Grid container spacing={1} sx={{ padding: 1 }}>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลประเภทบริการ</p>
                             <Select
@@ -295,6 +326,7 @@ function BookingAppointment() {
                                 inputProps={{
                                     name: "ServiceTypeID",
                                 }}
+                                // sx={{ height: "40px" }}
                             >
                                 <option aria-label="None" value="">
                                     กรุณาเลือกประเภทบริการ
@@ -305,7 +337,7 @@ function BookingAppointment() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>เลือกช่าง</p>
                             <TextField
@@ -320,7 +352,8 @@ function BookingAppointment() {
                           />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid container spacing={1} sx={{ padding: 1 }}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลบริการ</p>
                             <Select
@@ -330,6 +363,7 @@ function BookingAppointment() {
                                 inputProps={{
                                     name: "ServiceID",
                                 }}
+                                // sx={{ height: "40px" }}
                             >
                                 <option aria-label="None" value="">
                                     กรุณาเลือกบริการ
@@ -340,7 +374,7 @@ function BookingAppointment() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>วันที่จอง</p>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -355,27 +389,33 @@ function BookingAppointment() {
                           </LocalizationProvider>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>เวลาที่ต้องการเข้าใช้บริการ</p>
-                            <Select
-                                native
-                                value={booking.TimeServiceID + ""}
-                                onChange={handleTimeSer}
-                                inputProps={{
-                                    name: "TimeServiceID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกเวลาที่ต้องการเข้าใช้บริการ
-                                </option>
-                                {timeservice.map((item: TimeServiceInterface) => (
-                                    <option value={item.ID} >{item.Start_End}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid container spacing={1} sx={{ padding: 1 }}>
+                    <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+                <p>เวลาที่ต้องการเข้าใช้บริการ</p>
+                <Select
+                     native
+                    value={selectedTimeServiceID}
+                    onChange={handleTimeSer}
+                    inputProps={{
+                        name: "TimeServiceID",
+                    }}
+                    // sx={{ height: "40px" }}
+                >
+                    <option aria-label="None" value="">
+                        กรุณาเลือกเวลาที่ต้องการเข้าใช้บริการ
+                    </option>
+                    {filteredTimeService.map((item) => {
+                        console.log("Rendering option for item:", item);
+                        return (
+                            <option key={item.ID} value={item.ID}>{item.Start_End}</option>
+                        );
+})}
+                </Select>
+            </FormControl>
+        </Grid>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <FormLabel sx={{ fontFamily: "Comic Sans MS" }}> ราคาบริการ </FormLabel>
                                 <TextField
@@ -388,7 +428,8 @@ function BookingAppointment() {
                                 />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={8}>
+                    </Grid>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>จองโดย</p>
                             <Select
@@ -420,7 +461,7 @@ function BookingAppointment() {
                     <Grid item xs={12}>
                         <Button
                             component={RouterLink}
-                            to="/TechnicianAppointment"
+                            to="/SelectService"
                             variant="contained"
                             color="inherit"
                         >

@@ -91,7 +91,7 @@ import { EmployeeInterface } from "../../../models/IManage";
             }
             
 
-            async function GetEmployeelist() {
+            async function Getlist() {
                 const requestOptions = {
                     method: "GET",
                       headers: {
@@ -198,6 +198,31 @@ import { EmployeeInterface } from "../../../models/IManage";
                     });
                     return res;
                 }
+
+                // Delete Service
+async function DeleteEmployees(data: number) {
+    let EmployeeID = data;
+    const requestOptions = {
+        method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(data),
+    }
+    
+    let res = await fetch(`${apiUrl}/employees/${EmployeeID}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+}
                 
 
                 export{
@@ -207,7 +232,9 @@ import { EmployeeInterface } from "../../../models/IManage";
                     DeleteEmployee,
                     GetPositionByUID,
                     GetEmployeeByID,
-                    GetEmployeelist,
+                    Getlist,
                     Employees,
                     GetEmployeeBySID,
+                    DeleteEmployees,
+
                 }

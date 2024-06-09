@@ -2,20 +2,20 @@
 import { MemberInterface } from "./modelMember/IMember";
 
 export interface ServiceTypeInterface {
-	ID: number,
-	Name: string,	
+	ID?: number,
+	Name?: string,	
 }
 
 export interface ServiceInterface {
-    ID: number;
-	Service_Name: string
-	Price:	number,
+    ID?: number;
+	Service_Name?: string
+	Price?:	number,
 	
-	ServiceTypeID:   number,
-	ServiceType:     ServiceTypeInterface,
+	ServiceTypeID?:   number,
+	ServiceType?:     ServiceTypeInterface,
 
-	MemberID: number | null,
-    Member: MemberInterface,
+	MemberID?: number | null,
+    Member?: MemberInterface,
 
 	// EmployeeID?: number | null;
     // Employee?: EmployeeInterface;

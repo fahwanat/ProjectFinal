@@ -40,7 +40,7 @@ function CreatMember() {
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [line, setLine] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -156,13 +156,13 @@ function CreatMember() {
       LastName: lastname,
       Nickname: nickname,
       Password: password.password,
-      Email: email,
+      Line: line,
       Age: convertType(member.Age),
       Phone: phone,
       GenderID: convertType(member.GenderID),
       PrefixID: convertType(member.PrefixID),
       Signin: {
-        Username: member.Email ?? "",
+        Username: member.Phone ?? "",
         Password: member.Password ?? "",
       }
     };
@@ -207,7 +207,7 @@ function CreatMember() {
           
           }}
         >
-          <h3 style={{ color: "#000000" }}>Sign Up</h3>
+          <h3 style={{ color: "#000000" }}>สมัครสมาชิก</h3>
         </Paper>
         <form>
           <Paper
@@ -331,24 +331,24 @@ function CreatMember() {
             </Grid>
 
 
-            {/*===========================================(email)=======================================================*/}
+            {/*===========================================(Line)=======================================================*/}
             <Grid container spacing={1}>
               <Grid
                 xs={12}
                 md={12}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
-                <FormLabel sx={{ marginRight: 7, fontSize: 14 }}>
-                  Email:
+                <FormLabel sx={{ marginRight: 6, fontSize: 14 }}>
+                  IDLine:
                 </FormLabel>
                 <TextField
-                  type="email"
+                  type="Line"
                   id="outlined-basic"
-                  label="กรุณาป้อนอีเมล"
+                  label="กรุณาป้อนไอดีไลน์"
                   variant="outlined"
-                  required
+                  // required
                   onChange={(event) => {
-                    setEmail(event.target.value);
+                    setLine(event.target.value);
                   }}
                   fullWidth
                 />

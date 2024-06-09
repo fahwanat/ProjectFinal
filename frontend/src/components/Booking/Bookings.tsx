@@ -63,6 +63,7 @@ function NewBookings() {
         //{ field: "Price", headerName: "ราคา", width: 150, valueFormatter: (params) => params.value.Price, },
         { field: "Employee", headerName: "ช่าง", width: 190, valueFormatter: (params) => params.value.Employeename, },
         { field: "Member", headerName: "จองโดย", width: 180, valueFormatter: (params) => params.value.FirstName, },
+        
         // { field: "Price", headerName: "คิดเป็นเงิน(บาท)", width: 150 , valueFormatter:(params) => params.value.Service.Price},
     ]
 
