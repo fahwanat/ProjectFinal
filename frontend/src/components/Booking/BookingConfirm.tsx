@@ -145,7 +145,7 @@ function SelectTechByHair() {
                   <Grid item xs={12} md container>
                     <Grid item xs>  
                       <ListItem>
-                        <ListItemText primary={`บริการที่จอง: ${row.ServiceType?.Name}`} />
+                        <ListItemText primary={`บริการที่จอง: ${row.Service?.Service_Name}`} />
                       </ListItem>
   
                       <ListItem>
