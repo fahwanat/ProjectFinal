@@ -1096,6 +1096,6 @@ func SetupIntoDatabase(db *gorm.DB) {
 	})
 
 	var chk_payment1 CHK_Payment
-	db.Raw("SELECT * FROM check_in_outs WHERE id = ?", "1").Scan(&chk_payment1)
+	db.Raw("SELECT * FROM chk_payments WHERE id = ?", "1").Scan(&chk_payment1)
 	// ============================================================================ Check Payment
 }
