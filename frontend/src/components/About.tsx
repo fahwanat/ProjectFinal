@@ -121,7 +121,9 @@ function About() {
           <div className="grid-item-21-2">
             <div className="grid-item-info3">
               <div className="word-header-about">
-                <h1>Services</h1>
+              <Typography variant="h3" color="secondary" gutterBottom>
+  ข้อมูลบริการ
+</Typography>
               </div>
             </div>
           </div>
@@ -132,11 +134,13 @@ function About() {
                 <img src={hair0} width= "65px" height="55px"/>
                 <div className="overlay">
                 <div className="text">
-            <h2>ทำผม </h2>
-              <h5>ลูกค้าสามารถเลือกบริการเกี่ยวกับการทำผมได้หลากหลาย ไม่ว่าจะเป็น
-              สระผม/ไดร์ผมม,ตัดผม/ซอยผม,ยืดผม,ย้อมผม และดัดผม
-              ซึ่งจะทำให้ลูกค้ามีความเพลิดเพลินและผ่อนคลาย
-              </h5>
+                <Typography variant="h4"  gutterBottom>
+  ทำผม
+</Typography>
+            <Typography variant="body1"  paragraph>
+  ลูกค้าสามารถเลือกบริการเกี่ยวกับการทำผมได้หลากหลาย ไม่ว่าจะเป็น สระผม/ไดร์ผม, ตัดผม/ซอยผม, ยืดผม, ย้อมผม และดัดผม
+  ซึ่งจะทำให้ลูกค้ามีความเพลิดเพลินและผ่อนคลาย
+</Typography>
             </div>
               </div>
               </div>
@@ -148,9 +152,9 @@ function About() {
                 <img src={nail0} width= "65px" height="55px"/>              
               <div className="overlay">
             <div className="text">
-              <h2>ทำเล็บ </h2>
-              <h5>ลูกค้าสามารถเลือกบริการเกี่ยวกับการทำผมได้ตามความสนใจ ซึ่งจะมีบริการ
-              ทาสีเจล,เพ้นต์เล็บ,ต่อเล็บ ลูกค้าสามารถเลือกลวดลายและสีได้อย่างสะดวก</h5>
+            <Typography variant="h4"  gutterBottom>ทำเล็บ </Typography>
+            <Typography variant="body1"  paragraph>ลูกค้าสามารถเลือกบริการเกี่ยวกับการทำผมได้ตามความสนใจ ซึ่งจะมีบริการ
+              ทาสีเจล,เพ้นต์เล็บ,ต่อเล็บ ลูกค้าสามารถเลือกลวดลายและสีได้อย่างสะดวก</Typography>
               </div>
             </div>
             </div>
@@ -162,11 +166,10 @@ function About() {
                 <img src={face0} width= "65px" height="55px"/>
                 <div className="overlay">
             <div className="text">
-              <h2>สปาหน้า </h2>
-             <h5>ลูกค้าสามารถเลือกบริการเกี่ยวกับสปาหน้าได้ ไม่ว่าจะเป็นการนวดหน้า สครับหน้า ทำความสะอาดหน้า
+            <Typography variant="h4"  gutterBottom>สปาหน้า </Typography>
+            <Typography variant="body1"  paragraph>ลูกค้าสามารถเลือกบริการเกี่ยวกับสปาหน้าได้ ไม่ว่าจะเป็นการนวดหน้า สครับหน้า ทำความสะอาดหน้า
               บำรุงผิวหน้า เพื่อให้ลูกค้าได้รับความผ่อนคลาย และได้พักผ่อนหย่อนใจ
-              
-             </h5>
+              </Typography>
               </div>
             </div>
               </div>
@@ -190,7 +193,7 @@ function About() {
           <div className="grid-item-21-2-1">
             <div className="grid-item-info3">
               <div className="word-header-about">
-                <h2>Popular hairstyles</h2>
+              <Typography variant="h4"  gutterBottom >ทรงผมยอดฮิต</Typography>
               </div>
             </div>
           </div>
@@ -201,8 +204,8 @@ function About() {
                 <img src={hair1} width= "65px" height="55px"/>
                 <div className="overlay">
                 <div className="text">
-            <h2>Short Bob </h2>
-              <h5>ทรงผมบ๊อบสั้น สไลด์ปลายนิดๆ</h5>
+                <h2>Short Bob </h2>
+                <Typography variant="body2"  paragraph>ทรงผมบ๊อบสั้น สไลด์ปลายนิดๆ</Typography>
             </div>
               </div>
               </div>
@@ -215,7 +218,7 @@ function About() {
               <div className="overlay">
             <div className="text">
               <h2>Layered Haircut </h2>
-              <h5>ทรงผมไล่ระดับเป็นชั้น ๆ ทำให้ผมดูมีวอลลุ่ม</h5>
+              <Typography variant="body2"  paragraph>ทรงผมไล่ระดับเป็นชั้น ๆ ทำให้ผมดูมีวอลลุ่ม</Typography>
               </div>
             </div>
             </div>
@@ -228,7 +231,7 @@ function About() {
                 <div className="overlay">
             <div className="text">
               <h2>Wolf Haircut </h2>
-             <h5> ทรงผมสไลด์ไล่ระดับผมเป็นชั้น ๆ รับกับช่วงคอ ให้ความรู้สึกคล้ายกับแผงคอของหมาป่า </h5>
+              <Typography variant="body2"  paragraph> ทรงผมสไลด์ไล่ระดับผมเป็นชั้น ๆ รับกับช่วงคอ ให้ความรู้สึกคล้ายกับแผงคอของหมาป่า </Typography>
               </div>
             </div>
               </div>
@@ -241,7 +244,7 @@ function About() {
                 <div className="overlay">
             <div className="text">
              <h2> Hush Haircut </h2>
-              <h5>ทรงผมสไลด์ปลายบางที่มีความคล้ายกับทรงผมรากไทร แต่ผมช่วงบนก็จะไม่สไลด์สั้นจนตั้ง</h5>
+             <Typography variant="body2"  paragraph>ทรงผมสไลด์ปลายบางที่มีความคล้ายกับทรงผมรากไทร แต่ผมช่วงบนก็จะไม่สไลด์สั้นจนตั้ง</Typography>
               </div>
             </div>
             </div>
@@ -254,16 +257,16 @@ function About() {
 
       <div className="grid-confooter">
         <div className="grid-item-footer">
-          <h2>เบอร์ติดต่อ</h2>
+          <h3>ที่ตั้งร้าน : 123 ถนนสุขุมวิท, กรุงเทพฯ</h3>
         </div>
         <div className="grid-item-footer2">
-          <h3>080-329-9545</h3>
+          <h3>เบอร์ติดต่อ : 080-329-9545</h3>
         </div>
         <div className="grid-item-footer3">
           <h3>เปิดบริการวันจันทร์-ศุกร์ และ วันอาทิตย์</h3>
         </div>
         <div className="grid-item-footer4">
-          <h2>Connect With Us</h2>
+          <h2>ติดต่อเรา</h2>
         </div>
         <div className="grid-item-footer5">
           <p>Social Media Channels</p>

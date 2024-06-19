@@ -15,7 +15,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import { EmployeeInterface } from "../../models/IManage";
-import { ButtonGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { ButtonGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import moment from "moment";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GetEmployeelist } from "../Technician/service/TechnicianHttpClientService";
@@ -169,15 +169,25 @@ const columns: GridColDef[] = [
 ]
 
  return (
-<ThemeProvider theme={themeshow}>
   <div>
+  <Container maxWidth="xl"        sx={{
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
   <Container maxWidth="md">
   <Box display="flex" sx={{ marginTop: 5, justifyContent: "center" }}>
     <Box flexGrow={1}>
       <Typography
             component="h2"
             variant="h6"
-            color="primary"
+            // color="primary"
             gutterBottom
             sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
           >
@@ -256,6 +266,7 @@ const columns: GridColDef[] = [
             </div>
           </Container>
         </div> */}
+        <Paper>
         <div style={{ height: 480, width: "100%", margin: "10px auto", display: "flex", justifyContent: "center" }}>
           <DataGrid rows={service} getRowId={(row) => row.ID} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={customStyles} />
         </div>
@@ -280,9 +291,10 @@ const columns: GridColDef[] = [
                     </Button>
                 </DialogActions>
             </Dialog>
+            </Paper>
+  </Container>
   </Container>
  </div>
-</ThemeProvider>
  );
 
 }

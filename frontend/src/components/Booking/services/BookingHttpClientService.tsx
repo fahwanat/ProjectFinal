@@ -216,6 +216,31 @@ async function DeleteBooking(data: BookingsInterface) {
     return res;
 }
 
+// Delete Booking
+async function DeleteBookingConfirm(data: number) {
+    let BookingsID = data;
+    const requestOptions = {
+        method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(data),
+    }
+    
+    let res = await fetch(`${apiUrl}/bookings/${BookingsID}`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+            if (res.data) {
+                return res.data;
+            } else {
+                return false;
+            }
+        });
+
+    return res;
+}
+
 // Update Booking
 async function UppdateBooking(data: BookingsInterface) {
     let b_id = data.ID;
@@ -277,6 +302,7 @@ export {
     GetBookingsSumTotal,
     DeleteBooking,
     UppdateBooking,
-    GetBookedTimeServices
+    GetBookedTimeServices,
+    DeleteBookingConfirm,
 
 };

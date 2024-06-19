@@ -156,7 +156,7 @@ async function submit() {
         setAlertMessage("ชำระเงินสำเร็จ");
         setSuccess(true);
         setInterval(() => {
-            window.location.assign("/Payment/Save");
+            window.location.assign("/Homeshow");
         }, 2000);
     } else {
         setAlertMessage(res.message);
@@ -252,6 +252,17 @@ useEffect(() => {
 console.log(price);
 
     return (
+        <Container maxWidth="xl"        sx={{
+            height: '130vh',
+    width: '100vw',
+    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
         <Container maxWidth="md" sx = {{ marginTop: 3,}} >
         <Snackbar open={success} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
             <Alert onClose={handleClose} severity="success">
@@ -264,9 +275,9 @@ console.log(price);
             </Alert>
         </Snackbar>
         <Paper>
-            <Box display="flex" sx={{ marginTop: 2, }} >
+            <Box display="flex" sx={{ marginTop: 5, }} >
                 <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                    <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                <Typography variant="h5" color="primary" gutterBottom>
                         ชำระค่ามัดจำ
                     </Typography>
                 </Box>
@@ -360,7 +371,7 @@ console.log(price);
                     > */}
                         <FormControl fullWidth variant="outlined"  >
                         <p>โปรดแนบสลิปยืนยัน</p>
-                        <img src={`${image}`} style={{ maxWidth: '270%', height: '400' }}/>
+                        <img src={`${image}`} style={{ maxWidth: '80%', height: '80' }}/>
                         <input type="file" onChange={handleImageChange} />
                         </FormControl>
                     {/* </Grid> */}
@@ -371,7 +382,7 @@ console.log(price);
                 <Grid item xs={12}>
                     <Button
                         component={RouterLink}
-                        to="/Payment/Show"
+                        to="/BookConfirm"
                         variant="contained"
                         color="inherit"
                     >
@@ -389,6 +400,7 @@ console.log(price);
             </Grid>
         </Paper>
     </Container>
+        </Container>
 
     );
 }

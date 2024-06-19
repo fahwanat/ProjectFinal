@@ -158,16 +158,16 @@ function Home() {
 
       <div className="grid-confooter">
         <div className="grid-item-footer">
-          <h2>เบอร์ติดต่อ</h2>
+          <h3>ที่ตั้งร้าน : 123 ถนนสุขุมวิท, กรุงเทพฯ</h3>
         </div>
         <div className="grid-item-footer2">
-          <h3>080-329-9545</h3>
+          <h3>เบอร์ติดต่อ : 080-329-9545</h3>
         </div>
         <div className="grid-item-footer3">
           <h3>เปิดบริการวันจันทร์-ศุกร์ และ วันอาทิตย์</h3>
         </div>
         <div className="grid-item-footer4">
-          <h2>Connect With Us</h2>
+          <h2>ติดต่อเรา</h2>
         </div>
         <div className="grid-item-footer5">
           <p>Social Media Channels</p>
@@ -179,7 +179,7 @@ function Home() {
           <IconButton color='secondary' href="https://www.youtube.com/watch?v=jZGZ0OG6Zts&ab_channel=SweetTheKid" >
             <YouTubeIcon />
           </IconButton>
-        </div>
+        </div> 
       </div>
     </div>
 </ThemeProvider>

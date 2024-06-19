@@ -15,9 +15,9 @@ import { BookingsInterface } from "../../models/modelBooking/IBooking";
 import { ServiceInterface, ServiceTypeInterface, TimeServiceInterface } from "../../models/IService";
 import Logo2 from "../../Image/LOGO2.png"
 import { styled } from '@mui/material/styles';
-import { FormControl, Select, SelectChangeEvent } from "@mui/material";
+import { FormControl, IconButton, Select, SelectChangeEvent } from "@mui/material";
 
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { pink , common} from "@mui/material/colors";
@@ -26,7 +26,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { ButtonGroup, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { GetBookingsBYUID, GetMemberByUID } from "./services/BookingHttpClientService";
+import { DeleteBooking, DeleteBookingConfirm, GetBookingsBYUID, GetMemberByUID } from "./services/BookingHttpClientService";
 import { MemberInterface } from "../../models/modelMember/IMember";
 
 const Img = styled('img')({
@@ -64,6 +64,12 @@ function SelectTechByHair() {
 
   const [services, setServices] = useState<ServiceInterface[]>([]);
   const [serviceid, setServicesid] = useState('');
+
+    //For Delete state 
+    const [deleteID, setDeleteID] = React.useState<number>(0)
+
+    // For Set dialog open
+    const [openDelete, setOpenDelete] = React.useState(false);
   
   const [filter, setFilter] = useState(bookings);
   let navigate = useNavigate();
@@ -77,6 +83,30 @@ function SelectTechByHair() {
       // getprice();
 
   }, []);
+
+  const handleDialogDeleteOpen = (ID: number) => {
+    setDeleteID(ID)
+    setOpenDelete(true)
+  }
+
+  const handleDialogDeleteclose = () => {
+    setOpenDelete(false)
+    setTimeout(() => {
+        setDeleteID(0)
+    }, 500)
+  }
+
+  const handleDelete = async () => {
+    let res = await DeleteBookingConfirm(deleteID)
+    if (res.status) {
+     console.log(res.status)
+    } else {
+     console.log(res.status)
+    }
+    getBookings();
+    setOpenDelete(false)
+  
+  }
 
   const getBookings = async () => {
       let res = await GetBookingsBYUID();
@@ -103,7 +133,7 @@ function SelectTechByHair() {
     return (
     <FullScreenContainer>
       <Container maxWidth="md" sx={{ marginTop: 2, justifyContent: "center" }}>
-        <Box flexGrow={1} sx={{ marginTop: 1 }} textAlign={"center"}>
+        <Box flexGrow={1} sx={{ marginTop: 3 }} textAlign={"center"}>
           <Typography component="h2" variant="h6" gutterBottom sx={{ fontSize: '2rem', fontWeight: 'bold' }}>
             ข้อมูลการจองคิวของคุณ {members?.FirstName}
           </Typography>
@@ -116,7 +146,7 @@ function SelectTechByHair() {
             to="/SelectService"
             sx={{ marginRight: 0 }}
           >
-            กลับ
+            เพิ่มบริการ
           </Button>
           <Button
             variant="contained"
@@ -161,8 +191,17 @@ function SelectTechByHair() {
                       </ListItem>
 
                       <ListItem>
-                        <ListItemText primary={`ราคา: ${row.Total}`} />
+                        <ListItemText primary={`ราคา: ${row.Total} บาท`} />
                       </ListItem>
+
+                      <IconButton aria-label="delete" style={{ float: "right" }} >
+                        <DeleteIcon
+                          // onClick={() => DeleteBooking(row.ID)}
+                          onClick={() => {
+                            //  handleDialogDeleteOpen(row.ID)
+                          }}
+                        />
+                      </IconButton>
                     </Grid>
                   </Grid>
                   
@@ -191,6 +230,27 @@ function SelectTechByHair() {
             ชำระค่ามัดจำ
           </Button>
         </Stack> */}
+                <Dialog
+                open={openDelete}
+                onClose={handleDialogDeleteclose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title" > 
+                    {`คุณต้องการลบข้อมูลรายการบริการที่ ${bookings.filter((bookings) => (bookings.ID === deleteID)).at(0)?.ID}?`}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      ถ้าคุณลบข้อมูลนี้ คุณจะไม่สามารถกู้ข้อมูลคืนได้ คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button color="inherit" onClick={handleDialogDeleteclose}>ยกเลิก</Button>
+                    <Button color="error" onClick={handleDelete} autoFocus>
+                        ยืนยัน
+                    </Button>
+                </DialogActions>
+            </Dialog>
       </Container>
     </FullScreenContainer>
   );

@@ -8,7 +8,7 @@ import c4 from "../../Image/HNF/c4.jpg"
 import hair4 from "../../Image/hair4.jpg"
 import f1 from "../../Image/HNF/f1.jpg"
 import c5 from "../../Image/HNF/c5.jpg"
-import hair1 from "../../Image/hair1.jpg"
+import face3 from "../../Image/face3.jpg"
 import n1 from "../../Image/HNF/n1.jpg"
 import Logo5 from "../../Image/LOGO5.png"
 import w1 from "../Image/w1.jpg"
@@ -291,13 +291,13 @@ function Review() {
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star "></span>
+                    <span className="fa fa-star checked"></span>
                     </div>
                 </div>
                 
                 <div className="client-comment">
-                <p>ซอยผมหรือตัดผม เปลี่ยนลุคใหม่</p>
-                <center><img src={c4} width= "200px" height="250px" /></center>
+                <p>ซอยผมหรือตัดผม เปลี่ยนลุคใหม่ๆ</p>
+                <center><img src={c4} width= "220px" height="250px" /></center>
                 </div>
             </div>
 
@@ -317,7 +317,7 @@ function Review() {
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star "></span>
+                    <span className="fa fa-star checked"></span>
                     </div>
                 </div>
                 
@@ -343,7 +343,7 @@ function Review() {
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star "></span>
+                    <span className="fa fa-star checked"></span>
                     </div>
                 </div>
                 
@@ -369,13 +369,13 @@ function Review() {
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
                     <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star "></span>
+                    <span className="fa fa-star checked"></span>
                     </div>
                 </div>
                 
                 <div className="client-comment">
-                <p>นวดหน้า ผ่อนคลาย พักผ่อนเพลินๆ</p>
-                <center><img src={f1} width= "280px" height="250px" /></center>
+                <p>สปาหน้า ผลัดเซลล์ผิว เพิ่มความชุ่มชื้น</p>
+                <center><img src={f1} width= "290px" height="250px" /></center>
                 </div>
             </div>
 
@@ -401,7 +401,7 @@ function Review() {
                 
                 <div className="client-comment">
                 <p>เล็บเจลสดใสๆ น่ารักๆ</p>
-                <center><img src={n1} width= "200px" height="250px" /></center>
+                <center><img src={n1} width= "250px" height="250px" /></center>
                 </div>
             </div>
 
@@ -426,26 +426,26 @@ function Review() {
                 </div>
                 
                 <div className="client-comment">
-                <p>ตัดบ๊อบสั้น สบายๆ </p>
-                <center><img src={hair1} width= "200px" height="250px" /></center>
+                <p>นวดหน้า ผ่อนคลาย พักผ่อนเพลินๆ</p>
+                <center><img src={face3} width= "290px" height="250px" /></center>
                 </div>
             </div> 
         </div>
         
     </section>
 
-      <div className="grid-confooter-1">
+    <div className="grid-confooter">
         <div className="grid-item-footer">
-          <h2>เบอร์ติดต่อ</h2>
+          <h3>ที่ตั้งร้าน : 123 ถนนสุขุมวิท, กรุงเทพฯ</h3>
         </div>
         <div className="grid-item-footer2">
-          <h3>080-329-9545</h3>
+          <h3>เบอร์ติดต่อ : 080-329-9545</h3>
         </div>
         <div className="grid-item-footer3">
           <h3>เปิดบริการวันจันทร์-ศุกร์ และ วันอาทิตย์</h3>
         </div>
         <div className="grid-item-footer4">
-          <h2>Connect With Us</h2>
+          <h2>ติดต่อเรา</h2>
         </div>
         <div className="grid-item-footer5">
           <p>Social Media Channels</p>

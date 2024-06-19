@@ -42,6 +42,7 @@ import BedroomParentIcon from "@mui/icons-material/BedroomParent";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Logo5 from "../Image/LOGO5.png"
 import PeopleIcon from "@mui/icons-material/People";
 // import Logo1 from "../Image/LOGO.png"
 import EventIcon from '@mui/icons-material/Event';
@@ -147,8 +148,8 @@ function Navbar() {
 
   const MemberMenu = [
     { name: "หน้าหลัก", icon: <HomeIcon />, path: "/Homeshow" },
-    { name: "จองคิว", icon: <HomeIcon />, path: "/SelectService" },
-    { name: "ข้อมูลการจองคิว", icon: <RoomServiceIcon />, path: "/BookConfirm" },
+    { name: "จองคิว", icon: <FactCheckIcon />, path: "/SelectService" },
+    { name: "ข้อมูลการจองคิว", icon: <ReceiptLongIcon/>, path: "/BookConfirm" },
     { name: "รีวิว", icon: <ReviewsIcon />, path: "/AddReview" },
   ];
   const EmployeeMenu = [
@@ -178,11 +179,11 @@ function Navbar() {
   // ];
   const OfficerMenu = [
     {name: "จัดการข้อมูลพนักงาน", icon: <ManageAccountsIcon />,path: "/ManageShow",},
-    {name: "ข้อมูลบริการ", icon: <ManageAccountsIcon />,path: "/Service"},
+    {name: "ข้อมูลบริการ", icon: <RoomServiceIcon />,path: "/Service"},
     // { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
     { name: "ข้อมูลชำระเงินค่ามัดจำ", icon: <PaymentIcon />, path: "/CheckPay" },
     { name: "ข้อมูลตรวจสอบการชำระเงิน", icon: <PriceCheckIcon />, path: "/CPM" },
-    { name: "ข้อมูลการจองคิวของลูกค้า", icon: <PaymentIcon />, path: "/Payment/Show" },
+    { name: "ข้อมูลการจองคิวของลูกค้า", icon: <ReceiptLongIcon />, path: "/Payment/Show" },
 
   ];
 
@@ -225,7 +226,7 @@ function Navbar() {
             <MenuIcon />
           </IconButton>
           <div>
-            <img src={Logo} width= "75px" height="75px"/>
+            <img src={Logo5} width= "75px" height="75px"/>
           </div>
           <Box
             sx={{   display: "flex",
@@ -233,10 +234,10 @@ function Navbar() {
                     alignItems: "center",
                     width: "100%",}}
           >
-            <Typography variant="h6" color="secondary" noWrap component="div" marginLeft={2}>
-            <div className="word-header-navbar">
-                <h2>BEAUTY SALON</h2>
-                </div>
+            <Typography variant="h6" color='secondary' noWrap component="div" marginLeft={2} >
+              <div className="word-header-navbar">
+                <h1>Beauty Salon</h1>
+              </div>
             </Typography>
           </Box>
           {/* <Box sx={{ display: 'center', width: '6.5%', }}>

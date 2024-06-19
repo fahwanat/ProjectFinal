@@ -232,12 +232,12 @@ function Review_Save() {
                         value={review.Comment || ""}
                         onChange={handleInputChange}
                         multiline
-                        rows={2}
-                        inputProps={{ maxLength: 100 }} // Max character limit
+                        rows={3}
+                        // inputProps={{ maxLength: 100 }} // Max character limit
                       />
-                      <Typography color={remainingChars < 0 ? "error" : "initial"}>
+                      {/* <Typography color={remainingChars < 0 ? "error" : "initial"}>
                         จำนวนตัวหนังสือ : {remainingChars}
-                      </Typography>
+                      </Typography> */}
                     </FormControl>
                   </Grid>
           </Grid>
@@ -251,12 +251,10 @@ function Review_Save() {
         </FormControl>
       </Grid>
 
-            {/* วันที่ทำงาน */}
             <Grid item xs={12}>
-              <Button component={RouterLink} to="/RW" variant="contained">
-                ย้อนกลับ
-              </Button>
-
+              {/* <Button component={RouterLink} to="/AddReview" variant="contained">
+                ยกเลิก
+              </Button> */}
               <Button
                 style={{ float: "right" }}
                 onClick={submit}
