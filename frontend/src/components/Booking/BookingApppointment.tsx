@@ -447,23 +447,13 @@ function BookingAppointment() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography 
-                            variant="body1" 
-                            gutterBottom 
-                            marginTop={1} 
-                            marginBottom={-0.5}
-                            color="red"
-                        >
-                            *** เมื่อคุณกดบันทึกการจองแล้ว คุณจะไม่สามารถแก้ไขข้อมูลการจองได้อีก ***
-                        </Typography>
-                    </Grid>
+
                     <Grid item xs={12}>
                         <Button
                             component={RouterLink}
                             to="/SelectService"
                             variant="contained"
-                            color="inherit"
+                            color="success"
                         >
                             กลับ
                         </Button>

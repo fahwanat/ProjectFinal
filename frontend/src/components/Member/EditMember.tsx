@@ -7,14 +7,22 @@ import FormLabel from "@mui/material/FormLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
+import HouseIcon from "@mui/icons-material/House";
+import EditIcon from "@mui/icons-material/Edit";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { Link, Link as RouterLink } from "react-router-dom";
 import { MemberInterface } from "../../models/modelMember/IMember";
 import { PrefixInterface } from "../../models/modelMember/IPrefix";
-import { GetMemberByUID,  UpdateMember } from "./service/servicecus";
-import { FormControl, Select, SelectChangeEvent } from "@mui/material";
+import { GetMemberByUID, UpdateMember } from "./service/servicecus";
+import {
+  Box,
+  FormControl,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { GenderInterface } from "../../models/modelMember/IGender";
-
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -24,24 +32,20 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 function EditMember() {
-  
   const [member, setMember] = useState<MemberInterface>({});
   const [prefix, setPrefix] = useState<PrefixInterface[]>([]);
   const [gender, setGender] = useState<GenderInterface[]>([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  
-  const handleChange = (event: SelectChangeEvent<number>) => { 
-  const name = event.target.name as keyof typeof member;
+
+  const handleChange = (event: SelectChangeEvent<number>) => {
+    const name = event.target.name as keyof typeof member;
     setMember({
       ...member,
       [name]: event.target.value,
     });
   };
-
-
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -56,33 +60,32 @@ function EditMember() {
 
   const handleInputChange = (
     event: React.ChangeEvent<{ id?: string; value: unknown }>
-) => {
+  ) => {
     const id = event.target.id as keyof typeof member;
     setMember({
-        ...member,
-        [id]: event.target.value,
-    });};
-
-    const handleInputAge = (
-      event: React.ChangeEvent<{ id?: string; value: unknown }>
-  ) => {
-      const id = event.target.id as keyof typeof member;
-      const { value } = event.target;
-      setMember({
-          ...member,
-          [id]: value  === "" ? "" : Number(value)  
-      });};
-  
-
-    const handleSelectChange = (event: SelectChangeEvent<string>) => {
-      const name = event.target.name as keyof typeof member;
-      setMember({
-          ...member,
-          [name]: event.target.value,
-      });
-
+      ...member,
+      [id]: event.target.value,
+    });
   };
 
+  const handleInputAge = (
+    event: React.ChangeEvent<{ id?: string; value: unknown }>
+  ) => {
+    const id = event.target.id as keyof typeof member;
+    const { value } = event.target;
+    setMember({
+      ...member,
+      [id]: value === "" ? "" : Number(value),
+    });
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    const name = event.target.name as keyof typeof member;
+    setMember({
+      ...member,
+      [name]: event.target.value,
+    });
+  };
 
   // =========================(Fetch API)====================================================
 
@@ -94,7 +97,6 @@ function EditMember() {
       "Content-Type": "application/json",
     },
   };
-  
 
   const fetchGender = async () => {
     fetch(`${apiUrl}/members/genders`, requestOptionsGet)
@@ -140,20 +142,19 @@ function EditMember() {
       Password: member.Password,
     };
     console.log(newdata);
-    console.log(JSON.stringify(newdata))
+    console.log(JSON.stringify(newdata));
     let res = await UpdateMember(newdata);
     if (res) {
       setSuccess(true);
-      console.log(newdata)
+      console.log(newdata);
       setInterval(() => {
         window.location.assign("/member/profile");
       }, 1000);
     } else {
       setError(true);
     }
-    console.log(JSON.stringify(newdata))
-  };
-
+    console.log(JSON.stringify(newdata));
+  }
 
   return (
     <div>
@@ -178,216 +179,185 @@ function EditMember() {
           บันทึกข้อมูลไม่สำเร็จ
         </Alert>
       </Snackbar>
-      <Container maxWidth="sm" sx={{ marginTop: 6 }}>
-        <Paper
-          elevation={4}
-          sx={{
-            marginBottom: 2,
-            marginTop: 2,
-            padding: 1,
-            paddingX: 2,
-            display: "flex",
-            justifyContent: "flex-start",
-          }}
-        >
-          <h4 style={{ color: "#000000" }}>Profile</h4>
-        </Paper>
-        <form>
-          <Paper
-            variant="outlined"
-            sx={{ padding: 2, paddingTop: 1, marginBottom: 2 }}
+      <Container
+        maxWidth="xl"
+        sx={{
+          height: "91.35vh",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundImage:
+            "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}
+      >
+        <Container maxWidth="md" sx={{ marginBottom: 5 }}>
+          <Box flexGrow={1} sx={{ marginTop: 3 }} textAlign={"center"}>
+            <Typography
+              component="h2"
+              variant="h6"
+              gutterBottom
+              sx={{ fontSize: "2rem", fontWeight: "bold" }}
+            >
+              ส่วนตัวของคุณ {member.FirstName}
+            </Typography>
+          </Box>
 
-          >
+          <form>
+            <Paper
+              variant="outlined"
+              sx={{ padding: 2, paddingTop: 1, marginBottom: 2 }}
+            >
+              {/*=======================================(Title)===========================================================*/}
+              <Grid container spacing={2} sx={{ marginBottom: 1.5 , marginTop:2}}>
+                <Grid xs={6}>
+                  <FormControl fullWidth variant="outlined">
+                    <p>คำนำหน้า</p>
+                    <Select
+                      id="Nametitle_ID"
+                      native
+                      value={member.PrefixID}
+                      onChange={handleChange}
+                      inputProps={{
+                        name: "PrefixID",
+                      }}
+                    >
+                      {prefix.map((item: PrefixInterface) => (
+                        <option value={item.ID}>{item.Prefix_Name}</option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
 
+                {/*============================================(First name)======================================================*/}
+                <Grid xs={6} md={6}>
+                  <p>ชื่อ</p>
+                    <TextField
+                      id="FirstName"
+                      variant="outlined"
+                      type="string"
+                      fullWidth
+                      value={member.FirstName || ""}
+                      onChange={handleInputChange}
+                    />
+                </Grid>
 
-            {/*=======================================(Title)===========================================================*/}
-            <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
-              <Grid
-                xs={12}
-                md={8}
-                sx={{ display: "flex", alignItems: "center", margin: 1 }}
-              >
-                <FormLabel
-                  id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 6.5, fontSize: 17, paddingBottom: 2 }}
-                >
-                  Title:
-                </FormLabel>
-                <FormControl fullWidth variant="outlined">
+                {/*=============================================(Last name)=====================================================*/}
+                <Grid xs={6} md={6}>
+                  <p>นามสกุล</p>
+                    <TextField
+                      id="LastName"
+                      variant="outlined"
+                      type="string"
+                      fullWidth
+                      value={member.LastName || ""}
+                      onChange={handleInputChange}
+                    />
+                </Grid>
+
+                {/*=============================================(Nickame)=====================================================*/}
+                <Grid xs={6} md={6}>
+                  <p>นามสกุล</p>
+                    <TextField
+                      id="Nickname"
+                      variant="outlined"
+                      type="string"
+                      fullWidth
+                      value={member.Nickname || ""}
+                      onChange={handleInputChange}
+                    />                 
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
+                {/*============================================(Age)======================================================*/}
+                <Grid xs={6} md={6}>
+                  <p>อายุ</p>
+                    <TextField
+                      id="Age"
+                      fullWidth
+                      value={member.Age}
+                      onChange={handleInputAge}
+                    />
+                </Grid>
+                {/*=============================================(Phone)=====================================================*/}
+                <Grid xs={6} md={6}>
+                <p>เบอร์มือถือ</p>
+                    <TextField
+                      id="Phone"
+                      variant="outlined"
+                      type="string"
+                      fullWidth
+                      value={member.Phone || ""}
+                      onChange={handleInputChange}
+                    />
+                </Grid>
+              </Grid>
+
+              {/*===========================================(email)=======================================================*/}
+              <Grid container spacing={1}>
+                <Grid xs={6} md={6}>
+                  <p>ไอดีไลน์</p>
+                    <TextField
+                      id="Line"
+                      variant="outlined"
+                      type="string"
+                      fullWidth
+                      value={member.Line || ""}
+                      onChange={handleInputChange}
+                    />
+                </Grid>
+
+                {/*=======================================(select Gender)===========================================================*/}
+                <Grid xs={6} md={6}>
+                <p>เพศ</p>
                   <Select
-                    id="Nametitle_ID"
+                    id="GenderID"
                     native
-                    value={member.PrefixID}
+                    fullWidth
+                    value={member.GenderID}
                     onChange={handleChange}
                     inputProps={{
-                      name: "PrefixID",
+                      name: "GenderID",
                     }}
                   >
-                    {prefix.map((item: PrefixInterface) => (
-                      <option value={item.ID}>{item.Prefix_Name}</option>
+                    {gender.map((item: GenderInterface) => (
+                      <option value={item.ID}>{item.G_Name}</option>
                     ))}
                   </Select>
-                </FormControl>
-                <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                  คำนำหน้าชื่อ
-                </FormHelperText>
-              </Grid>
+                </Grid>
 
-              {/*============================================(First name)======================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Firstname</p>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="FirstName"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={member.FirstName || ""}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-
-              </Grid>
-
-              {/*=============================================(Last name)=====================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Lastname</p>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="LastName"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={member.LastName || ""}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </Grid>
-
-              {/*=============================================(Nickame)=====================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Nickname</p>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="Nickname"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={member.Nickname || ""}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
-              {/*============================================(Age)======================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Age</p>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="Age"
-                    size="medium"
-                    value={member.Age}
-                    onChange={handleInputAge}
-                  />
-                </FormControl>
-              </Grid>
-              {/*=============================================(Phone)=====================================================*/}
-              <Grid xs={6} md={6}>
-                <p style={{ color: "grey", fontSize: 17 }}>Phone number</p>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="Phone"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={member.Phone || ""}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </Grid>
-            </Grid>
-
-
-            {/*===========================================(email)=======================================================*/}
-            <Grid container spacing={1}>
-              <Grid
-                xs={12}
-                md={12}
-                sx={{ display: "flex", alignItems: "center", margin: 1 }}
-              >
-                <FormLabel sx={{ marginRight: 7, fontSize: 17 }}>
-                  Line:
-                </FormLabel>
-                <FormControl fullWidth variant="outlined">
-                  <TextField
-                    id="Line"
-                    variant="outlined"
-                    type="string"
-                    size="medium"
-                    value={member.Line || ""}
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-              </Grid>
-
-              {/*=======================================(select Gender)===========================================================*/}
-              <Grid
-                xs={12}
-                md={9}
-                sx={{ display: "flex", alignItems: "center", margin: 1 }}
-              >
-                <FormLabel
-                  id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 5.5, fontSize: 17, paddingBottom: 2 }}
-                >
-                  Gender:
-                </FormLabel>
-                <Select
-                  id="GenderID"
-                  native
-                  value={member.GenderID}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: "GenderID",
-                  }}
-                >
-                  {gender.map((item: GenderInterface) => (
-                    <option value={item.ID}>{item.G_Name}</option>
-                  ))}
-                </Select>
-
-              </Grid>
-
-              <Grid
-                container
-                xs={12}
-                md={12}
-                gap={2}
-                sx={{ justifyContent: "center", margin: 1 }}
-              >
-                <Button variant="contained" size="large" onClick={update}>
-                  บันทึกการแก้ไข
-                </Button>
-
-                <Link to="/member/profile" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    style={{ backgroundColor: "#fff", color: "#1976d2" }}
+                <Stack direction="row" spacing={69} sx={{ marginTop: 2 }}>
+                  <Link to="/member/profile" style={{ textDecoration: "none" }}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      startIcon={<HouseIcon />}
+                      style={{ backgroundColor: "#009933", color: "#fff" }}
+                    >
+                      กลับ
+                    </Button>
+                  </Link>
+                  <Button 
+                    variant="contained" 
+                    size="large" 
+                    startIcon={<EditIcon />}
+                    onClick={update}
+                    style={{ backgroundColor: "#1976d2", color: "#fff" }}
                   >
-                    กลับ
+                    บันทึกการแก้ไข
                   </Button>
-                </Link>
+                </Stack>
               </Grid>
-
-
-            </Grid></Paper></form></Container></div>
-  )
-
-
-
+            </Paper>
+          </form>
+        </Container>
+      </Container>
+    </div>
+  );
 }
 
 export default EditMember;

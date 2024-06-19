@@ -96,6 +96,7 @@ function SelectTechByHair() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    height: '91.35vh',
                     overflow: "hidden",
                     backgroundSize: "contain",
                     backgroundImage:"url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",

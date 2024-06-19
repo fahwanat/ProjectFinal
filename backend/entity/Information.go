@@ -190,45 +190,45 @@ func SetupIntoDatabase(db *gorm.DB) {
 
 	// ServiceType Data
 	serviceTpyeA1 := ServiceType{
-		Name: "ทำผม",
+		Name: "ทำผม(สระ/ไดร์)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeA1)
 	serviceTpyeA2 := ServiceType{
-		Name: "ทำผม",
+		Name: "ทำผม(ตัด/ซอย)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeA2)
 	serviceTpyeA3 := ServiceType{
-		Name: "ทำผม",
+		Name: "ทำผม(ย้อมสีผม)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeA3)
 	serviceTpyeA4 := ServiceType{
-		Name: "ทำผม",
+		Name: "ทำผม(ดัดผม)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeA4)
 	serviceTpyeA5 := ServiceType{
-		Name: "ทำผม",
+		Name: "ทำผม(ยืดผม)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeA5)
 
 	serviceTpyeB1 := ServiceType{
-		Name: "ทำเล็บ",
+		Name: "ทำเล็บ(ทาสีเจล)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeB1)
 	serviceTpyeB2 := ServiceType{
-		Name: "ทำเล็บ",
+		Name: "ทำเล็บ(เพ้นต์เล็บ)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeB2)
 	serviceTpyeB3 := ServiceType{
-		Name: "ทำเล็บ",
+		Name: "ทำเล็บ(ต่อเล็บ)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeB3)
 
 	serviceTpyeC1 := ServiceType{
-		Name: "ทำสปาหน้า",
+		Name: "ทำหน้า(โปรแกรมนวดหน้า)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeC1)
 	serviceTpyeC2 := ServiceType{
-		Name: "ทำสปาหน้า",
+		Name: "ทำหน้า(โปรแกรมนวดหน้า)",
 	}
 	db.Model(&ServiceType{}).Create(&serviceTpyeC2)
 
@@ -902,9 +902,9 @@ func SetupIntoDatabase(db *gorm.DB) {
 	})
 
 	var booking1 Booking
-	// var newbooking2 Booking
+	// var booking2 BookingNoTech
 	db.Raw("SELECT * FROM bookings WHERE id = ?", "1").Scan(&booking1)
-	// db.Raw("SELECT * FROM bookings WHERE id = ?", "2").Scan(&booking2)
+	// db.Raw("SELECT * FROM booking_no_teches WHERE id = ?", "1").Scan(&booking2)
 
 	// ===============Booking================ //
 	// 	db.Model(&BookingHair{}).Create(&BookingHair{

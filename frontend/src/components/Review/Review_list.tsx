@@ -204,7 +204,6 @@ function Review_list() {
 
   return (
     <FullScreenContainer>
-      <ThemeProvider theme={themeshow}>
         <Container maxWidth="xl">
           <Button
             color="primary"
@@ -376,7 +375,6 @@ function Review_list() {
             </Box>
           </Drawer>
         </Container>
-      </ThemeProvider>
     </FullScreenContainer>
   );
 }

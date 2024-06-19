@@ -37,9 +37,6 @@ func SetupDatabase() {
 
 		// ระบบจองคิว
 		&Booking{},
-		// &BookingHair{},
-		// &BookingNial{},
-		// &BookingFaceSpa{},
 		&Service{},
 		&ServiceType{},
 		&TimeService{},
