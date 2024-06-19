@@ -321,7 +321,19 @@ const getEmployee = async () => {
 
   return (
   <div>
-    <Container maxWidth="xl" sx={{ marginTop: 5,}} >
+      <Container maxWidth="xl"        
+      sx={{
+        height: '90vh',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
+    <Container maxWidth="xl" sx={{ marginTop: 2,}} >
       <Snackbar
         open={success}
         autoHideDuration={6000}
@@ -668,6 +680,7 @@ const getEmployee = async () => {
           </Grid>
         </Grid>
       </Paper>
+    </Container>
     </Container>
 </div>
   );

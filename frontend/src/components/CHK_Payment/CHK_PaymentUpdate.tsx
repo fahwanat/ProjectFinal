@@ -59,12 +59,12 @@ function CHK_PaymentUpdate() {
         });
     };
 
-    const handleSuccess = () => {
-        const shouldConfirm = window.confirm('คุณแน่ใจแล้วหรือไม่ว่าจะแก้ไขการตรวจสอบการชำระเงิน');
-        if (shouldConfirm) {
-            submit();
-        }
-    };
+    // const handleSuccess = () => {
+    //     const shouldConfirm = window.confirm('คุณแน่ใจแล้วหรือไม่ว่าจะแก้ไขการตรวจสอบการชำระเงิน');
+    //     if (shouldConfirm) {
+    //         submit();
+    //     }
+    // };
 
     const onChangeU_CHKPayment = async (event: SelectChangeEvent) => {
         let res = await GetCHK_Payment(event.target.value);
@@ -308,7 +308,7 @@ function CHK_PaymentUpdate() {
                         </Button>
                         <Button
                             style={{ float: "right" }}
-                            onClick={handleSuccess}
+                            onClick={submit}
                             variant="contained"
                             color="success"
                         >

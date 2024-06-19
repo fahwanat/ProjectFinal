@@ -30,3 +30,31 @@ export interface TimeServiceInterface {
 	Service:  ServiceInterface,
 }
 
+
+//NoTeche
+export interface ServiceTypeNoTechInterface {
+	ID?: number,
+	Name?: string,	
+}
+
+export interface ServiceNoTechInterface {
+    ID?: number;
+	Service_Name?: string
+	Price?:	number,
+	
+	ServiceTypeNoTechID?:   number,
+	ServiceTypeNoTech?:     ServiceTypeNoTechInterface,
+
+	MemberID?: number | null,
+    Member?: MemberInterface,
+
+
+}
+
+export interface TimeServiceNoTechInterface {
+	ID: number,
+	Start_End: string,
+	
+	ServiceNoTechID: number,
+	ServiceNoTech:  ServiceNoTechInterface,
+}

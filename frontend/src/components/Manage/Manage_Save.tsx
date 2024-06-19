@@ -220,6 +220,17 @@ const getPosition = async () => {
 
   return (
   <div>
+      <Container maxWidth="xl"        sx={{
+            height: '100vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
     <Container maxWidth="xl" >
       <Snackbar
         id="success"        
@@ -416,12 +427,12 @@ const getPosition = async () => {
                 <FormControlLabel
                   value="Female"
                   control={<Radio />}
-                  label="Female"
+                  label="หญิง"
                 />
                 <FormControlLabel
                   value="Male"
                   control={<Radio />}
-                  label="Male"
+                  label="ชาย"
                 />
               </RadioGroup>
             </FormControl>
@@ -460,6 +471,7 @@ const getPosition = async () => {
           </Grid>
         </Grid>
       </Paper>
+    </Container>
     </Container>
 </div>
   );

@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Members } from "./service/servicecus";
+import { Typography } from "@mui/material";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -384,6 +385,12 @@ function CreatMember() {
                   }
                   inputProps={{ maxLength: 8 }}
                 />
+                <Typography
+                  sx={{ marginRight: -15, fontSize: 12, color: "text.secondary" }}
+                >
+                  เช่น A1234567 หรือ AB123456
+                </Typography>
+                
               </Grid>
               {/*=======================================(select Gender)===========================================================*/}
               <Grid

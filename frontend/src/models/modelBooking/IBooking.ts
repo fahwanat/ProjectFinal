@@ -1,6 +1,6 @@
 //import { BranchsInterface } from "./IBranch"
 import { MemberInterface } from "../modelMember/IMember"
-import { ServiceTypeInterface, ServiceInterface, TimeServiceInterface } from "../IService"
+import { ServiceTypeInterface, ServiceInterface, TimeServiceInterface, ServiceTypeNoTechInterface, ServiceNoTechInterface, TimeServiceNoTechInterface} from "../IService"
 import { EmployeeInterface } from "../IManage"
 import { Dayjs } from "dayjs"
 
@@ -23,6 +23,28 @@ export interface BookingsInterface {
 
     TimeServiceID?: number,
     TimeService?: TimeServiceInterface,
+
+    MemberID?: number,
+    Member?: MemberInterface,
+}
+
+//NoTech
+export interface BookingsNoTechInterface {
+    ID?: number,
+
+    Booking_Number?: string,
+    Tx_No?: string,
+    Total?: number, 
+    BookingDate?: Dayjs| null,
+
+    ServiceTypeNoTechID?: number,
+    ServiceTypeNoTech?: ServiceTypeNoTechInterface,
+
+    ServiceNoTechID?: number,
+    ServiceNoTech?: ServiceNoTechInterface,
+
+    TimeServiceNoTechID?: number,
+    TimeServiceNoTech?: TimeServiceNoTechInterface,
 
     MemberID?: number,
     Member?: MemberInterface,

@@ -35,4 +35,5 @@ type Member struct {
 	Gender   Gender `valid:"-" gorm:"references:id"`
 
 	Booking []Booking `gorm:"foreignKey:MemberID"`
+	// BookingNoTech []BookingNoTech `gorm:"foreignKey:MemberID"`
 }

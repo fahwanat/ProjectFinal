@@ -131,25 +131,26 @@ function ServiceEdit() {
     //   }
 
     return(
-        <Container maxWidth="xl"        sx={{
+        <Container maxWidth="xl"        
+        sx={{
             height: '91.35vh',
-    width: '100vw',
-    display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+            width: '100vw',
+            display: 'flex',
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
         }}>
         <Container maxWidth="md" sx = {{ marginTop: 10,}} >
             <Snackbar open={success} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
-            <Alert onClose={handleClose} severity="success">
+            <Alert onClose={handleClose} variant="filled" severity="success">
                 {message}
             </Alert>
         </Snackbar>
         <Snackbar open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
-            <Alert onClose={handleClose} severity="error">
+            <Alert onClose={handleClose} variant="filled" severity="error">
                 {message}
             </Alert>
         </Snackbar>

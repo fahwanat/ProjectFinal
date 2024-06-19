@@ -130,7 +130,7 @@ function CHK_PaymentCreate() {
 
     async function submit() {
         // Validation
-        if (description === "โอนเงิน" && !image) {
+        if (description === "โอน" && !image) {
             setAlertMessage("กรุณาแนบหลักฐานการชำระเงิน");
             setError(true);
             return;
@@ -297,7 +297,7 @@ function CHK_PaymentCreate() {
                             />
                         </FormControl>
                     </Grid>
-                    {description !== "เงินสด" && (
+                    {description !== "เงิน" && (
                         <Grid item xs={6}>
                             <Typography gutterBottom></Typography>
                             <Grid container sx={{ flexGrow: 1 }}>

@@ -183,7 +183,7 @@ function Navbar() {
     // { name: "BookingMember", icon: <ReceiptLongIcon />, path: "/Book" },
     { name: "ข้อมูลชำระเงินค่ามัดจำ", icon: <PaymentIcon />, path: "/CheckPay" },
     { name: "ข้อมูลตรวจสอบการชำระเงิน", icon: <PriceCheckIcon />, path: "/CPM" },
-    { name: "ข้อมูลการจองคิวของลูกค้า", icon: <ReceiptLongIcon />, path: "/Payment/Show" },
+    // { name: "ข้อมูลการจองคิวของลูกค้า", icon: <ReceiptLongIcon />, path: "/Payment/Show" },
 
   ];
 

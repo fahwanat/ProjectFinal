@@ -143,16 +143,16 @@ function BookingCreateNoTech() {
         });
     };
 
-    const handleEmployee = (event: { target: { name: string; value: any; }; }) => {
-        const name = event.target.name as keyof typeof booking;
-        const employeeid = event.target.value;
+    // const handleEmployee = (event: { target: { name: string; value: any; }; }) => {
+    //     const name = event.target.name as keyof typeof booking;
+    //     const employeeid = event.target.value;
 
-        setEmployeeid(employeeid);
-        setBooking({
-            ...booking,
-            [name]: event.target.value
-        });
-    };
+    //     setEmployeeid(employeeid);
+    //     setBooking({
+    //         ...booking,
+    //         [name]: event.target.value
+    //     });
+    // };
 
     const getMember = async () => {
         let res = await GetMemberByUID();
@@ -189,12 +189,7 @@ function BookingCreateNoTech() {
             setPriceService(res);
         }
     }
-    const getemployee = async () => {
-        let res = await GetEmployeeBySID(servicetypeid);
-        if (res) {
-            setEmployees(res);
-        }
-    };
+ 
 
     const apiUrl = "http://localhost:8080";
     const requestOptionsGet = {
@@ -215,7 +210,6 @@ function BookingCreateNoTech() {
         getservicetype();
         gettimeservice();
         getprice();
-        getemployee();
         // feachEmpolyeeID();
 
     }, [servicetypeid, serviceid]);
@@ -235,7 +229,7 @@ function BookingCreateNoTech() {
             ServiceTypeID: convertType(booking.ServiceTypeID),
             ServiceID: convertType(booking.ServiceID),
             TimeServiceID: convertType(booking.TimeServiceID),
-            EmployeeID: convertType(booking.EmployeeID),
+  
             
         };
 
@@ -255,7 +249,18 @@ function BookingCreateNoTech() {
     }
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xl"
+        sx={{
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
             <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
                 <Alert onClose={handleClose} severity="success">
                     {message}
@@ -266,6 +271,7 @@ function BookingCreateNoTech() {
                     {message}
                 </Alert>
             </Snackbar>
+            <Container maxWidth="md" sx={{marginBottom: 5}}>
             <Paper>
                 <Box display="flex" sx={{ marginTop: 6, }} >
                     <Box sx={{ paddingX: 2, paddingY: 0.5 }}>
@@ -276,29 +282,7 @@ function BookingCreateNoTech() {
                 </Box>
                 <Divider />
                 <Grid container spacing={1} sx={{ padding: 1 }}>
-                    {/* <Grid item xs={12}>
-                    <FormControl fullWidth variant="outlined">
-                            <p>ข้อมูลช่าง **(1:ช่างทำผม, 2:ช่างทำเล็บ, 3:ช่างทำหน้า)</p>
-                            <Select
-                                native
-                                value={booking.EmployeeID + ""}
-                                onChange={handleChange}
-                                inputProps={{
-                                    name: "EmployeeID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกช่าง
-                                </option>
-                                {employees.map((item: EmployeeInterface) => (
-                                    <option value={item.ID} key={item.ID}>
-                                    {item.Employeename} : {item.PositionID}
-                                    </option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลประเภทบริการ</p>
                             <Select
@@ -318,27 +302,7 @@ function BookingCreateNoTech() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    {/* <Grid item xs={12}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>เลือกช่าง</p>
-                            <Select
-                                native
-                                value={booking.EmployeeID + ""}
-                                onChange={handleEmployee}
-                                inputProps={{
-                                    name: "EmployeeID",
-                                }}
-                            >
-                                <option aria-label="None" value="">
-                                    กรุณาเลือกช่าง
-                                </option>
-                                {employees.map((item: EmployeeInterface) => (
-                                    <option value={item.ID} >{item.Employeename}</option>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>ข้อมูลบริการ</p>
                             <Select
@@ -358,7 +322,7 @@ function BookingCreateNoTech() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>วันที่จอง</p>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -373,7 +337,7 @@ function BookingCreateNoTech() {
                           </LocalizationProvider>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>เวลาที่ต้องการเข้าใช้บริการ</p>
                             <Select
@@ -393,7 +357,7 @@ function BookingCreateNoTech() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <FormLabel sx={{ fontFamily: "Comic Sans MS" }}> ราคาบริการ </FormLabel>
                                 <TextField
@@ -406,7 +370,7 @@ function BookingCreateNoTech() {
                                 />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>จองโดย</p>
                             <Select
@@ -444,6 +408,7 @@ function BookingCreateNoTech() {
                     </Grid>
                 </Grid>
             </Paper>
+        </Container>
         </Container>
     );
 }

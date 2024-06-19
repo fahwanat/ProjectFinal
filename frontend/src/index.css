@@ -61,7 +61,7 @@ code {
 
 .grid-con-homepage-1 {
   display: grid;
-  grid-template-columns: repeat(13,1fr);
+  grid-template-columns: repeat(12,1fr);
   grid-template-rows: repeat(5,80px);
 
 }
@@ -286,7 +286,7 @@ code {
 
 .grid-item-22-3 {
   display: flex;
-  grid-column: 3/12;
+  grid-column: 6/12;
   grid-row: 3;
   font-family: Comic Sans MS, Comic Sans, cursive;
 }
