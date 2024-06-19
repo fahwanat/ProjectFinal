@@ -164,6 +164,18 @@ function PaymentShow() {
 
     return (
         <ThemeProvider theme={theme}>
+                    <Container maxWidth="xl"        
+                    sx={{
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
             <Container
                 maxWidth="md"
                 sx={{
@@ -172,7 +184,7 @@ function PaymentShow() {
                     justifyContent: "center"
 
                 }}>
-                                    <Box display="flex" sx={{ marginTop: 5, }}>
+                                    <Box display="flex" sx={{ marginTop: 10, }}>
                     <Box flexGrow={1} textAlign={"center"}>
                         <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                             ข้อมูลการจองคิวของลูกค้า
@@ -265,9 +277,12 @@ function PaymentShow() {
                         </Container>
                     </Paper>
                 </Paper> */}
+                <Paper>
                 <div style={{ height: 400, width: "100%", marginTop: "20px" }}>
                     <DataGrid rows={bookings} getRowId={(row) => row.ID} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={customStyles} />
                 </div>
+                </Paper>
+            </Container>
             </Container>
         </ThemeProvider>
     );

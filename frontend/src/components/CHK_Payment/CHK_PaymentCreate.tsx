@@ -162,6 +162,18 @@ function CHK_PaymentCreate() {
     }
 
     return (
+        <Container maxWidth="xl"        
+        sx={{
+            height: '140vh',
+    width: '100vw',
+    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
         <Container maxWidth="md" sx={{ marginTop: 5 }}>
             <Snackbar open={success} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
                 <Alert onClose={handleClose} severity="success">
@@ -176,7 +188,7 @@ function CHK_PaymentCreate() {
             <Paper>
                 <Box display="flex" sx={{ marginTop: 2 }}>
                     <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                        <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        <Typography component="h2" variant="h6"  gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                             ตรวจสอบการชำระเงิน
                         </Typography>
                     </Box>
@@ -199,10 +211,40 @@ function CHK_PaymentCreate() {
                                 </option>
                                 {payments.map((item: PaymentsInterface) => (
                                     <option value={item.ID} key={item.ID}>
-                                        {item.ID}
+                                        {"คุณ " + item.Member?.FirstName} {" -- " + item.Price}
                                     </option>
                                 ))}
                             </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                            <p>จำนวนเงินที่ชำระ</p>
+                            <TextField
+                                type="number"
+                                value={chk_payment.Amount}
+                                id="Amount"
+                                variant="outlined"
+                                inputProps={{
+                                    name: "Amount",
+                                }}
+                                onChange={handleInputChange_Text}
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <FormControl fullWidth variant="outlined">
+                            <p>วิธีชำระเงิน</p>
+                            <TextField
+                                type="text"
+                                value={chk_payment.Description}
+                                id="Description"
+                                variant="outlined"
+                                inputProps={{
+                                    name: "Description"
+                                }}
+                                onChange={handleInputChange_Text}
+                            />
                         </FormControl>
                     </Grid>
                     <Grid item xs={6}>
@@ -229,21 +271,6 @@ function CHK_PaymentCreate() {
                     </Grid>
                     <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
-                            <p>จำนวนเงิน</p>
-                            <TextField
-                                type="number"
-                                value={chk_payment.Amount}
-                                id="Amount"
-                                variant="outlined"
-                                inputProps={{
-                                    name: "Amount",
-                                }}
-                                onChange={handleInputChange_Text}
-                            />
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControl fullWidth variant="outlined">
                             <p>วันที่ตรวจสอบการชำระเงิน</p>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
@@ -257,21 +284,6 @@ function CHK_PaymentCreate() {
                                     }}
                                 />
                             </LocalizationProvider>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>วิธีชำระเงิน</p>
-                            <TextField
-                                type="text"
-                                value={chk_payment.Description}
-                                id="Description"
-                                variant="outlined"
-                                inputProps={{
-                                    name: "Description"
-                                }}
-                                onChange={handleInputChange_Text}
-                            />
                         </FormControl>
                     </Grid>
                     <Grid item xs={6}>
@@ -291,7 +303,7 @@ function CHK_PaymentCreate() {
                             <Grid container sx={{ flexGrow: 1 }}>
                                 <FormControl fullWidth variant="outlined">
                                     <p>โปรดแนบหลักฐานการชำระเงิน</p>
-                                    <img src={`${image}`} style={{ maxWidth: '100%', height: 'auto' }} />
+                                    <img src={`${image}`} style={{ maxWidth: '80%', height: '80' }} />
                                     <input type="file" onChange={handleImageChange} />
                                 </FormControl>
                             </Grid>
@@ -317,6 +329,7 @@ function CHK_PaymentCreate() {
                     </Grid>
                 </Grid>
             </Paper>
+        </Container>
         </Container>
     );
 }

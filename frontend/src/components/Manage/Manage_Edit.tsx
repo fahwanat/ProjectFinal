@@ -320,8 +320,8 @@ const getEmployee = async () => {
  
 
   return (
-  <ThemeProvider theme={bgbutton}>
-    <Container maxWidth="xl" >
+  <div>
+    <Container maxWidth="xl" sx={{ marginTop: 5,}} >
       <Snackbar
         open={success}
         autoHideDuration={6000}
@@ -353,7 +353,7 @@ const getEmployee = async () => {
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
+              // color="primary"
               gutterBottom
               sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
             >
@@ -628,7 +628,7 @@ const getEmployee = async () => {
       </Grid> */}
 
         <Grid container spacing={3} sx={{ padding: 2 }}>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
               <FormLabel>Officer</FormLabel>
 
@@ -639,10 +639,10 @@ const getEmployee = async () => {
                 value={user?.Officername}
               />
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12}>
-            <Button component={RouterLink} to="/ManageShow" variant="contained">
+            <Button component={RouterLink} to="/ManageShow" variant="contained" color="inherit">
              แสดงข้อมูลพนักงานทั้งหมด
             </Button>
 
@@ -651,7 +651,7 @@ const getEmployee = async () => {
               onClick={editEmployee}
               // disabled={btnDisabled}
               variant="contained"
-              color="primary"
+              color="success"
             >
               บันทึก
             </Button>
@@ -669,7 +669,7 @@ const getEmployee = async () => {
         </Grid>
       </Paper>
     </Container>
-</ThemeProvider>
+</div>
   );
 }
 

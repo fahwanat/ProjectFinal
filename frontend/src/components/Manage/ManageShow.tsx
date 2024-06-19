@@ -22,7 +22,7 @@ import { GetEmployeelist } from "../Technician/service/TechnicianHttpClientServi
 import { DeleteEmployees, Getlist } from "./service/ManageHttpClientService";
 import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 import format from "date-fns/format";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from "@mui/material";
 
 const themeshow = createTheme({
   palette: {
@@ -147,12 +147,12 @@ const getemployeelist = async () => {
 
  const columns: GridColDef[] = [
   { field: "ID", headerName: "ลำดับ", width: 70, valueFormatter: (params) => params.value.ID, headerAlign: "center", align: "center",},
-  { field: "PersonalID", headerName: "เลขประจำตัวประชาชน", width: 180, valueFormatter: (params) => params.value.PersonalID, headerAlign: "center", align: "center",},
-  { field: "Employeename", headerName: "ชื่อ-นามสกุล", width: 200, valueFormatter: (params) => params.value.Employeename, headerAlign: "center", align: "center",},
-  { field: "Position", headerName: "ตำแหน่ง", width: 150, valueFormatter: (params) => params.value.Name, headerAlign: "center", align: "center",},
+  { field: "PersonalID", headerName: "เลขประจำตัวประชาชน", width: 170, valueFormatter: (params) => params.value.PersonalID, headerAlign: "center", align: "center",},
+  { field: "Employeename", headerName: "ชื่อ-นามสกุล", width: 190, valueFormatter: (params) => params.value.Employeename, headerAlign: "center", align: "center",},
+  { field: "Position", headerName: "ตำแหน่ง", width: 140, valueFormatter: (params) => params.value.Name, headerAlign: "center", align: "center",},
   { field: "Tusername", headerName: "ชื่อผู้ใช้งาน", width: 130, valueFormatter: (params) => params.value.Tusername, headerAlign: "center", align: "center",},
   { field: "Email", headerName: "อีเมล", width: 200, valueFormatter: (params) => params.value.Email, headerAlign: "center", align: "center",},
-  { field: "Phonenumber", headerName: "หมายเลขติดต่อ", width: 150, valueFormatter: (params) => params.value.Phonenumber, headerAlign: "center", align: "center",},
+  { field: "Phonenumber", headerName: "หมายเลขติดต่อ", width: 140, valueFormatter: (params) => params.value.Phonenumber, headerAlign: "center", align: "center",},
   { field: "Salary", headerName: "เงินเดือน", width: 100, valueFormatter: (params) => params.value.Salary, headerAlign: "center", align: "center",},
   { field: "Gender", headerName: "เพศ", width: 90, valueFormatter: (params) => params.value.Gender, headerAlign: "center", align: "center",},          
   {
@@ -220,15 +220,25 @@ const getemployeelist = async () => {
 ]
 
  return (
-<ThemeProvider theme={themeshow}>
-  {/* <div> */}
+  <div> 
+  <Container maxWidth="xl"        sx={{
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
   <Container maxWidth="xl">
   <Box display="flex" sx={{ marginTop: 5, justifyContent: "center" }}>
     <Box flexGrow={1} >
       <Typography
             component="h2"
             variant="h6"
-            color="primary"
+            // color="primary"
             gutterBottom
             sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
           >
@@ -350,9 +360,11 @@ const getemployeelist = async () => {
             </div>
           </Container>
         </div> */}
+        <Paper>
         <div style={{ height: 560, width: "100%",  margin: "10px auto", display: "flex", justifyContent: "center" }}>
           <DataGrid rows={employeelist} getRowId={(row) => row.ID} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={customStyles} />
         </div>
+        </Paper>
         <Dialog
                 open={openDelete}
                 onClose={handleDialogDeleteclose}
@@ -375,8 +387,9 @@ const getemployeelist = async () => {
                 </DialogActions>
             </Dialog>
   </Container>
- {/* </div> */}
-</ThemeProvider>
+  </Container>
+ </div> 
+
  );
 
 }

@@ -219,7 +219,7 @@ const getPosition = async () => {
   }, []);
 
   return (
-  <ThemeProvider theme={bgbutton}>
+  <div>
     <Container maxWidth="xl" >
       <Snackbar
         id="success"        
@@ -254,7 +254,7 @@ const getPosition = async () => {
             <Typography
               component="h2"
               variant="h6"
-              color="primary"
+              // color="primary"
               gutterBottom
               sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
             >
@@ -445,7 +445,7 @@ const getPosition = async () => {
           </Grid> */}
 
           <Grid item xs={12}>
-            <Button component={RouterLink} to="/ManageShow" variant="contained">
+            <Button component={RouterLink} to="/ManageShow" variant="contained" color="inherit">
               แสดงข้อมูลพนักงานทั้งหมด
             </Button>
 
@@ -453,7 +453,7 @@ const getPosition = async () => {
               style={{ float: "right" }}
               onClick={submit}
               variant="contained"
-              color="primary"
+              color="success"
             >
               บันทึก
             </Button>
@@ -461,7 +461,7 @@ const getPosition = async () => {
         </Grid>
       </Paper>
     </Container>
-</ThemeProvider>
+</div>
   );
 }
 

@@ -131,7 +131,18 @@ function ServiceEdit() {
     //   }
 
     return(
-        <Container maxWidth="md" sx = {{ marginTop: 5,}} >
+        <Container maxWidth="xl"        sx={{
+            height: '91.35vh',
+    width: '100vw',
+    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}>
+        <Container maxWidth="md" sx = {{ marginTop: 10,}} >
             <Snackbar open={success} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }} >
             <Alert onClose={handleClose} severity="success">
                 {message}
@@ -145,7 +156,7 @@ function ServiceEdit() {
         <Paper>
             <Box display="flex" sx={{ marginTop: 2, }} >
                 <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                    <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                    <Typography component="h2" variant="h6"  gutterBottom sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                         แก้ไขข้อมูลบริการ
                     </Typography>
                 </Box>
@@ -228,6 +239,7 @@ function ServiceEdit() {
                 </Grid>
             </Grid>
         </Paper>
+        </Container>
         </Container>
     );
 }
