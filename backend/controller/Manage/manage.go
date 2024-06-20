@@ -148,6 +148,7 @@ func ListPositions(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": position})
 }
 
+
 // Employee...................................................................
 // POST /Employees
 func SetupPasswordHash(pwd string) string {
@@ -160,7 +161,7 @@ func CreateEmployee(c *gin.Context) {
 	var officer entity.Officer
 	var department entity.Department
 	var position entity.Position
-	// var service_type entity.ServiceType
+	var service_type entity.ServiceType
 	var employee entity.Employee
 
 	if err := c.ShouldBindJSON(&employee); err != nil {
@@ -193,10 +194,10 @@ func CreateEmployee(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Position not found"})
 		return
 	}
-	// if tx := entity.DB().Where("id = ?", employee.ServiceTypeID).First(&service_type); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "ServiceType not found"})
-	// 	return
-	// }
+	if tx := entity.DB().Where("id = ?", employee.ServiceTypeID).First(&service_type); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ServiceType not found"})
+		return
+	}
 
 	var userrole entity.UserRole
 	// if err := entity.DB().Model(&entity.UserRole{}).Where("role_name = ?", "Employee").First(&userrole).Error; err != nil {
@@ -223,7 +224,7 @@ func CreateEmployee(c *gin.Context) {
 		Salary:       employee.Salary,                      // ตั้งค่าฟิลด์ Salary
 		Phonenumber:  employee.Phonenumber,                 // ตั้งค่าฟิลด์ Tel
 		Gender:       employee.Gender,
-		ServiceType:  employee.ServiceType, // ตั้งค่าฟิลด์ Gender
+		ServiceType:  service_type, // ตั้งค่าฟิลด์ Gender
 		Signin:       createuserlogin,
 	}
 

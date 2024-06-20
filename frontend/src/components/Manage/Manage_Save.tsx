@@ -29,6 +29,7 @@ import {
   PositionInterface,
 } from "../../models/IManage";
 import { grey } from "@mui/material/colors";
+import { ServiceTypeInterface } from "../../models/IService";
 
 const bgbutton = createTheme({
   palette: {
@@ -61,6 +62,7 @@ function Manage_Save() {
   );
   const [department, setDepartment] = React.useState<DepartmentInterface[]>([]);
   const [position, setPosition] = React.useState<PositionInterface[]>([]);
+  const [servicetype, setServiceType] = React.useState<ServiceTypeInterface[]>([]);
   const [user, setUser] = React.useState<OfficerInterface>();
   const [gender, setGender] = React.useState<string>("");
   const [success, setSuccess] = React.useState(false);
@@ -121,6 +123,32 @@ const getPosition = async () => {
     });
 };
 
+const getServiceType = async () => {
+  const apiUrl = `http://localhost:8080/services_types`;
+
+  const requestOptions = {
+    method: "GET",
+
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  //การกระทำ //json
+  fetch(apiUrl, requestOptions)
+    .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
+
+    .then((res) => {
+      console.log(res.data); //show ข้อมูล
+
+      if (res.data) {
+        setServiceType(res.data);
+      } else {
+        console.log("else");
+      }
+    });
+};
+
 //----------------------------------จบการดึงข้อมูล------------------------
 
 //==========เปิด ปิด การบันทึกและ error
@@ -170,6 +198,7 @@ const getPosition = async () => {
       OfficerID: user?.ID ?? "",
       DepartmentID: Number(employee.DepartmentID),
       PositionID: Number(employee.PositionID),
+      ServiceTypeID: Number(employee.ServiceTypeID),
       Signin: {
         Username: employee.Tusername ?? "",
         Password: employee.Password ?? "",
@@ -215,6 +244,7 @@ const getPosition = async () => {
     }
     getDepartment();
     getPosition();
+    getServiceType();
 
   }, []);
 
@@ -237,7 +267,7 @@ const getPosition = async () => {
         open={success}
         autoHideDuration={6000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="success">
           บันทึกข้อมูลสำเร็จ
@@ -248,7 +278,8 @@ const getPosition = async () => {
         id="error"
         open={error} 
         autoHideDuration={6000} 
-        onClose={handleClose}>
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error">
           {message}
         </Alert>
@@ -279,7 +310,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>เลขประจำตัวประชาชน</FormLabel>
+              <p>เลขประจำตัวประชาชน</p>
 
               <TextField
                 id="PersonalID"
@@ -296,7 +327,7 @@ const getPosition = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>ชื่อ-นามสกุล</FormLabel>
+              <p>ชื่อ-นามสกุล</p>
               <TextField
                 id="Employeename"
                 variant="outlined"
@@ -312,7 +343,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>ชื่อผู้ใช้งาน</FormLabel>
+              <p>ชื่อผู้ใช้งาน</p>
 
               <TextField
                 id="Tusername"
@@ -322,12 +353,13 @@ const getPosition = async () => {
                 value={employee.Tusername || ""}
                 onChange={handleInputChange}
               />
+              <h6 className="grey-text">** ขึ้นต้นด้วย T และตามตัวพิมพ์ใหญ่ 1 ตัวและตามด้วยตัวพิมพ์เล็ก **</h6>
             </FormControl>
           </Grid>
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>รหัสผ่าน</FormLabel>
+              <p>รหัสผ่าน</p>
 
               <TextField
                 id="Password"
@@ -337,6 +369,7 @@ const getPosition = async () => {
                 value={employee.Password || ""}
                 onChange={handleInputChange}
               />
+              <h6 className="grey-text">** ขึ้นต้นด้วยตัวพิมพ์ใหญ่ 1 ตัว และมีต้องมีอย่างน้อย 6 ตัว **</h6>
             </FormControl>
           </Grid>
         </Grid>
@@ -344,7 +377,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>อีเมล</FormLabel>
+              <p>อีเมล</p>
 
               <TextField
                 id="Email"
@@ -359,7 +392,7 @@ const getPosition = async () => {
 
           <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>หมายเลขติดต่อ</FormLabel>
+              <p>หมายเลขติดต่อ</p>
 
               <TextField
                 id="Phonenumber"
@@ -375,7 +408,7 @@ const getPosition = async () => {
 
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
         {/* ComboboxPosition */}
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <FormLabel>ตำแหน่ง</FormLabel>
             <FormControl fullWidth variant="outlined">
               <Select
@@ -395,8 +428,28 @@ const getPosition = async () => {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={3}>
+            <FormLabel>ประเภทบริการ</FormLabel>
+            <FormControl fullWidth variant="outlined">
+              <Select
+                native
+                value={employee.ServiceTypeID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "ServiceTypeID",
+                }}
+              >
+                <option value={0} key={0}>
+                  กรุณาเลือกประเภทบริการ
+                </option>
+                {servicetype.map((item: ServiceTypeInterface) => (
+                  <option value={item.ID}>{item.Name}</option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
           
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <FormControl fullWidth variant="outlined">
               <FormLabel>เงินเดือน</FormLabel>
 
@@ -412,10 +465,11 @@ const getPosition = async () => {
           </Grid>
         </Grid>
 
+
         <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={6}>
             <FormControl>
-              <FormLabel>เพศ</FormLabel>
+              <p>เพศ</p>
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -442,7 +496,7 @@ const getPosition = async () => {
         <Grid container spacing={3} sx={{ padding: 2 }}>
           {/* <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>บันทึกข้อมูลโดย</FormLabel>
+              <p>บันทึกข้อมูลโดย</p>
 
               <TextField
                 fullWidth

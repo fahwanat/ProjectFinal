@@ -80,7 +80,7 @@ function SelectTechByHair() {
 
     useEffect(() => {
         const NewFilter = employee.filter((employee) => {
-          return [1, 2, 3, 4, 5].includes(employee.ID);
+          return [1, 2, 3, 4, 5].includes(employee.ServiceTypeID);
         });
     
         setFilter(NewFilter);

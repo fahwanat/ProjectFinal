@@ -31,7 +31,7 @@ import {
   OfficerInterface,
   PositionInterface,
 } from "../../models/IManage";
-import { BookingsInterface} from "../../models/modelBooking/IBooking";
+import { BookingsInterface } from "../../models/modelBooking/IBooking";
 
 import { grey } from "@mui/material/colors";
 import { MemberInterface } from "../../models/modelMember/IMember";
@@ -46,7 +46,6 @@ const bgbutton = createTheme({
       // Purple and grey play nicely together.
       main: grey[50],
     },
-
   },
 });
 
@@ -59,7 +58,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 function Manage_Edit() {
-  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({});
+  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>(
+    {}
+  );
   // const [emEdit,Editem] = React.useState<EmployeeInterface>();
   const [employeeEdit, EditEmployee] = useState<EmployeeInterface>();
 
@@ -80,10 +81,10 @@ function Manage_Edit() {
 
   const getBookings = async () => {
     const apiUrl = `http://localhost:8080/bookings`;
-  
+
     const requestOptions = {
       method: "GET",
-  
+
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -92,10 +93,10 @@ function Manage_Edit() {
     //การกระทำ //json
     fetch(apiUrl, requestOptions)
       .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
-  
+
       .then((res) => {
-      //   console.log(res.data); //show ข้อมูล
-  
+        //   console.log(res.data); //show ข้อมูล
+
         if (res.data) {
           setBookings(res.data);
         } else {
@@ -106,10 +107,10 @@ function Manage_Edit() {
 
   const getMembers = async () => {
     const apiUrl = `http://localhost:8080/members`;
-  
+
     const requestOptions = {
       method: "GET",
-  
+
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -118,10 +119,10 @@ function Manage_Edit() {
     //การกระทำ //json
     fetch(apiUrl, requestOptions)
       .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
-  
+
       .then((res) => {
-      //   console.log(res.data); //show ข้อมูล
-  
+        //   console.log(res.data); //show ข้อมูล
+
         if (res.data) {
           setMember(res.data);
         } else {
@@ -131,66 +132,13 @@ function Manage_Edit() {
   };
 
   //-----------เริ่มดึงข้อมูล-----------//
-//---------------------Department-------------------------------------
-const getDepartment = async () => {
-  const apiUrl = `http://localhost:8080/Departments`;
+  //---------------------Department-------------------------------------
+  const getDepartment = async () => {
+    const apiUrl = `http://localhost:8080/Departments`;
 
-  const requestOptions = {
-    method: "GET",
-
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-  //การกระทำ //json
-  fetch(apiUrl, requestOptions)
-    .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
-
-    .then((res) => {
-    //   console.log(res.data); //show ข้อมูล
-
-      if (res.data) {
-        setDepartment(res.data);
-      } else {
-        // console.log("else");
-      }
-    });
-};
-//---------------------Position-------------------------------------
-const getPosition = async () => {
-  const apiUrl = `http://localhost:8080/Positions`;
-
-  const requestOptions = {
-    method: "GET",
-
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-  //การกระทำ //json
-  fetch(apiUrl, requestOptions)
-    .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
-
-    .then((res) => {
-    //   console.log(res.data); //show ข้อมูล
-
-      if (res.data) {
-        setPosition(res.data);
-      } else {
-        // console.log("else");
-      }
-    });
-};
-
-
-const getEmployee = async () => {
-    const apiUrl = `http://localhost:8080/employee/${id}`;
-  
     const requestOptions = {
       method: "GET",
-  
+
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -199,21 +147,72 @@ const getEmployee = async () => {
     //การกระทำ //json
     fetch(apiUrl, requestOptions)
       .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
-  
+
       .then((res) => {
-        // console.log(res.data); //show ข้อมูล
-  
+        //   console.log(res.data); //show ข้อมูล
+
         if (res.data) {
-          setEmployee(res.data);
-          // setEm(res.data);
-          
+          setDepartment(res.data);
         } else {
-        //   console.log("else");
+          // console.log("else");
+        }
+      });
+  };
+  //---------------------Position-------------------------------------
+  const getPosition = async () => {
+    const apiUrl = `http://localhost:8080/Positions`;
+
+    const requestOptions = {
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    //การกระทำ //json
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
+
+      .then((res) => {
+        //   console.log(res.data); //show ข้อมูล
+
+        if (res.data) {
+          setPosition(res.data);
+        } else {
+          // console.log("else");
         }
       });
   };
 
-//----------------------------------จบการดึงข้อมูล------------------------
+  const getEmployee = async () => {
+    const apiUrl = `http://localhost:8080/employee/${id}`;
+
+    const requestOptions = {
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    //การกระทำ //json
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
+
+      .then((res) => {
+        // console.log(res.data); //show ข้อมูล
+
+        if (res.data) {
+          setEmployee(res.data);
+          // setEm(res.data);
+        } else {
+          //   console.log("else");
+        }
+      });
+  };
+
+  //----------------------------------จบการดึงข้อมูล------------------------
   const handleClose = (
     event?: React.SyntheticEvent | Event,
 
@@ -249,56 +248,62 @@ const getEmployee = async () => {
   ) => {
     const id = event.target.id as keyof typeof employee;
     const { value } = event.target;
-    setEmployee({ ...employee, [id]: value });  
+    setEmployee({ ...employee, [id]: value });
   };
 
-  const [btnDisabled, setBtnDisabled] = useState(true)
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   const handleClickedit = () => {
     setBtnDisabled(!btnDisabled);
-    
-   
-  }
+  };
 
   function editEmployee() {
     let dataemployee = {
       ID: typeof id === "string" ? parseInt(id) : 0,
       PersonalID: employee.PersonalID,
-      Employeename:  employee.Employeename ,
+      Employeename: employee.Employeename,
       Email: employee.Email,
       Tusername: employee.Tusername,
       Password: employee.Password,
-      Salary: typeof employee.Salary === "string" ? parseInt(employee.Salary) : employee.Salary,
+      Salary:
+        typeof employee.Salary === "string"
+          ? parseInt(employee.Salary)
+          : employee.Salary,
       Phonenumber: employee.Phonenumber,
       Gender: gender,
       DateOfBirth: dateOfBirth,
-      DepartmentID: typeof employee.DepartmentID === "string" ? parseInt(employee.DepartmentID) : employee.DepartmentID,
-      PositionID: typeof employee.PositionID === "string" ? parseInt(employee.PositionID) : employee.PositionID,
-    }
+      DepartmentID:
+        typeof employee.DepartmentID === "string"
+          ? parseInt(employee.DepartmentID)
+          : employee.DepartmentID,
+      PositionID:
+        typeof employee.PositionID === "string"
+          ? parseInt(employee.PositionID)
+          : employee.PositionID,
+    };
 
-    console.log(dataemployee)
+    console.log(dataemployee);
     const apiUrlUpdate = "http://localhost:8080/employees";
 
     const requestUpdateOptions = {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataemployee),
-    }
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataemployee),
+    };
 
     fetch(apiUrlUpdate, requestUpdateOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data) {
           setSuccess(true);
           setInterval(() => {
             window.location.assign("/ManageShow");
           }, 1000);
         } else {
-          
           setError(true);
           setAlertMessage(res.error);
         }
@@ -314,104 +319,110 @@ const getEmployee = async () => {
     getEmployee();
     getBookings();
     getMembers();
-
   }, []);
 
- 
-
   return (
-  <div>
-      <Container maxWidth="xl"        
-      sx={{
-        height: '90vh',
-        width: '100vw',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundImage: "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
-        }}>
-    <Container maxWidth="xl" sx={{ marginTop: 2,}} >
-      <Snackbar
-        open={success}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+    <div>
+      <Container
+        maxWidth="xl"
+        sx={{
+          height: "90vh",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundImage:
+            "url(https://th-test-11.slatic.net/p/77b74100b4ce7a4a90041dea0a602396.jpg)",
+        }}
       >
-        <Alert onClose={handleClose} severity="success">
-          แก้ไขข้อมูลสำเร็จ
-        </Alert>
-      </Snackbar>
+        <Container maxWidth="xl" sx={{ marginTop: 2 }}>
+          <Snackbar
+            open={success}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="success">
+              แก้ไขข้อมูลสำเร็จ
+            </Alert>
+          </Snackbar>
 
-      <Snackbar 
-        open={error} 
-        autoHideDuration={6000} 
-        onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-        {message}
-        </Alert>
-      </Snackbar>
+          <Snackbar
+            open={error}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="error">
+              {message}
+            </Alert>
+          </Snackbar>
 
-      <Paper>
-        <Box
-          display="flex"
-          sx={{
-            marginTop: 2,
-          }}
-        >
-          <Box sx={{ paddingX: 2, paddingY: 1 }}>
-            <Typography
-              component="h2"
-              variant="h6"
-              // color="primary"
-              gutterBottom
-              sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}
+          <Paper>
+            <Box
+              display="flex"
+              sx={{
+                marginTop: 2,
+              }}
             >
-              แก้ไขข้อมูลพนักงาน
-            </Typography>
-          </Box>
-        </Box>
+              <Box sx={{ paddingX: 2, paddingY: 1 }}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  // color="primary"
+                  gutterBottom
+                  sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
+                >
+                  แก้ไขข้อมูลพนักงาน
+                </Typography>
+              </Box>
+            </Box>
 
-        <Divider />
+            <Divider />
 
+            <Grid
+              container
+              spacing={3}
+              sx={{ padding: 2 }}
+              style={{ marginLeft: "14.5%" }}
+            >
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>เลขประจำตัวประชาชน</p>
+                  <TextField
+                    id="PersonalID"
+                    variant="outlined"
+                    size="medium"
+                    // disabled={btnDisabled}
+                    value={employee.PersonalID}
+                    onChange={handleInputChange}
+                    inputProps={{ maxLength: 13 }}
+                  />
+                </FormControl>
+              </Grid>
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{ marginLeft: "14.5%"}}>
-         <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>เลขประจำตัวประชาชน</FormLabel>
-              <TextField
-                id="PersonalID"
-                variant="outlined"
-                size="medium"
-                // disabled={btnDisabled}
-                value={employee.PersonalID}
-                onChange={handleInputChange}
-                inputProps = {{ maxLength : 13 }}
-              />
-            </FormControl>
-          </Grid>
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>ชื่อ-นามสกุล</p>
+                  <TextField
+                    id="Employeename"
+                    variant="outlined"
+                    size="medium"
+                    // disabled={btnDisabled}
+                    value={employee.Employeename}
+                    onChange={handleInputChangeedit}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
 
           <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>ชื่อ-นามสกุล</FormLabel>
-              <TextField
-                id="Employeename"
-                variant="outlined"
-                size="medium"
-                // disabled={btnDisabled}
-                value={employee.Employeename}
-                onChange={handleInputChangeedit}
-              />
-            </FormControl>
-          </Grid>
-        </Grid>
-
-        {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
-
-          <Grid item xs={4}>
-            <FormLabel>Department</FormLabel>
+            <p>Department</p>
             <FormControl fullWidth variant="outlined">
               <Select
                 native
@@ -430,7 +441,7 @@ const getEmployee = async () => {
           </Grid>
 
           <Grid item xs={4}>
-            <FormLabel>Position</FormLabel>
+            <p>Position</p>
             <FormControl fullWidth variant="outlined">
               <Select
                 native
@@ -450,114 +461,136 @@ const getEmployee = async () => {
 
         </Grid> */}
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
-          <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>ชื่อผู้ใช้งาน</FormLabel>
+            <Grid
+              container
+              spacing={3}
+              sx={{ padding: 2 }}
+              style={{ marginLeft: "14.5%" }}
+            >
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>ชื่อผู้ใช้งาน</p>
 
-              <TextField
-                id="Eusername"
-                variant="outlined"
-                size="medium"
-                value={employee.Tusername}
-                // disabled={btnDisabled}
-                onChange={handleInputChange}
-              />
-            </FormControl>
-          </Grid>
+                  <TextField
+                    id="Eusername"
+                    variant="outlined"
+                    size="medium"
+                    value={employee.Tusername}
+                    // disabled={btnDisabled}
+                    onChange={handleInputChange}
+                  />
+                  <h6 className="grey-text">
+                    ** ขึ้นต้นด้วย T และตามตัวพิมพ์ใหญ่ 1
+                    ตัวและตามด้วยตัวพิมพ์เล็ก **
+                  </h6>
+                </FormControl>
+              </Grid>
 
-          <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>รหัสผ่าน</FormLabel>
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>รหัสผ่าน</p>
 
-              <TextField
-                id="Password"
-                variant="outlined"
-                type="string"
-                size="medium"
-                // disabled={btnDisabled}
-                value={employee.Password}
-                onChange={handleInputChange}
-              />
-            </FormControl>
-          </Grid>
-        </Grid>
-          
-          <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+                  <TextField
+                    id="Password"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    // disabled={btnDisabled}
+                    value={employee.Password}
+                    onChange={handleInputChange}
+                  />
+                  <h6 className="grey-text">
+                    ** ขึ้นต้นด้วยตัวพิมพ์ใหญ่ 1 ตัว และมีต้องมีอย่างน้อย 6 ตัว
+                    **
+                  </h6>
+                </FormControl>
+              </Grid>
+            </Grid>
 
-          <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>อีเมล</FormLabel>
+            <Grid
+              container
+              spacing={3}
+              sx={{ padding: 2 }}
+              style={{ marginLeft: "14.5%" }}
+            >
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>อีเมล</p>
 
-              <TextField
-                id="Email"
-                variant="outlined"
-                // type="strdium"
-                value={employee.Email}
-                // disabled={btnDisabled}
-                onChange={handleInputChange}
-              />
-            </FormControl>
-          </Grid>
+                  <TextField
+                    id="Email"
+                    variant="outlined"
+                    // type="strdium"
+                    value={employee.Email}
+                    // disabled={btnDisabled}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </Grid>
 
-          <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>หมายเลขติดต่อ</FormLabel>
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>หมายเลขติดต่อ</p>
 
-              <TextField
-                id="Phonenumber"
-                variant="outlined"
-                type="string"
-                size="medium"
-                value={employee.Phonenumber}
-                // disabled={btnDisabled}
-                onChange={handleInputChange}
-              />
-            </FormControl>
-          </Grid>
-        </Grid>
+                  <TextField
+                    id="Phonenumber"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    value={employee.Phonenumber}
+                    // disabled={btnDisabled}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
 
-        <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
-        <Grid item xs={4}>
-            <FormLabel>ตำแหน่ง</FormLabel>
-            <FormControl fullWidth variant="outlined">
-              <Select
-                native
-                // disabled={btnDisabled}
-                value={employee.PositionID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "PositionID",
-                }}
-              >
-                {position.map((item: PositionInterface) => (
-                  <option value={item.ID}>{item.Name}</option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+            <Grid
+              container
+              spacing={3}
+              sx={{ padding: 2 }}
+              style={{ marginLeft: "14.5%" }}
+            >
+              <Grid item xs={4}>
+                <p>ตำแหน่ง</p>
+                <FormControl fullWidth variant="outlined">
+                  <Select
+                    native
+                    // disabled={btnDisabled}
+                    value={employee.PositionID}
+                    onChange={handleChange}
+                    inputProps={{
+                      name: "PositionID",
+                    }}
+                  >
+                    {position.map((item: PositionInterface) => (
+                      <option value={item.ID}>{item.Name}</option>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
 
-          <Grid item xs={4}>
-            <FormControl fullWidth variant="outlined">
-              <FormLabel>เงินเดือน</FormLabel>
+              <Grid item xs={4}>
+                <FormControl fullWidth variant="outlined">
+                  <p>เงินเดือน</p>
 
-              <TextField
-                id="Salary"
-                variant="outlined"
-                type="string"
-                size="medium"
-                // disabled={btnDisabled}
-                value={employee.Salary || ""}
-                onChange={handleInputChange}
-              />
-            </FormControl>
-          </Grid>
-        </Grid>
+                  <TextField
+                    id="Salary"
+                    variant="outlined"
+                    type="string"
+                    size="medium"
+                    // disabled={btnDisabled}
+                    value={employee.Salary || ""}
+                    onChange={handleInputChange}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
 
-        {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+            {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
           <Grid item xs={6}>
             <FormControl>
-              <FormLabel>Gender</FormLabel>
+              <p>Gender</p>
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -584,10 +617,10 @@ const getEmployee = async () => {
           </Grid>
         </Grid> */}
 
-        {/* <Grid container spacing={3} sx={{ padding: 2 }}>
+            {/* <Grid container spacing={3} sx={{ padding: 2 }}>
           <Grid item xs={12}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Address</FormLabel>
+              <p>Address</p>
 
               <TextField
                 id="Address"
@@ -605,11 +638,11 @@ const getEmployee = async () => {
           </Grid>
         </Grid> */}
 
-        {/* วันเกิด */}
-      {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
+            {/* วันเกิด */}
+            {/* <Grid container spacing={3} sx={{ padding: 2 }} style={{marginLeft: "14.5%"}}>
         <Grid item xs={4}>
           <FormControl fullWidth variant="outlined">
-            <FormLabel>BirthDay</FormLabel>
+            <p>BirthDay</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 disabled={btnDisabled}
@@ -621,11 +654,11 @@ const getEmployee = async () => {
           </FormControl>
         </Grid> */}
 
-        {/* วันที่ทำงาน */}
+            {/* วันที่ทำงาน */}
 
-        {/* <Grid item xs={4}>
+            {/* <Grid item xs={4}>
           <FormControl fullWidth variant="outlined">
-            <FormLabel>Start Date</FormLabel>
+            <p>Start Date</p>
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -639,10 +672,10 @@ const getEmployee = async () => {
         </Grid>
       </Grid> */}
 
-        <Grid container spacing={3} sx={{ padding: 2 }}>
-          {/* <Grid item xs={4}>
+            <Grid container spacing={3} sx={{ padding: 2 }}>
+              {/* <Grid item xs={4}>
             <FormControl fullWidth variant="outlined">
-              <FormLabel>Officer</FormLabel>
+              <p>Officer</p>
 
               <TextField
                 fullWidth
@@ -653,22 +686,27 @@ const getEmployee = async () => {
             </FormControl>
           </Grid> */}
 
-          <Grid item xs={12}>
-            <Button component={RouterLink} to="/ManageShow" variant="contained" color="inherit">
-             แสดงข้อมูลพนักงานทั้งหมด
-            </Button>
+              <Grid item xs={12}>
+                <Button
+                  component={RouterLink}
+                  to="/ManageShow"
+                  variant="contained"
+                  color="inherit"
+                >
+                  แสดงข้อมูลพนักงานทั้งหมด
+                </Button>
 
-            <Button 
-              style={{ float: "right" }}
-              onClick={editEmployee}
-              // disabled={btnDisabled}
-              variant="contained"
-              color="success"
-            >
-              บันทึก
-            </Button>
+                <Button
+                  style={{ float: "right" }}
+                  onClick={editEmployee}
+                  // disabled={btnDisabled}
+                  variant="contained"
+                  color="success"
+                >
+                  บันทึก
+                </Button>
 
-            {/* <Button 
+                {/* <Button 
             
               style={{ float: "right" , marginRight: "15px"}}
               onClick={handleClickedit}
@@ -677,12 +715,12 @@ const getEmployee = async () => {
             >
               แก้ไข
             </Button> */}
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
-    </Container>
-</div>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Container>
+      </Container>
+    </div>
   );
 }
 

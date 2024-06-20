@@ -53,10 +53,13 @@ func CreateBooking(c *gin.Context) {
 		return
 	}
 	// 11: ค้นหา employee ด้วย id
-	if tx := entity.DB().Where("id = ?", booking.EmployeeID).First(&employee); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
-		return
+	if booking.EmployeeID != 0 {
+		if tx := entity.DB().Where("id = ?", booking.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+			return
+		}
 	}
+	
 	hashBk_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
 	hashTx_No := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%v_%v_%v", service_types.ID, service.ID, time_services.ID))))
 	//Create a booking for each day
@@ -71,9 +74,13 @@ func CreateBooking(c *gin.Context) {
 		ServiceType: service_types,
 		Service:     service,
 		TimeService: time_services,
-		Employee:    employee,
+		// Employee:    employee,
 
 		Total: float64(service.Price),
+	}
+
+	if booking.EmployeeID != 0 {
+		bk.Employee = employee
 	}
 
 	// Save the booking to the database
@@ -173,11 +180,9 @@ func GETBookedTimeServices(c *gin.Context) {
 }
 
 func ListBookedTimeServices(c *gin.Context) {
-	// สร้าง slice เพื่อเก็บ time_service_id
 	var timeServiceIDs []int
-
-	// ดึง time_service_id ทั้งหมดที่ไม่ซ้ำกันจาก bookings
 	rows, err := entity.DB().Table("bookings").Select("DISTINCT time_service_id").Rows()
+	
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -190,11 +195,8 @@ func ListBookedTimeServices(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-		// เพิ่ม time_service_id ลงใน slice
 		timeServiceIDs = append(timeServiceIDs, timeServiceID)
 	}
-
-	// ส่งผลลัพธ์เป็น JSON ที่มีโครงสร้างเป็น array ของ time_service_id
 	c.JSON(http.StatusOK, gin.H{"data": timeServiceIDs})
 }
 
@@ -217,6 +219,17 @@ func DeleteBookingByCID(c *gin.Context) {
 		return
 	}
 
+	c.JSON(http.StatusOK, gin.H{"data": id})
+}
+// DELETE /bookings/:id
+func DeleteBookings(c *gin.Context) {
+
+	id := c.Param("id")
+
+	if tx := entity.DB().Exec("DELETE FROM bookings WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "booking not found"})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 

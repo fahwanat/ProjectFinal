@@ -1494,8 +1494,6 @@ a{
   color: #FFFF;
 }
 
-
-
-
-
-
+.grey-text {
+  color: rgb(98, 97, 97);
+}

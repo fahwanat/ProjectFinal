@@ -19,10 +19,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import * as React from "react";
-import {
-  ReviewInterface,
-  SystemworkInterface,
-} from "../../models/IReview";
+import { ReviewInterface, SystemworkInterface } from "../../models/IReview";
 import { Link as RouterLink } from "react-router-dom";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { MemberInterface } from "../../models/modelMember/IMember";
@@ -54,7 +51,9 @@ function Review_Save() {
   const [user, setUser] = React.useState<MemberInterface>();
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [imageString, setImageString] = React.useState<string | ArrayBuffer | null>(null);
+  const [imageString, setImageString] = React.useState<
+    string | ArrayBuffer | null
+  >(null);
   const [reviewdate, setReviewdate] = React.useState<Date | null>(new Date());
   const [message, setAlertMessage] = React.useState("");
   const [remainingChars, setRemainingChars] = React.useState(100); // Max number of characters
@@ -65,10 +64,10 @@ function Review_Save() {
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = () => {
-        const base64Data = reader.result;
-        setImageString(base64Data)
-    }
-}
+      const base64Data = reader.result;
+      setImageString(base64Data);
+    };
+  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -129,7 +128,7 @@ function Review_Save() {
       .then((response) => response.json())
 
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.data) {
           window.location.reload();
           setSuccess(true);
@@ -147,25 +146,26 @@ function Review_Save() {
     }
   }, []);
   return (
-    <ThemeProvider theme={bgbutton}>
+    <div>
       <Container maxWidth="md">
         <Snackbar
-          id="success"   
+          id="success"
           open={success}
           autoHideDuration={8000}
           onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert onClose={handleClose} severity="success">
             บันทึกข้อมูลสำเร็จ
           </Alert>
         </Snackbar>
 
-        <Snackbar 
-          id="error"   
-          open={error} 
-          autoHideDuration={6000} 
-          onClose={handleClose}>
+        <Snackbar
+          id="error"
+          open={error}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
           <Alert onClose={handleClose} severity="error">
             บันทึกข้อมูลไม่สำเร็จ {message}
           </Alert>
@@ -179,12 +179,7 @@ function Review_Save() {
             }}
           >
             <Box sx={{ paddingX: 2, paddingY: 1 }}>
-              <Typography
-                component="h2"
-                variant="h6"
-                color="primary"
-                gutterBottom
-              >
+              <Typography variant="h5" color="primary" gutterBottom>
                 เขียนรีวิวของคุณ
               </Typography>
             </Box>
@@ -197,8 +192,7 @@ function Review_Save() {
             spacing={3}
             sx={{ padding: 2 }}
             style={{ marginLeft: "10.5%" }}
-          >
-          </Grid>
+          ></Grid>
 
           <Grid
             container
@@ -211,8 +205,8 @@ function Review_Save() {
                 <FormLabel>ให้คะแนนบริการนี้</FormLabel>
                 <Rating
                   name="simple-controlled"
-                //   value={5}
-                onChange={(event, newValue) => {
+                  //   value={5}
+                  onChange={(event, newValue) => {
                     setStart(newValue);
                   }}
                 />
@@ -221,35 +215,42 @@ function Review_Save() {
           </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2 }}>
-          <Grid item xs={10}>
-                    <FormControl fullWidth variant="outlined">
-                      <FormLabel>เขียนรีวิว</FormLabel>
-                      <TextField
-                        id="Comment"
-                        variant="outlined"
-                        type="string"
-                        size="medium"
-                        value={review.Comment || ""}
-                        onChange={handleInputChange}
-                        multiline
-                        rows={3}
-                        // inputProps={{ maxLength: 100 }} // Max character limit
-                      />
-                      {/* <Typography color={remainingChars < 0 ? "error" : "initial"}>
+            <Grid item xs={10}>
+              <FormControl fullWidth variant="outlined">
+                <FormLabel>เขียนรีวิว</FormLabel>
+                <TextField
+                  id="Comment"
+                  variant="outlined"
+                  type="string"
+                  size="medium"
+                  value={review.Comment || ""}
+                  onChange={handleInputChange}
+                  multiline
+                  rows={3}
+                  // inputProps={{ maxLength: 100 }} // Max character limit
+                />
+                {/* <Typography color={remainingChars < 0 ? "error" : "initial"}>
                         จำนวนตัวหนังสือ : {remainingChars}
                       </Typography> */}
-                    </FormControl>
-                  </Grid>
+              </FormControl>
+            </Grid>
           </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2 }}>
-      <Grid item xs={10}>
-        <FormControl fullWidth variant="outlined">
-          <FormLabel>เพิ่มรูปภาพ</FormLabel>
-          <img src={`${imageString}`} style={{ maxWidth: '65%', height: '80' }} />
-          <input type="file" accept=".jpg, .jpeg, .png" onChange={handleImageChange} />
-        </FormControl>
-      </Grid>
+            <Grid item xs={10}>
+              <FormControl fullWidth variant="outlined">
+                <FormLabel>เพิ่มรูปภาพ</FormLabel>
+                <img
+                  src={`${imageString}`}
+                  style={{ maxWidth: "65%", height: "80" }}
+                />
+                <input
+                  type="file"
+                  accept=".jpg, .jpeg, .png"
+                  onChange={handleImageChange}
+                />
+              </FormControl>
+            </Grid>
 
             <Grid item xs={12}>
               {/* <Button component={RouterLink} to="/AddReview" variant="contained">
@@ -259,16 +260,15 @@ function Review_Save() {
                 style={{ float: "right" }}
                 onClick={submit}
                 variant="contained"
-                color="primary"
+                color="success"
               >
                 บันทึก
               </Button>
             </Grid>
-
           </Grid>
         </Paper>
       </Container>
-    </ThemeProvider>
+    </div>
   );
 }
 

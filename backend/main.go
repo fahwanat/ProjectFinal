@@ -77,6 +77,8 @@ func main() {
 
 			router.GET("/Positions", employee.ListPositions)
 			router.GET("/Position/:id", employee.GetPosition)
+			// router.GET("/Service_Type", employee.ListServiceTypes)
+			// router.GET("/Service_Type/:id", employee.GetServiceType)
 
 			router.GET("/employees", employee.ListEmployees)
 			router.GET("/employee/:id", employee.GetEmployee)
@@ -99,17 +101,6 @@ func main() {
 			router.DELETE("/services/:id", service.DeleteService)
 			router.POST("/service/service_types", service.CreateServiceType)
 
-			// router.GET("/service_notech", service.ListServicesNoTech)
-			// router.GET("/services_type_notech", service.ListServiceTypesNoTech)
-			// router.GET("/service_type_notech/:id", service.GetServiceTypeNoTech)
-			// router.GET("/service_notech/service_type_notech/:id", service.ListServicesNoTechByBID)
-			// router.GET("/service_notech/:id", service.GetService)
-			// router.GET("/time_service_notech/service_notech/:id", service.ListTimeServiceNoTechByBID)
-			// router.GET("/time_service_notech/:id", service.GetTimeServiceNoTech)
-			// router.POST("/service_notech", service.CreateServiceNoTech)
-			// router.PATCH("/service_notech/:id", service.UpdateServiceNoTech)
-			// router.POST("/service_notech/service_type_notech", service.CreateServiceTypeNoTech)
-
 			//============Booking Routes
 			router.GET("/bookings", booking.ListBookings)
 			router.GET("/bookings/:id", booking.GetBooking)
@@ -122,18 +113,7 @@ func main() {
 			router.GET("/bookingstotalgroupbydate", booking.ListBookingsTotalbyCID)
 			r.GET("/bookings/timeservice", booking.GETBookedTimeServices)
 			r.GET("/bookings/timeservices", booking.ListBookedTimeServices)
-
-			//NoTech
-			// router.GET("/booking_notech", booking.ListBookingsNoTech)
-			// router.GET("/booking_notech/:id", booking.GetBookingNoTech)
-			// router.GET("/booking_notech/member/:id", booking.ListBookingsNoTechByUID)
-			// router.POST("/booking_notech", booking.CreateBookingNoTech)
-			// router.DELETE("/booking_notech/:id", booking.DeleteBookingNoTech)
-			// router.DELETE("/booking_notech/member/:id", booking.DeleteBookingNoTechByCID)
-			// router.GET("/bookings_notechbydate", booking.ListBookingsNoTechBydate)
-			// router.GET("/bookings_notech_totalgroupbydate", booking.ListBookingsNoTechTotalbyCID)
-			// r.GET("/bookings_notech/timeservice_notech", booking.GETBookedNoTechTimeServices)
-			// r.GET("/bookings_notech/timeservices_notech", booking.ListBookedNoTechTimeServices)
+			router.DELETE("/Bookings/:id", booking.DeleteBookings)
 
 			// ======================================= PAYMENT
 			router.GET("/payments", payment.ListPayments)

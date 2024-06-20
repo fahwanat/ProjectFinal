@@ -240,7 +240,7 @@ function BookingCreateNoTech() {
             setAlertMessage("จองคิวสำเร็จ");
             setSuccess(true);
             setInterval(() => {
-                window.location.assign("/Book");
+                window.location.assign("/BookConfirm");
             }, 2000);
         } else {
             setAlertMessage(res.message);

@@ -216,31 +216,6 @@ async function DeleteBooking(data: BookingsInterface) {
     return res;
 }
 
-// Delete Booking
-async function DeleteBookingConfirm(data: number) {
-    let BookingsID = data;
-    const requestOptions = {
-        method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify(data),
-    }
-    
-    let res = await fetch(`${apiUrl}/bookings/${BookingsID}`, requestOptions)
-        .then((response) => response.json())
-        .then((res) => {
-            if (res.data) {
-                return res.data;
-            } else {
-                return false;
-            }
-        });
-
-    return res;
-}
-
 // Update Booking
 async function UppdateBooking(data: BookingsInterface) {
     let b_id = data.ID;
@@ -288,6 +263,47 @@ async function GetBookedTimeServices(data: BookingsInterface) {
     return res;
 }
 
+// Delete Booking
+// In services/BookingHttpClientService.ts (or wherever you define your service functions)
+async function DeleteBookingConfirm(id: number): Promise<{ status: boolean }> {
+    const apiUrl = `http://localhost:8080/Bookings/${id}`;
+    const requestOptions = {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
+    };
+
+    const response = await fetch(apiUrl, requestOptions);
+    if (response.ok) {
+        return { status: true };
+    } else {
+        return { status: false };
+    }
+}
+
+
+// Delete Bookings
+async function deleteBookings (id: number) {
+    const apiUrl = "http://localhost:8080/Bookings/" + id;
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then((response) => response.json())
+      .then(async (res) => {
+        if (res.data) {
+          window.location.reload();
+        }
+      });
+  };
+
 export {
     GetMemberByUID,
     GetMembers,
@@ -304,5 +320,6 @@ export {
     UppdateBooking,
     GetBookedTimeServices,
     DeleteBookingConfirm,
+    deleteBookings
 
 };

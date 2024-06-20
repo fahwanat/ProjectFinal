@@ -33,7 +33,7 @@ type Booking struct {
 	TimeServiceID *uint       `valid:"required~กรุณาเลือกช่วงเวลาเข้าใช้บริการ"`
 	TimeService   TimeService `valid:"-" gorm:"references:id"`
 
-	EmployeeID *uint    
+	EmployeeID int    
 	Employee   Employee `valid:"-" gorm:"references:id"`
 
 	Total float64
