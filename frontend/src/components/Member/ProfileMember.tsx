@@ -304,7 +304,7 @@ function ProfileMember() {
                     component={RouterLink}
                     to="/home"
                   >
-                    Home
+                    กลับ
                   </Button>
 
                   <Button
@@ -312,7 +312,7 @@ function ProfileMember() {
                     startIcon={<EditIcon />}
                     onClick={() => navigate(`/member/edit`)}
                   >
-                    Edit
+                    แก้ไข
                   </Button>
                 </Stack>
               </Grid>

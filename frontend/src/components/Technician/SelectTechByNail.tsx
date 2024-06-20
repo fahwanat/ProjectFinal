@@ -86,8 +86,7 @@ function SelectTechByHair() {
 
     useEffect(() => {
         const NewFilter = employee.filter((employee) => {
-          // กรองเฉพาะ ID ที่ 1, 2, และ 3 เท่านั้น
-          return [6,7,8].includes(employee.ID);
+          return [6,7,8].includes(employee.ServiceTypeID);
         });
     
         setFilter(NewFilter);

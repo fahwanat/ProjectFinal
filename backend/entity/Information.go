@@ -1091,7 +1091,7 @@ func SetupIntoDatabase(db *gorm.DB) {
 		CHK_PaymentStatus: s1001,
 		Date_time:         time.Now(),
 		Amount:            1760,
-		Description:       "-",
+		Description:       "เงินสด",
 		Employee:          Napaporn,
 	})
 

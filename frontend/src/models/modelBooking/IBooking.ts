@@ -10,7 +10,7 @@ export interface BookingsInterface {
     Booking_Number?: string,
     Tx_No?: string,
     Total?: number, 
-    BookingDate?: Dayjs| null,
+    BookingDate?: Dayjs|null,
 
     EmployeeID?: number,
     Employee?: EmployeeInterface,
@@ -23,28 +23,6 @@ export interface BookingsInterface {
 
     TimeServiceID?: number,
     TimeService?: TimeServiceInterface,
-
-    MemberID?: number,
-    Member?: MemberInterface,
-}
-
-//NoTech
-export interface BookingsNoTechInterface {
-    ID?: number,
-
-    Booking_Number?: string,
-    Tx_No?: string,
-    Total?: number, 
-    BookingDate?: Dayjs| null,
-
-    ServiceTypeNoTechID?: number,
-    ServiceTypeNoTech?: ServiceTypeNoTechInterface,
-
-    ServiceNoTechID?: number,
-    ServiceNoTech?: ServiceNoTechInterface,
-
-    TimeServiceNoTechID?: number,
-    TimeServiceNoTech?: TimeServiceNoTechInterface,
 
     MemberID?: number,
     Member?: MemberInterface,
